@@ -19,7 +19,7 @@ int main(void)
 
     swap(pointer1, pointer2);
 
-    printf("Now the first variable = %d and the second variable = %d", firstVariable, secondVariable);
+    printf("Now the first variable = %d and the second variable = %d\n", firstVariable, secondVariable);
 
     return 0;
 }
