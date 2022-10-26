@@ -5,16 +5,7 @@
 
 #define ALPHABET_SIZE 500
 
-void arrayPrint(int* arrayToPrint, int printingArraySize, int numberOfElementsInOneString) {
-    for (int i = 1; i < printingArraySize + 1; ++i) {
-        printf("%10d", arrayToPrint[i - 1]);
-        if (i % numberOfElementsInOneString == 0)
-            printf("\n");
-    }
-
-    printf("\n\n");
-}
-
+// Считает количество символов, просто переводя их код в цифру и прибавляя 1 к соответствующей ячейке массива alphabet
 void charsCounter(FILE* file, int* alphabet) {
     char buffer = fgetc(file);
 
@@ -24,6 +15,8 @@ void charsCounter(FILE* file, int* alphabet) {
     }
 }
 
+// Распечатывает получившиеся символы. 
+// Если символ встретился хотя бы один раз, функция распечатает его и количество его вхождений в файл.
 void printCharsFound(int* alphabet) {
     for (int i = 0; i < ALPHABET_SIZE; ++i) {
         if (alphabet[i] != 0) {
@@ -37,6 +30,7 @@ void printCharsFound(int* alphabet) {
     }
 }
 
+// Проверяем корректность обработки заранее заданного файла.
 bool test(void) {
     FILE* testFile = fopen("test.txt", "r");
     int* testAlphabet = calloc(500, sizeof(int));
@@ -47,6 +41,9 @@ bool test(void) {
 
     charsCounter(testFile, testAlphabet);
     if (testAlphabet[32] == 2 && testAlphabet[10] == 2 && testAlphabet[97] == 1) {
+        fclose(testFile);
+        free(testAlphabet);
+
         return true;
     }
 
