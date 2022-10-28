@@ -124,7 +124,7 @@ int main(void) {
     quickSort(arrayToSort, 0, sizeOfArray - 1);
 
     printf("Sorted array:\n");
-    for (int i = 0; i < sizeOfArray; ++i) {
+    for (size_t i = 0; i < sizeOfArray; ++i) {
         printf("%d ", arrayToSort[i]);
     }
 
