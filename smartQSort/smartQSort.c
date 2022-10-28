@@ -56,12 +56,12 @@ void quickSort(int* arrayToSort, int leftElementNumber, int rightElementNumber) 
 
 // Четыре функции тестов, проверяющих разные случаи.
 bool test1(void) {
-    int testArray1[] = { 5, 4, 3, 2, 1 };
-    int referenceArray1[] = { 1, 2, 3, 4, 5 };
+    int testArray1[] = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+    int referenceArray1[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
-    quickSort(testArray1, 0, 4);
+    quickSort(testArray1, 0, 10);
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 11; ++i) {
         if (testArray1[i] != referenceArray1[i])
             return false;
     }
@@ -70,12 +70,12 @@ bool test1(void) {
 }
 
 bool test2(void) {
-    int testArray2[] = { 1, 2, 3, 4, 5 };
-    int referenceArray2[] = { 1, 2, 3, 4, 5 };
+    int testArray2[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int referenceArray2[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
-    quickSort(testArray2, 0, 4);
+    quickSort(testArray2, 0, 10);
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 11; ++i) {
         if (testArray2[i] != referenceArray2[i])
             return false;
     }
@@ -84,12 +84,12 @@ bool test2(void) {
 }
 
 bool test3(void) {
-    int testArray3[] = { 1, 0, 0, 0, 0 };
-    int referenceArray3[] = { 0, 0, 0, 0, 1 };
+    int testArray3[] = { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    int referenceArray3[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
 
-    quickSort(testArray3, 0, 4);
+    quickSort(testArray3, 0, 10);
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 11; ++i) {
         if (testArray3[i] != referenceArray3[i])
             return false;
     }
