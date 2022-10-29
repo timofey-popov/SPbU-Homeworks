@@ -39,12 +39,13 @@ int main(void) {
 
     qsort(arrayToOperate, sizeOfArray, sizeof(int),compare);
 
+    printf("Sorted array:\n");
     for (size_t i = 0; i < sizeOfArray; ++i) {
         printf("%d ", arrayToOperate[i]);
     }
-    printf("\n");
+    printf("\n\n");
 
-    printf("%d\n", mostFrequentElement(arrayToOperate, sizeOfArray));
+    printf("Most frequent element = %d\n", mostFrequentElement(arrayToOperate, sizeOfArray));
 
     return 0;
 }
