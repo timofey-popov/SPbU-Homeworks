@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+// Вспомогательная функция для встроенной сортировки qsort
 int compare(const void* a, const void* b) {
     int x = *(int*)a;
     int y = *(int*)b;
@@ -9,6 +10,8 @@ int compare(const void* a, const void* b) {
     return x - y;
 }
 
+// Функция, считающая самый частый элемент в массиве.
+// На вход принимает ссылку на массив и его размер, возвращает значение самого частого элемента.
 int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
     qsort(arrayToOperate, arraySize, sizeof(int), compare);
 
@@ -31,6 +34,7 @@ int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
     return frequentElement;
 }
 
+// Функция-тест
 bool test(void) {
     int testArray1[] = { 1, 2, 3, 4, 4, 5 };
     int testArray2[] = { 0, 0, 0, 0, 0, 0 };
