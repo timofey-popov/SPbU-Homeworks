@@ -14,7 +14,7 @@ int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
 
     int counter = 1;
     int maximumCounter = 1;
-    int frequentElement = 0;
+    int frequentElement = arrayToOperate[0];
 
     for (size_t i = 1; i < arraySize; ++i) {
         if (arrayToOperate[i] == arrayToOperate[i - 1])
@@ -32,10 +32,21 @@ int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
 }
 
 bool test(void) {
+    int testArray1[] = { 1, 2, 3, 4, 4, 5 };
+    int testArray2[] = { 0, 0, 0, 0, 0, 0 };
+    int testArray3[] = { 1, 2, 3, 4, 5, 6 };
 
+    if (mostFrequentElement(testArray1, 6) == 4 && mostFrequentElement(testArray2, 6) == 0 && mostFrequentElement(testArray3, 6) == 1)
+        return true;
+    return false;
 }
 
 int main(void) {
+    if (!test()) {
+        printf("Test failed.\n");
+        return -1;
+    }
+
     int arrayToOperate[] = { 1, 5, 5, 6, 2, 3, 4, 7, 5, 1, 2, 3, 1, 1};
     size_t sizeOfArray = sizeof(arrayToOperate) / sizeof(int);
 
