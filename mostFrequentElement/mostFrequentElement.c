@@ -2,7 +2,16 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+int compare(const void* a, const void* b) {
+    int x = *(int*)a;
+    int y = *(int*)b;
+
+    return x - y;
+}
+
 int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
+    qsort(arrayToOperate, arraySize, sizeof(int), compare);
+
     int counter = 1;
     int maximumCounter = 1;
     int frequentElement = 0;
@@ -22,13 +31,6 @@ int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
     return frequentElement;
 }
 
-int compare(const void* a, const void* b) {
-    int x = *(int*)a;
-    int y = *(int*)b;
-
-    return x - y;
-}
-
 bool test(void) {
 
 }
@@ -36,14 +38,6 @@ bool test(void) {
 int main(void) {
     int arrayToOperate[] = { 1, 5, 5, 6, 2, 3, 4, 7, 5, 1, 2, 3, 1, 1};
     size_t sizeOfArray = sizeof(arrayToOperate) / sizeof(int);
-
-    qsort(arrayToOperate, sizeOfArray, sizeof(int),compare);
-
-    printf("Sorted array:\n");
-    for (size_t i = 0; i < sizeOfArray; ++i) {
-        printf("%d ", arrayToOperate[i]);
-    }
-    printf("\n\n");
 
     printf("Most frequent element = %d\n", mostFrequentElement(arrayToOperate, sizeOfArray));
 
