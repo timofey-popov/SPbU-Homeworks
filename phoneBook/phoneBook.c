@@ -132,12 +132,11 @@ void recordToFile(PhonebookStruct* book, int counterOfRecords) {
 }
 
 void initialFileReading(PhonebookStruct* book, int* counterOfRecords) {
-    FILE* file = fopen("phonebook.txt", "r");
+    FILE* file = fopen("phonebook.txt", "a");
     int fileEmptynessChecker = fscanf(file, "%d", counterOfRecords);
 
     if (fileEmptynessChecker > 0) {
-        char junk[5];
-        fgets(junk, 5, file);
+        fgetc(file);
         for (int i = 0; i < *counterOfRecords; ++i) {
             fgets(book[i].name, 51, file);
             fgets(book[i].phone, 51, file);
@@ -167,8 +166,8 @@ int main(void) {
     // Переменная для хранения номера действия.
     short currentStatus = 1;
 
-    // Переменная для нумерации каждой следующей записи за этот сеанс.
-    // Увеличивается с каждой следующей записью, обнуляется при сохранении в файл(?)
+    // Переменная для хранения количества записей.
+    // Считывается из файла при запуске программы, увеличивается с каждой следующей записью. 
     int counterOfRecords = 0;
 
     initialFileReading(phonebookArray, &counterOfRecords);
