@@ -32,7 +32,7 @@ void arrayPrint(int* arrayToPrint, int printingArraySize, int numberOfElementsIn
     int stringsCounter = 1;
 
     for (int i = 0; i < printingArraySize; ++i) {
-        if (i % (numberOfElementsInOneString + 1) == 0) {
+        if (i % (numberOfElementsInOneString) == 0) {
             printf("\n%4d |", stringsCounter);
             stringsCounter++;
         }
