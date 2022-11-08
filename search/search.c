@@ -21,8 +21,9 @@ void input(int* value) {
 // Сгенерировать массив размера wantedSize.
 // На вход принимает указатель на пустой массив и желаемое количество элементов.
 void arrayGenerate(int* arrayToGen, int wantedSize) {
-    for (int i = 0; i < wantedSize; ++i)
+    for (int i = 0; i < wantedSize; ++i) {
         arrayToGen[i] = (rand() % 1000);
+    }
 }
 
 // Функция для вывода массива на экран.
@@ -62,10 +63,12 @@ bool search(int* array, int value, int left, int right) {
     if (value == middleValue) {
         return true;
     }
-    if (value < middleValue)
+    if (value < middleValue) {
         return search(array, value, left, middleIndex - 1);
-    if (value > middleValue)
+    }
+    if (value > middleValue) {
         return search(array, value, middleIndex + 1, right);
+    }
 
     return false;
 }
@@ -94,10 +97,12 @@ void quickSort(int* array, int leftIndex, int rightIndex) {
         array[rightIndex] = array[left];
         array[left] = temporary;
 
-        if (leftIndex < left - 1)
+        if (leftIndex < left - 1) {
             quickSort(array, leftIndex, left - 1);
-        if (left + 1 < rightIndex)
+        }
+        if (left + 1 < rightIndex) {
             quickSort(array, left + 1, rightIndex);
+        }
     }
 
     return;
@@ -161,8 +166,8 @@ bool testForSearch(void) {
     bool test2 = true;
     int testArray2[] = { 0 };
 
-    if (!search(testArray1, 0, 0, 0)) {
-        test1 = false;
+    if (!search(testArray2, 0, 0, 0)) {
+        test2 = false;
     }
 
     if (test1 && test2) {
@@ -174,12 +179,13 @@ bool testForSearch(void) {
 }
 
 int main(void) {
-    if (testForSort() && testForSearch) {
+    if (testForSort() && testForSearch()) {
         printf("*Tests passed*\n\n");
     }
     else {
         printf(testForSort() ? "Sort test passed\n" : "Sort test failed\n");
         printf(testForSearch() ? "Search test passed\n" : "Search test failed\n");
+        return -1;
     }
 
     srand((unsigned)time(NULL));
@@ -220,10 +226,12 @@ int main(void) {
     arrayPrint(randomArray, n, 10);
 
     for (int i = 0; i < k; ++i) {
-        if (search(randomArray, numbersForSearch[i], 0, n - 1))
+        if (search(randomArray, numbersForSearch[i], 0, n - 1)) {
             printf("There is number %d in the random array\n", numbersForSearch[i]);
-        else
+        }
+        else {
             printf("There is NO number %d in the random array\n", numbersForSearch[i]);
+        }
     }
 
     return 0;
