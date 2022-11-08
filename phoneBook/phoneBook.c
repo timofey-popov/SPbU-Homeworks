@@ -132,7 +132,7 @@ void recordToFile(PhonebookStruct* book, int counterOfRecords) {
 }
 
 void initialFileReading(PhonebookStruct* book, int* counterOfRecords) {
-    FILE* file = fopen("phonebook.txt", "a");
+    FILE* file = fopen("phonebook.txt", "a+");
     int fileEmptynessChecker = fscanf(file, "%d", counterOfRecords);
 
     if (fileEmptynessChecker > 0) {
