@@ -5,20 +5,16 @@
 
 // Тело отражающей функции.
 // 
-// Принимает на вход указатель на массив и номера первого и последнего
+// Принимает на вход указатель на массив и номера (нумерация с нуля) первого и последнего
 // элементов участка массива, который нужно отразить.
 //
 // Меняет местами первый и последний элемент участка, затем второй и предпоследний и т. д.
 void reverse(int* arrayForReverse, int firstReverseElement, int lastReverseElement) {
-    char temporary = 0;
-    int operationCounter = 0;
 
-    for (int i = firstReverseElement - 1; i < (firstReverseElement + ((lastReverseElement - firstReverseElement) / 2)); ++i) {
-        temporary = arrayForReverse[i];
-        arrayForReverse[i] = arrayForReverse[lastReverseElement - 1 - operationCounter];
-        arrayForReverse[lastReverseElement - 1 - operationCounter] = temporary;
-
-        operationCounter++;
+    for (int i = firstReverseElement; i <= (firstReverseElement + ((lastReverseElement - firstReverseElement) / 2)); ++i) {
+        char temporary = arrayForReverse[i];
+        arrayForReverse[i] = arrayForReverse[lastReverseElement - (i - firstReverseElement)];
+        arrayForReverse[lastReverseElement - (i - firstReverseElement)] = temporary;
     }
 }
 
@@ -41,17 +37,17 @@ int main(void)
     printf("Initial array:\n");
     printArray(arrayToChange);
 
-    reverse(arrayToChange, 1, m);
+    reverse(arrayToChange, 0, m - 1);
 
     printf("\nArray after first part reverse:\n");
     printArray(arrayToChange);
 
-    reverse(arrayToChange, m + 1, m + n);
+    reverse(arrayToChange, m, m + n - 1);
     
     printf("\nArray after second part reverse:\n");
     printArray(arrayToChange);
 
-    reverse(arrayToChange, 1, m + n);
+    reverse(arrayToChange, 0, m + n - 1);
 
     printf("\nArray with the first and second parts switched:\n");
     printArray(arrayToChange);
