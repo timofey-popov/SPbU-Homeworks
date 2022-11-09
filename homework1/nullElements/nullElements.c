@@ -10,8 +10,8 @@ int nullCounter(int* arrayForCounting, size_t arraySize) {
     int counter = 0;
 
     for (size_t i = 0; i < arraySize; ++i) {
-        if (!arrayForCounting[i]) {
-            counter += 1;
+        if (arrayForCounting[i] == 0) {
+            ++counter;
         }
     }
 
