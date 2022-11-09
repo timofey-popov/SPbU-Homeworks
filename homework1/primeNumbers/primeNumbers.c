@@ -19,8 +19,6 @@ void printPrimeNumbers(int limit) {
             printf("\n%d", i);
         }
     }
-
-    return;
 }
 
 // Функция обработки пользовательского ввода.
@@ -30,7 +28,6 @@ int userInput(void) {
 
     printf("Enter the limit\n(please, don't enter anything but numbers)\n");
     int correctnessCheck = scanf_s("%d", &valueToReturn);
-
 
     while (valueToReturn < 2 || !correctnessCheck) {
         printf("There's no such prime numbers. Enter another limit\n");
