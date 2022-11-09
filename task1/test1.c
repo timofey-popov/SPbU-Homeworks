@@ -18,6 +18,7 @@ bool isPalindrome(const char* string, int stringSize) {
     return true;
 }
 
+// Функция с тестами.
 bool test(void) {
     printf("*Tests in progress*\n");
     const char testString1[6] = "ololo\0";
