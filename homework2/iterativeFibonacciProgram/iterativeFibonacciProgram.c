@@ -5,11 +5,13 @@
 // Итеративная функция для вычисления i-того числа Фибоначчи.
 // На вход принимает i.
 unsigned long long iterativeFibonacciNumbers(int indexNumber) {
-    if (indexNumber == 1)
+    if (indexNumber == 1) {
         return 0;
+    }
 
-    if (indexNumber == 2)
+    if (indexNumber == 2) {
         return 1;
+    }
     
     unsigned long long prePreNumber = 0;
     unsigned long long preNumber = 1;
@@ -29,16 +31,14 @@ unsigned long long iterativeFibonacciNumbers(int indexNumber) {
 bool test(void) {
     char referenceArray[10] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 };
     float delta = 0.001;
-    bool errorFlag = 0;
 
     for (int i = 0; i < 10; ++i) {
         if (iterativeFibonacciNumbers(i + 1) - referenceArray[i] > delta) {
-            errorFlag = 1;
-            break;
+            return false;
         }
     }
 
-    return errorFlag ? false : true;
+    return true;
 }
 
 int main(void) {
@@ -46,8 +46,9 @@ int main(void) {
         printf("Test failed.\n");
         return -1;
     }
-    else
+    else {
         printf("*Test passed*\n");
+    }
 
     int indexNumber = 0;
 
