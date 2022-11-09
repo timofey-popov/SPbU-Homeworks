@@ -1,13 +1,13 @@
 ﻿#include <stdio.h>
 
-// Функция получения частного и остатка.
-// На вход принимает делимое, делитель, адрес переменной с частным, адрес переменной с остатком.
-void modulo(int divident, int divider, int* quotient, int* reminder)
-{
+// Функция деления с точностью до знака частного.
+// Точный знак частного определяется в зависимости от знака делителя в функции modulo.
+// На вход функция принимает делимое, делитель, адрес переменной с частным, адрес переменной с остатком.
+void division(int divident, int divider, int* quotient, int* reminder) {
     int x = divident;
     int y = divider;
 
-    if (x >= 0 && y > 0) {
+    if (x >= 0) {
         while (x >= y) {
             y += divider;
             (*quotient)++;
@@ -17,13 +17,7 @@ void modulo(int divident, int divider, int* quotient, int* reminder)
         return;
     }
 
-    if (x >= 0 && y < 0) {
-        modulo(divident, -divider, quotient, reminder);
-        *quotient = -(*quotient);
-        return;
-    }
-
-    if (x < 0 && y > 0) {
+    else {
         int i = 0;
         while (divider * (-i) > divident) {
             ++i;
@@ -33,9 +27,22 @@ void modulo(int divident, int divider, int* quotient, int* reminder)
         *reminder = divident - (divider * (-i));
         return;
     }
+}
 
-    if (x < 0 && y < 0) {
-        modulo(divident, -divider, quotient, reminder);
+// Функция получения частного и остатка.
+// На вход принимает делимое, делитель, адрес переменной с частным, адрес переменной с остатком.
+void modulo(int divident, int divider, int* quotient, int* reminder)
+{
+    int x = divident;
+    int y = divider;
+
+    if (y > 0) {
+        division(divident, divider, quotient, reminder);
+        return;
+    }
+
+    else {
+        division(divident, -divider, quotient, reminder);
         *quotient = -(*quotient);
         return;
     }
@@ -53,8 +60,6 @@ void userInput(int* digitForRecord) {
         printf("Invalid input. Try again:\n");
         correctnessCheck = scanf_s("%d", digitForRecord);
     }
-
-    return;
 }
 
 int main(void) {
