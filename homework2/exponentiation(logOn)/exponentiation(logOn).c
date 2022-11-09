@@ -1,17 +1,20 @@
 ﻿#include <stdio.h>
 #include <stdbool.h>
 
-// Функция возведения в степень двоичным деревом.
+// Функция возведения в степень за логарифм от показателя степени.
 // На вход принимает основание и показатель степени.
 long double exponentLogOn(float base, int exponent) {
-    if (exponent < 0)
+    if (exponent < 0) {
         exponent = -exponent;
+    }
 
-    if (exponent == 0)
+    if (exponent == 0) {
         return 1;
+    }
 
-    if (exponent % 2 == 1)
+    if (exponent % 2 == 1) {
         return (base * exponentLogOn(base, exponent - 1));
+    }
 
     long double temporary = exponentLogOn(base, exponent / 2);
     return temporary * temporary;
@@ -28,7 +31,6 @@ void userInputForFloat(float* whereToRecord) {
     }
 
     scanf_s("%*[^\n]");
-    return;
 }
 
 // Записывает введённое с клавиатуры целое число по переданному в аргумент адресу.
@@ -42,7 +44,6 @@ void userInputForInteger(int* whereToRecord) {
     }
 
     scanf_s("%*[^\n]");
-    return;
 }
 
 // Функция-тест, проверяет совпадение эталонных и фактических значений, выдаваемых функцией.
@@ -57,8 +58,9 @@ int main(void) {
         printf("Test failed\n");
         return -1;
     }
-    else
+    else {
         printf("*Test passed*\n");
+    }
 
     float base = 0;
     int exponentNumber = 0;
@@ -69,11 +71,12 @@ int main(void) {
     printf("Enter the exponent:\n");
     userInputForInteger(&exponentNumber);
 
-    if (exponentNumber >= 0)
+    if (exponentNumber >= 0) {
         printf("The answer is %.2Lf\n", exponentLogOn(base, exponentNumber));
-
-    else
+    }
+    else {
         printf("The answer is 1/%.2Lf\n", exponentLogOn(base, exponentNumber));
+    }
 
     return 0;
 }
