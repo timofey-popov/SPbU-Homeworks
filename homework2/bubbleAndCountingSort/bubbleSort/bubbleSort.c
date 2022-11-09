@@ -7,8 +7,9 @@
 void arrayPrint(int* arrayToPrint, int printingArraySize, int numberOfElementsInOneString) {
     for (int i = 1; i < printingArraySize + 1; ++i) {
         printf("%15d", arrayToPrint[i - 1]);
-        if (i % numberOfElementsInOneString == 0)
+        if (i % numberOfElementsInOneString == 0) {
             printf("\n");
+        }
     }
 
     printf("\n\n");
@@ -35,8 +36,6 @@ void bubbleSort(int* arrayToSort, int arraySize) {
 
         counterOfPasses++;
     }
-
-    return;
 }
 
  //Далее расположены четыре функции с тестами.
@@ -48,8 +47,9 @@ bool test1(void) {
     bubbleSort(testArray1, 5);
 
     for (int i = 0; i < 5; ++i) {
-        if (testArray1[i] != referenceArray1[i])
+        if (testArray1[i] != referenceArray1[i]) {
             return false;
+        }
     }
 
     return true;
@@ -62,8 +62,9 @@ bool test2(void) {
     bubbleSort(testArray2, 5);
 
     for (int i = 0; i < 5; ++i) {
-        if (testArray2[i] != referenceArray2[i])
+        if (testArray2[i] != referenceArray2[i]) {
             return false;
+        }
     }
 
     return true;
@@ -76,8 +77,9 @@ bool test3(void) {
     bubbleSort(testArray3, 5);
 
     for (int i = 0; i < 5; ++i) {
-        if (testArray3[i] != referenceArray3[i])
+        if (testArray3[i] != referenceArray3[i]) {
             return false;
+        }
     }
 
     return true;
@@ -90,8 +92,9 @@ bool test4(void) {
     bubbleSort(testArray4, 5);
 
     for (int i = 0; i < 5; ++i) {
-        if (testArray4[i] != referenceArray4[i])
+        if (testArray4[i] != referenceArray4[i]) {
             return false;
+        }
     }
 
     return true;
@@ -103,8 +106,9 @@ int main(void) {
         printf("Tests failed.\n");
         return -1;
     }
-    else
+    else {
         printf("*tests passed*\n\n");
+    }
 
     int initialArray[] = { 0, 5, 3, 6, 16, 4, 747, 45, -10, -20, 3, 17, 16, 0, 15 };
     int sizeOfArray = sizeof(initialArray) / sizeof(int);

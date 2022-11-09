@@ -7,8 +7,9 @@
 void arrayPrint(int* arrayToPrint, int printingArraySize, int numberOfElementsInOneString) {
     for (int i = 1; i < printingArraySize + 1; ++i) {
         printf("%15d", arrayToPrint[i - 1]);
-        if (i % numberOfElementsInOneString == 0)
+        if (i % numberOfElementsInOneString == 0) {
             printf("\n");
+        }
     }
 
     printf("\n\n");
