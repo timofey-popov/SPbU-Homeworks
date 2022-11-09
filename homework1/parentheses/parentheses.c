@@ -8,7 +8,6 @@
 bool parenthesesBalance(char* inputString, size_t arraySize) {
     int counter = 0;
 
-
     for (size_t i = 0; i < arraySize; ++i) {
         if (counter < 0) {
             return false;
@@ -23,7 +22,7 @@ bool parenthesesBalance(char* inputString, size_t arraySize) {
         }
     }
 
-    return (counter == 0 ? true : false);
+    return counter == 0;
 }
 
 int main(void) {
