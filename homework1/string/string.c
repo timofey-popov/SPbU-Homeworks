@@ -29,14 +29,17 @@ int countingFunction(char* mainString, char* substring) {
         unsigned secondaryCounter = 0;
 
         for (size_t j = 0; j < substringLength; ++j) {
-            if (mainString[i + j] == substring[j])
+            if (mainString[i + j] == substring[j]) {
                 secondaryCounter++;
-            else
+            }
+            else {
                 break;
+            }
         }
 
-        if (secondaryCounter == substringLength)
+        if (secondaryCounter == substringLength) {
             valueToReturn++;
+        }
     }
 
     return valueToReturn;

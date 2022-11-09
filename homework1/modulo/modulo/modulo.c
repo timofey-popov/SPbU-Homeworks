@@ -25,8 +25,9 @@ void modulo(int divident, int divider, int* quotient, int* reminder)
 
     if (x < 0 && y > 0) {
         int i = 0;
-        while (divider * (-i) > divident)
+        while (divider * (-i) > divident) {
             ++i;
+        }
 
         *quotient = (-i);
         *reminder = divident - (divider * (-i));

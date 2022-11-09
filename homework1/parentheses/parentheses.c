@@ -10,14 +10,17 @@ bool parenthesesBalance(char* inputString, size_t arraySize) {
 
 
     for (size_t i = 0; i < arraySize; ++i) {
-        if (counter < 0)
+        if (counter < 0) {
             return false;
+        }
 
-        if (inputString[i] == '(')
+        if (inputString[i] == '(') {
             counter += 1;
+        }
 
-        else if (inputString[i] == ')')
+        else if (inputString[i] == ')') {
             counter -= 1;
+        }
     }
 
     return (counter == 0 ? true : false);

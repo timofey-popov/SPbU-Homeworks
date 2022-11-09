@@ -10,8 +10,9 @@ int nullCounter(int* arrayForCounting, size_t arraySize) {
     int counter = 0;
 
     for (size_t i = 0; i < arraySize; ++i) {
-        if (!arrayForCounting[i])
+        if (!arrayForCounting[i]) {
             counter += 1;
+        }
     }
 
     return counter;
@@ -21,8 +22,9 @@ int nullCounter(int* arrayForCounting, size_t arraySize) {
 // На вход принимает указатель на массив и размер массива.
 void arrayGenerate(int* arrayToGen, int wantedSize) {
     srand(time(NULL));
-    for (int i = 0; i < wantedSize; ++i)
+    for (int i = 0; i < wantedSize; ++i) {
         arrayToGen[i] = (rand() % 10) - 5;
+    }
 }
 
 // Функция, которая выводит массив на экран.
@@ -30,8 +32,9 @@ void arrayGenerate(int* arrayToGen, int wantedSize) {
 void arrayPrint(int* arrayToPrint, int printingArraySize, int numberOfElementsInOneString) {
     for (int i = 1; i < printingArraySize + 1; ++i) {
         printf("%6d", arrayToPrint[i - 1]);
-        if (i % numberOfElementsInOneString == 0)
+        if (i % numberOfElementsInOneString == 0) {
             printf("\n");
+        }
     }
 
     printf("\n\n");
