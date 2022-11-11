@@ -20,10 +20,12 @@ int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
     int frequentElement = arrayToOperate[0];
 
     for (size_t i = 1; i < arraySize; ++i) {
-        if (arrayToOperate[i] == arrayToOperate[i - 1])
+        if (arrayToOperate[i] == arrayToOperate[i - 1]) {
             counter++;
-        else
+        }
+        else {
             counter = 1;
+        }
         
         if (counter > maximumCounter) {
             maximumCounter = counter;
@@ -40,9 +42,7 @@ bool test(void) {
     int testArray2[] = { 0, 0, 0, 0, 0, 0 };
     int testArray3[] = { 1, 2, 3, 4, 5, 6 };
 
-    if (mostFrequentElement(testArray1, 6) == 4 && mostFrequentElement(testArray2, 6) == 0 && mostFrequentElement(testArray3, 6) == 1)
-        return true;
-    return false;
+    return (mostFrequentElement(testArray1, 6) == 4 && mostFrequentElement(testArray2, 6) == 0 && mostFrequentElement(testArray3, 6) == 1);
 }
 
 int main(void) {
