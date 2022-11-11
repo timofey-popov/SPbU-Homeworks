@@ -17,16 +17,13 @@ void division(int divident, int divider, int* quotient, int* reminder) {
         return;
     }
 
-    else {
-        int i = 0;
-        while (divider * (-i) > divident) {
-            ++i;
-        }
-
-        *quotient = (-i);
-        *reminder = divident - (divider * (-i));
-        return;
+    int i = 0;
+    while (divider * (-i) > divident) {
+        ++i;
     }
+
+    *quotient = -i;
+    *reminder = divident - (divider * -i);
 }
 
 // Функция получения частного и остатка.
@@ -41,11 +38,8 @@ void modulo(int divident, int divider, int* quotient, int* reminder)
         return;
     }
 
-    else {
-        division(divident, -divider, quotient, reminder);
-        *quotient = -(*quotient);
-        return;
-    }
+    division(divident, -divider, quotient, reminder);
+    *quotient = -(*quotient);
 }
 
 // Функция для ввода чисел пользователем.

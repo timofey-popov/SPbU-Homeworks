@@ -15,6 +15,7 @@ void printPrimeNumbers(int limit) {
                 break;
             }
         }
+
         if (!counter) {
             printf("\n%d", i);
         }

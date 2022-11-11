@@ -13,8 +13,6 @@ void userInput(char* stringForRecord) {
         isInputCorrect = scanf_s("%s", stringForRecord, 1001);
     }
     scanf_s("%*[^\n]");
-
-    return;
 }
 
 // Функция подсчёта вхождений.
@@ -31,8 +29,7 @@ int countingFunction(char* mainString, char* substring) {
         for (size_t j = 0; j < substringLength; ++j) {
             if (mainString[i + j] == substring[j]) {
                 secondaryCounter++;
-            }
-            else {
+            } else {
                 break;
             }
         }

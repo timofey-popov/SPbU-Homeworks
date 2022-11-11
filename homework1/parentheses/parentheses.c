@@ -15,9 +15,7 @@ bool parenthesesBalance(char* inputString, size_t arraySize) {
 
         if (inputString[i] == '(') {
             counter += 1;
-        }
-
-        else if (inputString[i] == ')') {
+        } else if (inputString[i] == ')') {
             counter -= 1;
         }
     }
@@ -27,7 +25,7 @@ bool parenthesesBalance(char* inputString, size_t arraySize) {
 
 int main(void) {
     char userInput[1000] = { 0 };
-    const size_t arraySize = sizeof(userInput)/sizeof(char);
+    const size_t arraySize = sizeof(userInput) / sizeof(char);
 
     printf("Enter a string with parentheses:\n");
     int correctnessCheck = scanf("%s", userInput);

@@ -21,7 +21,6 @@ int nullCounter(int* arrayForCounting, size_t arraySize) {
 // Функция заполнения массива случайными числами от -5 до 4.
 // На вход принимает указатель на массив и размер массива.
 void arrayGenerate(int* arrayToGen, int wantedSize) {
-    srand(time(NULL));
     for (int i = 0; i < wantedSize; ++i) {
         arrayToGen[i] = (rand() % 10) - 5;
     }
@@ -41,6 +40,8 @@ void arrayPrint(int* arrayToPrint, int printingArraySize, int numberOfElementsIn
 }
 
 int main(void) {
+    srand(time(NULL));
+
     int nullStorage[1000] = { 0 };
     const size_t arraySize = sizeof(nullStorage) / sizeof(int);
 

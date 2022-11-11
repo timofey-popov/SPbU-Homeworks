@@ -11,7 +11,7 @@
 // Меняет местами первый и последний элемент участка, затем второй и предпоследний и т. д.
 void reverse(int* arrayForReverse, int firstReverseElement, int lastReverseElement) {
 
-    for (int i = firstReverseElement; i <= (firstReverseElement + ((lastReverseElement - firstReverseElement) / 2)); ++i) {
+    for (int i = firstReverseElement; i <= firstReverseElement + ((lastReverseElement - firstReverseElement) / 2); ++i) {
         char temporary = arrayForReverse[i];
         arrayForReverse[i] = arrayForReverse[lastReverseElement - (i - firstReverseElement)];
         arrayForReverse[lastReverseElement - (i - firstReverseElement)] = temporary;
