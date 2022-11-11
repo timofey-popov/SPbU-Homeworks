@@ -58,9 +58,11 @@ bool search(int* array, int value, int left, int right) {
     if (value == middleValue) {
         return true;
     }
+
     if (value < middleValue) {
         return search(array, value, left, middleIndex - 1);
     }
+
     if (value > middleValue) {
         return search(array, value, middleIndex + 1, right);
     }
@@ -95,6 +97,7 @@ void quickSort(int* array, int leftIndex, int rightIndex) {
         if (leftIndex < left - 1) {
             quickSort(array, leftIndex, left - 1);
         }
+
         if (left + 1 < rightIndex) {
             quickSort(array, left + 1, rightIndex);
         }
@@ -142,8 +145,7 @@ bool testForSort(void) {
 
     if (test1 && test2 && test3) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -165,8 +167,7 @@ bool testForSearch(void) {
 
     if (test1 && test2) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -174,8 +175,7 @@ bool testForSearch(void) {
 int main(void) {
     if (testForSort() && testForSearch()) {
         printf("*Tests passed*\n\n");
-    }
-    else {
+    } else {
         printf(testForSort() ? "Sort test passed\n" : "Sort test failed\n");
         printf(testForSearch() ? "Search test passed\n" : "Search test failed\n");
         return -1;
@@ -221,8 +221,7 @@ int main(void) {
     for (int i = 0; i < k; ++i) {
         if (search(randomArray, numbersForSearch[i], 0, n - 1)) {
             printf("There is number %d in the random array\n", numbersForSearch[i]);
-        }
-        else {
+        } else {
             printf("There is NO number %d in the random array\n", numbersForSearch[i]);
         }
     }
