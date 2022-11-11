@@ -15,7 +15,6 @@ void input(int* value) {
     }
 
     scanf_s("%*[^\n]");
-    return;
 }
 
 // Сгенерировать массив размера wantedSize.
@@ -50,11 +49,7 @@ bool search(int* array, int value, int left, int right) {
     int arrayLength = right - left + 1;
 
     if (arrayLength < 3) {
-        if (array[left] == value || array[right] == value) {
-            return true;
-        }
-
-        return false;
+        return (array[left] == value || array[right] == value);
     }
 
     int middleIndex = left + (arrayLength / 2);
@@ -104,8 +99,6 @@ void quickSort(int* array, int leftIndex, int rightIndex) {
             quickSort(array, left + 1, rightIndex);
         }
     }
-
-    return;
 }
 
 // Далее две функции тестов, отдельно для функции сортировки и поиска.
