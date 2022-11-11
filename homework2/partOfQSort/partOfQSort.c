@@ -12,11 +12,13 @@ void partQSort(int* arrayToSort, int arraySize) {
     int left = 0;
     int right = arraySize - 1;
     while (left < right) {
-        while (arrayToSort[left] < separator && left < arraySize - 1)
+        while (arrayToSort[left] < separator && left < arraySize - 1) {
             left++;
+        }
 
-        while (arrayToSort[right] >= separator && right > 0)
+        while (arrayToSort[right] >= separator && right > 0) {
             right--;
+        }
 
         if (left < right) {
             int temporary = arrayToSort[left];
@@ -26,8 +28,6 @@ void partQSort(int* arrayToSort, int arraySize) {
             --right;
         }
     }
-
-    return;
 }
 
 // Функция, заполняющая массив случайными числами.
@@ -35,10 +35,9 @@ void partQSort(int* arrayToSort, int arraySize) {
 void arrayGenerate(int* arrayToGen, int wantedSize) {
     srand(time(NULL));
 
-    for (int i = 0; i < wantedSize; ++i)
+    for (int i = 0; i < wantedSize; ++i) {
         arrayToGen[i] = (rand() % 1000);
-
-    return;
+    }
 }
 
 // Функция, которая выводит массив на экран.
@@ -46,13 +45,12 @@ void arrayGenerate(int* arrayToGen, int wantedSize) {
 void arrayPrint(int* arrayToPrint, int printingArraySize) {
     for (int i = 1; i < printingArraySize + 1; ++i) {
         printf("%10d", arrayToPrint[i - 1]);
-        if (i % 5 == 0)
+        if (i % 5 == 0) {
             printf("\n");
+        }
     }
 
     printf("\n\n");
-
-    return;
 }
 
 // Далее расположены три функции с тестами. Проверяют две граничные ситуации и одну обычную.
@@ -62,8 +60,9 @@ bool test1(void) {
     int referenceArray1[10] = { 9, 1, 2, 3, 4, 5, 6, 7, 8, 10 };
     partQSort(testArray1, 10);
     for (int i = 0; i < 10; ++i) {
-        if (testArray1[i] != referenceArray1[i])
+        if (testArray1[i] != referenceArray1[i]) {
             return false;
+        }
     }
     
     return true;
@@ -74,8 +73,9 @@ bool test2(void) {
     int referenceArray2[10] = { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
     partQSort(testArray2, 10);
     for (int i = 0; i < 10; ++i) {
-        if (testArray2[i] != referenceArray2[i])
+        if (testArray2[i] != referenceArray2[i]) {
             return false;
+        }
     }
 
     return true;
@@ -87,8 +87,9 @@ bool test3(void) {
 
     partQSort(testArray3, 10);
     for (int i = 0; i < 10; ++i) {
-        if (testArray3[i] != referenceArray3[i])
+        if (testArray3[i] != referenceArray3[i]) {
             return false;
+        }
     }
 
     return true;
@@ -101,8 +102,9 @@ int main(void) {
         return -1;
     }
 
-    else
+    else {
         printf("*tests passed*\n\n");
+    }
 
     int inputArray[100] = { 0 };
 
@@ -115,6 +117,7 @@ int main(void) {
 
     printf("Sorted array.\nIn the top part there are numbers less than the first number of initial array.\n\
 In the bottom part there are numbers greater than or equal to the first number of initial array.\n");
+
     arrayPrint(inputArray, 100);
 
     return 0;
