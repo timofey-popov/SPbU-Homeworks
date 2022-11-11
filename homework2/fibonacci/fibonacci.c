@@ -34,8 +34,7 @@ int main(void) {
     if (!test()) {
         printf("Test failed.\n");
         return -1;
-    }
-    else {
+    } else {
         printf("*Test passed*\n");
     }
 
