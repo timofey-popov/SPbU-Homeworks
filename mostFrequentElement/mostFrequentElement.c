@@ -22,8 +22,7 @@ int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
     for (size_t i = 1; i < arraySize; ++i) {
         if (arrayToOperate[i] == arrayToOperate[i - 1]) {
             counter++;
-        }
-        else {
+        } else {
             counter = 1;
         }
         
