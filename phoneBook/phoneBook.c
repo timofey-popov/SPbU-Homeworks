@@ -29,6 +29,7 @@ void stringsInput(char* arrayForInput, int arraySize) {
 // Функция для начального считывания данных из файла.
 // Считывает количество записей и сами записи в соответствующие переменные.
 // Если файла не существует, он будет создан.
+// На вход принимает указатель на массив структур и на счётчик записей.
 void initialFileReading(PhonebookStruct* book, int* counterOfRecords) {
     FILE* file = fopen("phonebook.txt", "a+");
     int fileEmptinessChecker = fscanf(file, "%d", counterOfRecords);
@@ -46,6 +47,7 @@ void initialFileReading(PhonebookStruct* book, int* counterOfRecords) {
 
 // Функция получения номера действия от пользователя.
 // Записывает введённый номер действия в специальную переменную.
+// На вход принимает указатель на переменную с текущим номером действия.
 void numberOfActionInput(short* statusForChange) {
 
     printf("Choose an action:\n0 - exit\n1 - make a record\n"
@@ -53,7 +55,7 @@ void numberOfActionInput(short* statusForChange) {
 
     int isInputCorrect = scanf("%hi", statusForChange);
     while (!isInputCorrect || *statusForChange < 0 || *statusForChange > 5) {
-        scanf("%*[^\n]");
+        customFlush();
         printf("Wrong input. Try again:\n");
         isInputCorrect = scanf("%hi", statusForChange);
     }
@@ -82,6 +84,8 @@ void newRecordCreate(int* counterOfRecords, PhonebookStruct* arrayForRecord) {
     printf("\nRecord created successfully.\n\n");
 }
 
+// Функция распечатки всех имеющихся записей.
+// На вход принимает указатель на массив структур и количество имеющихся записей.
 void printWholeBook(PhonebookStruct* book, int counterOfRecords) {
     if (!counterOfRecords) {
         printf("\nThere's no records in the phonebook.\n\n");
@@ -94,7 +98,9 @@ void printWholeBook(PhonebookStruct* book, int counterOfRecords) {
     }
 }
 
-// Мод 1 - поиск по имени. Мод 2 - поиск по телефону.
+// Функция поиска записей.
+// На вход принимает указатель на массив структур, ввод пользователя с искомой строкой, количество существующих записей режим поиска (1 или 2).
+// Режим 1 - поиск по имени. Режим 2 - поиск по телефону.
 void search(PhonebookStruct* book, char* stringForCompare, int counterOfRecords, int mode) {
     bool isFound = false;
 
@@ -124,6 +130,9 @@ void search(PhonebookStruct* book, char* stringForCompare, int counterOfRecords,
     }
 }
 
+// Функция обработки поискового запроса (найти телефон по номеру).
+// На вход принимает указатель на массив структур и количество существующих записей.
+// Далее обращается к функции поиска.
 void findPhoneByName(PhonebookStruct* book, int counterOfRecords) {
     customFlush();
 
@@ -135,6 +144,9 @@ void findPhoneByName(PhonebookStruct* book, int counterOfRecords) {
     search(book, name, counterOfRecords, 1);
 }
 
+// Функция обработки поискового запроса (найти номер по телефону).
+// На вход принимает указатель на массив структур и количество существующих записей.
+// Далее обращается к функции поиска.
 void findNameByPhone(PhonebookStruct* book, int counterOfRecords) {
     customFlush();
 
@@ -146,6 +158,8 @@ void findNameByPhone(PhonebookStruct* book, int counterOfRecords) {
     search(book, phone, counterOfRecords, 2);
 }
 
+// Функция записи данных в файл.
+// На вход принимает указатель на массив структур и количество существующих записей.
 void recordToFile(PhonebookStruct* book, int counterOfRecords) {
     FILE* file = fopen("phonebook.txt", "w");
 
