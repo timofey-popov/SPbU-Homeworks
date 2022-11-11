@@ -33,8 +33,6 @@ void partQSort(int* arrayToSort, int arraySize) {
 // Функция, заполняющая массив случайными числами.
 // На вход принимает указатель на массив и количество элементов, которые нужно сгенерировать.
 void arrayGenerate(int* arrayToGen, int wantedSize) {
-    srand(time(NULL));
-
     for (int i = 0; i < wantedSize; ++i) {
         arrayToGen[i] = (rand() % 1000);
     }
@@ -100,11 +98,11 @@ int main(void) {
         printf("Test 1: %d, Test 2: %d, Test 3: %d\n", test1(), test2(), test3());
         printf("Tests failed.\n");
         return -1;
-    }
-
-    else {
+    } else {
         printf("*tests passed*\n\n");
     }
+
+    srand(time(NULL));
 
     int inputArray[100] = { 0 };
 
