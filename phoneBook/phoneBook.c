@@ -13,8 +13,6 @@ typedef struct {
 void customFlush(void) {
     scanf("%*[^\n]");
     getchar();
-
-    return;
 }
 
 // Функция для обработки пользовательского ввода (строк).
@@ -26,8 +24,6 @@ void stringsInput(char* arrayForInput, int arraySize) {
         printf("Wrong input. Try again:\n");
         isStringInputCorrect = fgets(arrayForInput, arraySize, stdin);
     }
-
-    return;
 }
 
 // Функция для начального считывания данных из файла.
@@ -46,7 +42,6 @@ void initialFileReading(PhonebookStruct* book, int* counterOfRecords) {
     }
 
     fclose(file);
-    return;
 }
 
 // Функция получения номера действия от пользователя.
@@ -62,8 +57,6 @@ void numberOfActionInput(short* statusForChange) {
         printf("Wrong input. Try again:\n");
         isInputCorrect = scanf("%hi", statusForChange);
     }
-
-    return;
 }
 
 // Функция, которая создаёт запись в массиве структур и прибавляет счётчик после каждой созданной записи.
@@ -87,7 +80,6 @@ void newRecordCreate(int* counterOfRecords, PhonebookStruct* arrayForRecord) {
 
     ++* counterOfRecords;
     printf("\nRecord created successfully.\n\n");
-    return;
 }
 
 void printWholeBook(PhonebookStruct* book, int counterOfRecords) {
@@ -100,8 +92,6 @@ void printWholeBook(PhonebookStruct* book, int counterOfRecords) {
     for (int i = 0; i < counterOfRecords; ++i) {
         printf("%s%s\n", book[i].name, book[i].phone);
     }
-
-    return;
 }
 
 // Мод 1 - поиск по имени. Мод 2 - поиск по телефону.
@@ -126,13 +116,12 @@ void search(PhonebookStruct* book, char* stringForCompare, int counterOfRecords,
                 isFound = true;
             }
         }
+        break;
     }
 
     if (!isFound) {
         printf("No such records in the book\n\n");
     }
-
-    return;
 }
 
 void findPhoneByName(PhonebookStruct* book, int counterOfRecords) {
@@ -144,8 +133,6 @@ void findPhoneByName(PhonebookStruct* book, int counterOfRecords) {
     stringsInput(name, 51);
 
     search(book, name, counterOfRecords, 1);
-
-    return;
 }
 
 void findNameByPhone(PhonebookStruct* book, int counterOfRecords) {
@@ -157,8 +144,6 @@ void findNameByPhone(PhonebookStruct* book, int counterOfRecords) {
     stringsInput(phone, 51);
 
     search(book, phone, counterOfRecords, 2);
-
-    return;
 }
 
 void recordToFile(PhonebookStruct* book, int counterOfRecords) {
@@ -210,4 +195,6 @@ int main(void) {
             break;
         }
     }
+
+    return 0;
 }
