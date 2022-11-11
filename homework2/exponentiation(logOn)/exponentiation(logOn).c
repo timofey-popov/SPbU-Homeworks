@@ -57,8 +57,7 @@ int main(void) {
     if (!testCorrectCases()) {
         printf("Test failed\n");
         return -1;
-    }
-    else {
+    } else {
         printf("*Test passed*\n");
     }
 
@@ -73,8 +72,7 @@ int main(void) {
 
     if (exponentNumber >= 0) {
         printf("The answer is %.2Lf\n", exponentLogOn(base, exponentNumber));
-    }
-    else {
+    } else {
         printf("The answer is 1/%.2Lf\n", exponentLogOn(base, exponentNumber));
     }
 
