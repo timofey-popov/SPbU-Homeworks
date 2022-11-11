@@ -29,7 +29,6 @@ int partition(int* arrayToSort, int leftElementNumber, int rightElementNumber) {
 // Рекурсивная функция быстрой сортировки.
 // Вызывает себя от начала до индекса, возвращаемого функцией разделения, - 1, и от индекса + 1 до конца массива.
 // Сам элемент с индексом, возвращённым функцией разделения, оставляет на месте.
-
 // Если элементов в массиве меньше 10, функция сортирует их обычными вставками.
 void quickSort(int* arrayToSort, int leftElementNumber, int rightElementNumber) {
     if ((rightElementNumber - leftElementNumber + 1) < 10) {
@@ -50,8 +49,6 @@ void quickSort(int* arrayToSort, int leftElementNumber, int rightElementNumber) 
         quickSort(arrayToSort, leftElementNumber, separator - 1);
         quickSort(arrayToSort, separator + 1, rightElementNumber);
     }
-
-    return;
 }
 
 // Четыре функции тестов, проверяющих разные случаи.
@@ -62,8 +59,9 @@ bool test1(void) {
     quickSort(testArray1, 0, 10);
 
     for (int i = 0; i < 11; ++i) {
-        if (testArray1[i] != referenceArray1[i])
+        if (testArray1[i] != referenceArray1[i]) {
             return false;
+        }
     }
 
     return true;
@@ -76,8 +74,9 @@ bool test2(void) {
     quickSort(testArray2, 0, 10);
 
     for (int i = 0; i < 11; ++i) {
-        if (testArray2[i] != referenceArray2[i])
+        if (testArray2[i] != referenceArray2[i]) {
             return false;
+        }
     }
 
     return true;
@@ -90,8 +89,9 @@ bool test3(void) {
     quickSort(testArray3, 0, 10);
 
     for (int i = 0; i < 11; ++i) {
-        if (testArray3[i] != referenceArray3[i])
+        if (testArray3[i] != referenceArray3[i]) {
             return false;
+        }
     }
 
     return true;
@@ -104,8 +104,9 @@ bool test4(void) {
     quickSort(testArray4, 0, 1);
 
     for (int i = 0; i < 2; ++i) {
-        if (testArray4[i] != referenceArray4[i])
+        if (testArray4[i] != referenceArray4[i]) {
             return false;
+        }
     }
 
     return true;
