@@ -3,6 +3,19 @@
 
 #define NUMBER_OF_DIGITS 8
 
+int exponentOfTwo(int exponent) {
+    if (exponent == 0) {
+        return 1;
+    }
+
+    if (exponent % 2 == 1) {
+        return (2 * exponentOfTwo(exponent - 1));
+    }
+
+    int temporary = exponentOfTwo(exponent / 2);
+    return temporary * temporary;
+}
+
 void createAdditionalCode(int* binarySubtrahend, int* binaryResult) {
     int binaryMinuend[] = { 1, 0, 0, 0, 0, 0, 0, 0, 0 };
     int carryOutValue = 0;
@@ -44,6 +57,21 @@ void generateBinary(int decimal, int* arrayForBinary) {
             arrayForBinary[i] = bufferForAdditionalCode[i];
         }
     }
+}
+
+void generateDecimal(int* binary, int* variableForDecimal) {
+    int result = 0;
+
+    for (int i = 0; i < NUMBER_OF_DIGITS; ++i) {
+        result += binary[i] * exponentOfTwo(NUMBER_OF_DIGITS - 1 - i);
+    }
+
+    if (result > 128) {
+        *variableForDecimal = result - 256;
+        return;
+    }
+
+    *variableForDecimal = result;
 }
 
 void addBinary(int* firstSummand, int* secondSummand, int* binaryResult) {
@@ -125,6 +153,12 @@ int main(void)
 
     printf("Результат их сложения в дополнительном двоичном коде: ");
     printBinary(binAdditionResult);
+
+    int decimalAdditionResult = 0;
+    generateDecimal(binAdditionResult, &decimalAdditionResult);
+
+    printf("Результат их сложения в десятичном представлении: ");
+    printf("%d\n", decimalAdditionResult);
 
     return 0;
 }
