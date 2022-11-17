@@ -19,12 +19,12 @@ void generateBinary(int decimal, int* arrayForBinary) {
         }
     } else {
         int bufferForAdditionalCode[NUMBER_OF_DIGITS] = { 0 };
-        createAdditionalCode(buffer, bufferForAdditionalCode)
-    }
-}
+        createAdditionalCode(buffer, bufferForAdditionalCode);
 
-int carryOut(int firstNumber, int secondNumber) {
-    return firstNumber && secondNumber;
+        for (int i = 0; i < NUMBER_OF_DIGITS; ++i) {
+            arrayForBinary[i] = bufferForAdditionalCode[i];
+        }
+    }
 }
 
 void addBinary(int* firstSummand, int* secondSummand, int* binaryResult) {
