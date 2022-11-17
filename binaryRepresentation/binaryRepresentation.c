@@ -3,12 +3,31 @@
 
 #define NUMBER_OF_DIGITS 8
 
+void createAdditionalCode(int* binarySubtrahend, int* binaryResult) {
+    int binaryMinuend[] = { 1, 0, 0, 0, 0, 0, 0, 0, 0 };
+    int carryOutValue = 0;
+
+    for (int i = NUMBER_OF_DIGITS - 1; i >= 0; --i) {
+        binaryResult[i] = ((binaryMinuend[i + 1] ^ binarySubtrahend[i]) ^ carryOutValue);
+
+
+        switch (carryOutValue) {
+        case 0:
+            carryOutValue = !binaryMinuend[i + 1] && binarySubtrahend[i];
+            break;
+        case 1:
+            carryOutValue = !binaryMinuend[i + 1] || binarySubtrahend[i];
+            break;
+        }
+    }
+}
+
 //Функция генерации двоичного представленмя числа, записанного cлева направо в массиве.
 void generateBinary(int decimal, int* arrayForBinary) {
-    int decimalCopy = decimal;
+    int decimalCopy = decimal >= 0 ? decimal : -decimal;
     int buffer[NUMBER_OF_DIGITS] = { 0 };
 
-    for (int i = NUMBER_OF_DIGITS; i >= 0; --i) {
+    for (int i = NUMBER_OF_DIGITS - 1; i >= 0; --i) {
         buffer[i] = decimalCopy % 2;
         decimalCopy = decimalCopy / 2;
     }
@@ -33,25 +52,12 @@ void addBinary(int* firstSummand, int* secondSummand, int* binaryResult) {
     for (int i = NUMBER_OF_DIGITS - 1; i >= 0; --i) {
         binaryResult [i] = firstSummand[i] ^ secondSummand[i] ^ carryOutValue;
 
-        
-
-    }
-}
-
-void createAdditionalCode(int* binarySubtrahend, int* binaryResult) {
-    int binaryMinuend[] = { 1, 0, 0, 0, 0, 0, 0, 0, 0 };
-    int carryOutValue = 0;
-
-    for (int i = NUMBER_OF_DIGITS - 1; i >= 0; --i) {
-        binaryResult[i] = ((binaryMinuend[i + 1] ^ binarySubtrahend[i]) ^ carryOutValue);
-
-
         switch (carryOutValue) {
         case 0:
-            carryOutValue = !binaryMinuend[i + 1] && binarySubtrahend[i];
+            carryOutValue = firstSummand[i] && secondSummand[i];
             break;
         case 1:
-            carryOutValue = !binaryMinuend[i + 1] || binarySubtrahend[i];
+            carryOutValue = firstSummand[i] || secondSummand[i];
             break;
         }
     }
@@ -94,22 +100,31 @@ int main(void)
     int firstNumber = 0;
     int secondNumber = 0;
 
-    int binFirstNumber[NUMBER_OF_DIGITS] = { 0 };
-    int binSecondNumber[NUMBER_OF_DIGITS] = { 0 };
+    int firstBinNumber[NUMBER_OF_DIGITS] = { 0 };
+    int secondBinNumber[NUMBER_OF_DIGITS] = { 0 };
 
-    printf("Введите первое число (от -128 до 128):\n");
-    inputInteger(&firstNumber, -128, 128);
+    printf("Введите первое число (от -127 до 128):\n");
+    inputInteger(&firstNumber, -127, 128);
 
-    printf("Введите второе число (от -127 до 127):\n");
-    inputInteger(&secondNumber, -127, 127);
+    printf("Введите второе число (от -127 до 128):\n");
+    inputInteger(&secondNumber, -127, 128);
 
     printf("Первое введённое число: %d\n", firstNumber);
     printf("Второе введённое число: %d\n", secondNumber);
 
-    generateBinary(firstNumber, binFirstNumber);
+    generateBinary(firstNumber, firstBinNumber);
+    generateBinary(secondNumber, secondBinNumber);
 
     printf("Двоичное представление %d это ", firstNumber);
-    printBinary(binFirstNumber);
+    printBinary(firstBinNumber);
+    printf("Двоичное представление %d это ", secondNumber);
+    printBinary(secondBinNumber);
+
+    int binAdditionResult[NUMBER_OF_DIGITS] = { 0 };
+    addBinary(firstBinNumber, secondBinNumber, binAdditionResult);
+
+    printf("Результат их сложения в дополнительном двоичном коде: ");
+    printBinary(binAdditionResult);
 
     return 0;
 }
