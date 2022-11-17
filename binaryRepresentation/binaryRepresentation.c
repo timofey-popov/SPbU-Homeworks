@@ -3,6 +3,8 @@
 
 #define NUMBER_OF_DIGITS 8
 
+// Вспомогательная функция.
+// Возводит двойку в степень "аргумент" и возвращает результат как целое число.
 int exponentOfTwo(int exponent) {
     if (exponent == 0) {
         return 1;
@@ -16,13 +18,14 @@ int exponentOfTwo(int exponent) {
     return temporary * temporary;
 }
 
+// Функция генерации допольнительного двоичного кода для числа.
+// На вход принимает указатель на двоичное число и указатель на массив-число, в который нужно положить результат.
 void createAdditionalCode(int* binarySubtrahend, int* binaryResult) {
     int binaryMinuend[] = { 1, 0, 0, 0, 0, 0, 0, 0, 0 };
     int carryOutValue = 0;
 
     for (int i = NUMBER_OF_DIGITS - 1; i >= 0; --i) {
         binaryResult[i] = ((binaryMinuend[i + 1] ^ binarySubtrahend[i]) ^ carryOutValue);
-
 
         switch (carryOutValue) {
         case 0:
@@ -35,7 +38,8 @@ void createAdditionalCode(int* binarySubtrahend, int* binaryResult) {
     }
 }
 
-//Функция генерации двоичного представленмя числа, записанного cлева направо в массиве.
+// Функция генерации двоичного представленмя числа.
+// Записывает двоичное число в массив cлева направо.
 void generateBinary(int decimal, int* arrayForBinary) {
     int decimalCopy = decimal >= 0 ? decimal : -decimal;
     int buffer[NUMBER_OF_DIGITS] = { 0 };
@@ -59,6 +63,10 @@ void generateBinary(int decimal, int* arrayForBinary) {
     }
 }
 
+// Функция, которая строит десятичное число по данному двоичному.
+// На вход принимает массив с двоичным числом и переменную, куда нужно положить десятичный результат.
+//
+// Важно: функция корректно работает только для чисел от -127 до 128;
 void generateDecimal(int* binary, int* variableForDecimal) {
     int result = 0;
 
