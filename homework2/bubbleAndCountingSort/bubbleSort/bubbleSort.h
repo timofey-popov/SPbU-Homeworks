@@ -16,4 +16,4 @@ bool comparisonForTest(int* arrayForTest, int* referenceArray, size_t arraySize)
 
 //Функция с тестами.
 //Возвращает true в случае, если всё работает правильно и false в противном случае.
-bool test(int* numberOfFailedTest);
+bool testBubbleSort(int* numberOfFailedTest);
