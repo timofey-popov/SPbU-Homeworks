@@ -65,19 +65,13 @@ int countingSort(int* arrayToSort, int arraySize) {
     return 0;
 }
 
-// Далее расположены три функции с тестами.
-// Возвращают true в случае, если всё работает правильно и false в противном случае.
-bool test1(void) {
-    int testArray1[5] = { 0, 0, 0, 0, 0 };
-    int referenceArray1[5] = { 0, 0, 0, 0, 0 };
-
-    int correctnessCheck = countingSort(testArray1, 5);
-    if (correctnessCheck) {
-        return false;
-    }
-
-    for (int i = 0; i < 5; ++i) {
-        if (testArray1[i] != referenceArray1[i]) {
+// Функция для сравнения отсортированного массива с образцом.
+// На вход принимает указатели на эти два массива и их размер.
+// В цикле бежит по соответсвующим элементам массива и сравнивает их.
+// Возвращает true, если массивы совпадают, и false в противном случае.
+bool comparisonForTest(int* arrayForTest, int* referenceArray, size_t arraySize) {
+    for (size_t i = 0; i < arraySize; ++i) {
+        if (arrayForTest[i] != referenceArray[i]) {
             return false;
         }
     }
@@ -85,53 +79,17 @@ bool test1(void) {
     return true;
 }
 
-bool test2(void) {
-    int testArray2[5] = { 5, 5, 5, 4, 3 };
-    int referenceArray2[5] = { 3, 4, 5, 5, 5 };
+//Функция с тестами.
+//Возвращает true в случае, если всё работает правильно и false в противном случае.
+bool test(int* numberOfFailedTest) {
+    int testArrays[4][5] = { { 0, 0, 0, 0, 0 }, { 5, 5, 5, 4, 3 }, { 5, 4, 3, 2, 1 }, { 1, 2, 3, 4, 5 } };
+    int referenceArrays[4][5] = { { 0, 0, 0, 0, 0 }, { 3, 4, 5, 5, 5 }, { 1, 2, 3, 4, 5 }, { 1, 2, 3, 4, 5 } };
 
-    int correctnessCheck = countingSort(testArray2, 5);
-    if (correctnessCheck) {
-        return false;
-    }
+    for (int i = 0; i < 4; ++i) {
+        countingSort(testArrays[i], 5);
 
-    for (int i = 0; i < 5; ++i) {
-        if (testArray2[i] != referenceArray2[i]) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-bool test3(void) {
-    int testArray3[5] = { 5, 4, 3, 2, 1 };
-    int referenceArray3[5] = { 1, 2, 3, 4, 5 };
-
-    int correctnessCheck = countingSort(testArray3, 5);
-    if (correctnessCheck) {
-        return false;
-    }
-    
-    for (int i = 0; i < 5; ++i) {
-        if (testArray3[i] != referenceArray3[i]) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-bool test4(void) {
-    int testArray4[5] = { 1, 2, 3, 4, 5};
-    int referenceArray4[5] = { 1, 2, 3, 4, 5 };
-
-    int correctnessCheck = countingSort(testArray4, 5);
-    if (correctnessCheck) {
-        return false;
-    }
-
-    for (int i = 0; i < 5; ++i) {
-        if (testArray4[i] != referenceArray4[i]) {
+        if (!comparisonForTest(testArrays[i], referenceArrays[i], 5)) {
+            *numberOfFailedTest = i + 1;
             return false;
         }
     }
@@ -140,11 +98,12 @@ bool test4(void) {
 }
 
 int main(void) {
-    if (!test1() || !test2() || !test3() || !test4()) {
-        printf("Test 1: %d, Test 2: %d, Test 3: %d, Test 4: %d\n", test1(), test2(), test3(), test4());
-        printf("Tests failed.\n");
+    int numberOfFailedTest = 0;
+    if (!test(&numberOfFailedTest)) {
+        printf("Tests %d failed.\n", numberOfFailedTest);
         return -1;
-    } else {
+    }
+    else {
         printf("*tests passed*\n\n");
     }
 
