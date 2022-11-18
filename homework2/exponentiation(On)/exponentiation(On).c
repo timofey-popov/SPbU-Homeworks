@@ -4,21 +4,24 @@
 // Функция возведения в степень простым умножением основания n раз.
 // На вход принимает основание и показатель степени.
 long double exponentOn(float base, int exponent) {
-    if (exponent < 0) {
-        exponent = -exponent;
+    int exponentCopy = exponent;
+    
+    if (exponentCopy < 0) {
+        exponentCopy = -exponentCopy;
     }
 
-    if (exponent == 0) {
+    if (exponentCopy == 0) {
         return 1;
     }
 
     long double valueToReturn = base;
 
-    for (int i = 0; i < exponent - 1; ++i) {
+    for (int i = 0; i < exponentCopy - 1; ++i) {
         valueToReturn = valueToReturn * base;
     }
+    
 
-    return valueToReturn;
+    return exponent > 0 ? valueToReturn : 1 / valueToReturn;
 }
 
 // Записывает введённое с клавиатуры число с плавающей запятой по переданному в аргумент адресу.
@@ -71,11 +74,7 @@ int main(void) {
     printf("Enter the exponent:\n");
     userInputForInteger(&exponentNumber);
 
-    if (exponentNumber >= 0) {
-        printf("The answer is %.2Lf\n", exponentOn(base, exponentNumber));
-    } else {
-        printf("The answer is 1/%.2Lf\n", exponentOn(base, exponentNumber));
-    }
+    printf("The answer is %.2Lf\n", exponentOn(base, exponentNumber));
 
     return 0;
 }
