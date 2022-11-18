@@ -81,7 +81,7 @@ bool comparisonForTest(int* arrayForTest, int* referenceArray, size_t arraySize)
 
 //Функция с тестами.
 //Возвращает true в случае, если всё работает правильно и false в противном случае.
-bool test(int* numberOfFailedTest) {
+bool testCountingSort(int* numberOfFailedTest) {
     int testArrays[4][5] = { { 0, 0, 0, 0, 0 }, { 5, 5, 5, 4, 3 }, { 5, 4, 3, 2, 1 }, { 1, 2, 3, 4, 5 } };
     int referenceArrays[4][5] = { { 0, 0, 0, 0, 0 }, { 3, 4, 5, 5, 5 }, { 1, 2, 3, 4, 5 }, { 1, 2, 3, 4, 5 } };
 
@@ -99,7 +99,7 @@ bool test(int* numberOfFailedTest) {
 
 int main(void) {
     int numberOfFailedTest = 0;
-    if (!test(&numberOfFailedTest)) {
+    if (!testCountingSort(&numberOfFailedTest)) {
         printf("Tests %d failed.\n", numberOfFailedTest);
         return -1;
     }
