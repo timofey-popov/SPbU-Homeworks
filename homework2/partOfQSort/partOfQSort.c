@@ -1,7 +1,7 @@
-﻿#include<stdio.h>
-#include<time.h>
-#include<stdlib.h>
-#include<stdbool.h>
+﻿#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 
 // Функция, которая преобразует массив так, что в начале массива будут элементы, меньшие первого,
@@ -113,8 +113,9 @@ int main(void) {
 
     partQSort(inputArray, 100);
 
-    printf("Sorted array.\nIn the top part there are numbers less than the first number of initial array.\n\
-In the bottom part there are numbers greater than or equal to the first number of initial array.\n");
+    printf("Sorted array.\n");
+    printf("In the top part there are numbers less than the first number of initial array.\n");
+    printf("In the bottom part there are numbers greater than or equal to the first number of initial array.\n");
 
     arrayPrint(inputArray, 100);
 
