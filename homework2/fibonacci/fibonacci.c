@@ -50,12 +50,13 @@ int main(void) {
         printf("Enter the number of Fibonacci sequence element:\n");
         isInputCorrect = scanf("%d", &indexNumber);
     }
+
     scanf_s("%*[^\n]");
 
     long time1 = clock();
 
     printf("%d-th element of the Fibonacci sequence is %llu\n", indexNumber, fibonacciNumbers(indexNumber));
-    printf("Time passed: %ld seconds\n", (clock() - time1)/CLOCKS_PER_SEC);
+    printf("Time passed: %ld seconds\n", (clock() - time1) / CLOCKS_PER_SEC);
 
     return 0;
 }
