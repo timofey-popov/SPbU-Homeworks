@@ -18,10 +18,11 @@ int exponentOfTwo(int exponent) {
     return temporary * temporary;
 }
 
-// Функция генерации допольнительного двоичного кода для числа.
+// Функция генерации допольнительного двоичного кода для двоичного числа с NUMBER_OF_DIGITS разрядами.
 // На вход принимает указатель на двоичное число и указатель на массив-число, в который нужно положить результат.
 void createAdditionalCode(int* binarySubtrahend, int* binaryResult) {
-    int binaryMinuend[] = { 1, 0, 0, 0, 0, 0, 0, 0, 0 };
+    int binaryMinuend[NUMBER_OF_DIGITS + 1] = { 0 };
+    binaryMinuend[0] = 1;
     int carryOutValue = 0;
 
     for (int i = NUMBER_OF_DIGITS - 1; i >= 0; --i) {
@@ -38,8 +39,8 @@ void createAdditionalCode(int* binarySubtrahend, int* binaryResult) {
     }
 }
 
-// Функция генерации двоичного представленмя числа.
-// Записывает двоичное число в массив cлева направо.
+// Функция генерации двоичного представленмя числа по десятичному.
+// Записывает сгенерированное двоичное число в указанный в аргументах функции массив cлева направо.
 void generateBinary(int decimal, int* arrayForBinary) {
     int decimalCopy = decimal >= 0 ? decimal : -decimal;
     int buffer[NUMBER_OF_DIGITS] = { 0 };
@@ -66,7 +67,8 @@ void generateBinary(int decimal, int* arrayForBinary) {
 // Функция, которая строит десятичное число по данному двоичному.
 // На вход принимает массив с двоичным числом и переменную, куда нужно положить десятичный результат.
 //
-// Важно: функция корректно работает только для чисел от -127 до 128;
+// Важно: функция корректно работает только для чисел от -(2**(NUMBER_OF_DIGITS - 1) - 1) до 2**(NUMBER_OF_DIGITS - 1) в дополнительном двоичном коде.
+// Она вызывается в программе всего один раз, от результата функции addBinary, которая, в свою очередь, никак не может выдать неподходящее число.
 void generateDecimal(int* binary, int* variableForDecimal) {
     int result = 0;
 
@@ -74,14 +76,18 @@ void generateDecimal(int* binary, int* variableForDecimal) {
         result += binary[i] * exponentOfTwo(NUMBER_OF_DIGITS - 1 - i);
     }
 
-    if (result > 128) {
-        *variableForDecimal = result - 256;
+    if (result > exponentOfTwo(NUMBER_OF_DIGITS - 1)) {
+        *variableForDecimal = result - exponentOfTwo(NUMBER_OF_DIGITS);
         return;
     }
 
     *variableForDecimal = result;
 }
 
+// Функция побитового сложения чисел в дополнительном двоичном коде.
+// На вход принимает три указателя на массивы: первое и второе двоичное слагаемое и массив для результата.
+// Если в процессе сложения возникает "лишний" бит переноса - он никак не учитывается. Это должно учитываться ДО передачи чисел в функцию.
+// Конкретно в этой программе это контролирует функция для пользовательского ввода.
 void addBinary(int* firstSummand, int* secondSummand, int* binaryResult) {
     int carryOutValue = 0;
 
@@ -99,6 +105,7 @@ void addBinary(int* firstSummand, int* secondSummand, int* binaryResult) {
     }
 }
 
+// Функция, которая печатает на экран NUMBER_OF_DIGITS разрядов указанного двоичного числа.
 void printBinary(int* numberToPrint) {
     for (int i = 0; i < NUMBER_OF_DIGITS; ++i) {
         printf("%d", numberToPrint[i]);
@@ -107,17 +114,8 @@ void printBinary(int* numberToPrint) {
     printf("\n");
 }
 
-void printArray(int* arrayToPrint, int printingArraySize) {
-    for (int i = 1; i < printingArraySize + 1; ++i) {
-        printf("%7d", arrayToPrint[i - 1]);
-        if (i % 10 == 0) {
-            printf("\n");
-        }
-    }
-
-    printf("\n\n");
-}
-
+// Функция пользовательского ввода для целых чисел.
+// На вход принимает указатель на переменную для записи и левое и правое ограничение для вводимого числа.
 void inputInteger(int* valueToWrite, int leftLimit, int rightLimit) {
     int isInputCorrect = scanf("%d", valueToWrite);
 
@@ -139,21 +137,21 @@ int main(void)
     int firstBinNumber[NUMBER_OF_DIGITS] = { 0 };
     int secondBinNumber[NUMBER_OF_DIGITS] = { 0 };
 
-    printf("Введите первое число (от -127 до 128):\n");
-    inputInteger(&firstNumber, -127, 128);
+    printf("Введите первое число (от %d до %d):\n", exponentOfTwo(NUMBER_OF_DIGITS - 2);
+    inputInteger(&firstNumber, -64, 64);
 
-    printf("Введите второе число (от -127 до 128):\n");
-    inputInteger(&secondNumber, -127, 128);
+    printf("Введите второе число (от -63 до 64):\n");
+    inputInteger(&secondNumber, -63, 64);
 
-    printf("Первое введённое число: %d\n", firstNumber);
-    printf("Второе введённое число: %d\n", secondNumber);
+    printf("Первое введённое число: %2d\n", firstNumber);
+    printf("Второе введённое число: %2d\n", secondNumber);
 
     generateBinary(firstNumber, firstBinNumber);
     generateBinary(secondNumber, secondBinNumber);
 
-    printf("Двоичное представление %d это ", firstNumber);
+    printf("Двоичное представление %2d это ", firstNumber);
     printBinary(firstBinNumber);
-    printf("Двоичное представление %d это ", secondNumber);
+    printf("Двоичное представление %2d это ", secondNumber);
     printBinary(secondBinNumber);
 
     int binAdditionResult[NUMBER_OF_DIGITS] = { 0 };
