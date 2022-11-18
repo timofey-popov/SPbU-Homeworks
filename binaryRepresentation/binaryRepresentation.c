@@ -5,16 +5,17 @@
 
 // Вспомогательная функция.
 // Возводит двойку в степень "аргумент" и возвращает результат как целое число.
-int exponentOfTwo(int exponent) {
+// Некорректна на отрицательных степенях.
+int positiveExponentOfTwo(int exponent) {
     if (exponent == 0) {
         return 1;
     }
 
     if (exponent % 2 == 1) {
-        return (2 * exponentOfTwo(exponent - 1));
+        return (2 * positiveExponentOfTwo(exponent - 1));
     }
 
-    int temporary = exponentOfTwo(exponent / 2);
+    int temporary = positiveExponentOfTwo(exponent / 2);
     return temporary * temporary;
 }
 
@@ -73,11 +74,11 @@ void generateDecimal(int* binary, int* variableForDecimal) {
     int result = 0;
 
     for (int i = 0; i < NUMBER_OF_DIGITS; ++i) {
-        result += binary[i] * exponentOfTwo(NUMBER_OF_DIGITS - 1 - i);
+        result += binary[i] * positiveExponentOfTwo(NUMBER_OF_DIGITS - 1 - i);
     }
 
-    if (result > exponentOfTwo(NUMBER_OF_DIGITS - 1)) {
-        *variableForDecimal = result - exponentOfTwo(NUMBER_OF_DIGITS);
+    if (result > positiveExponentOfTwo(NUMBER_OF_DIGITS - 1)) {
+        *variableForDecimal = result - positiveExponentOfTwo(NUMBER_OF_DIGITS);
         return;
     }
 
@@ -137,21 +138,23 @@ int main(void)
     int firstBinNumber[NUMBER_OF_DIGITS] = { 0 };
     int secondBinNumber[NUMBER_OF_DIGITS] = { 0 };
 
-    printf("Введите первое число (от %d до %d):\n", exponentOfTwo(NUMBER_OF_DIGITS - 2);
-    inputInteger(&firstNumber, -64, 64);
+    int roughLimit = positiveExponentOfTwo(NUMBER_OF_DIGITS - 2);
 
-    printf("Введите второе число (от -63 до 64):\n");
-    inputInteger(&secondNumber, -63, 64);
+    printf("Введите первое число (от %d до %d):\n", -roughLimit, roughLimit);
+    inputInteger(&firstNumber, -roughLimit, roughLimit);
 
-    printf("Первое введённое число: %2d\n", firstNumber);
-    printf("Второе введённое число: %2d\n", secondNumber);
+    printf("Введите второе число (от %d до %d):\n", -roughLimit + 1, roughLimit);
+    inputInteger(&secondNumber, -roughLimit + 1, roughLimit);
+
+    printf("\nПервое введённое число: %4d\n", firstNumber);
+    printf("Второе введённое число: %4d\n", secondNumber);
 
     generateBinary(firstNumber, firstBinNumber);
     generateBinary(secondNumber, secondBinNumber);
 
-    printf("Двоичное представление %2d это ", firstNumber);
+    printf("Двоичное представление %4d это ", firstNumber);
     printBinary(firstBinNumber);
-    printf("Двоичное представление %2d это ", secondNumber);
+    printf("Двоичное представление %4d это ", secondNumber);
     printBinary(secondBinNumber);
 
     int binAdditionResult[NUMBER_OF_DIGITS] = { 0 };
