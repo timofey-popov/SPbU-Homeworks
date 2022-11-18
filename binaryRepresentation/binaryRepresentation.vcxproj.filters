@@ -18,5 +18,16 @@
     <ClCompile Include="binaryRepresentation.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="tests.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tests.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="binaryRepresentation.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
