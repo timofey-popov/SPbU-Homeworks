@@ -140,7 +140,7 @@ bool test4(void) {
 }
 
 int main(void) {
-    if (!test1() || !test2() || !test3() || !test4) {
+    if (!test1() || !test2() || !test3() || !test4()) {
         printf("Test 1: %d, Test 2: %d, Test 3: %d, Test 4: %d\n", test1(), test2(), test3(), test4());
         printf("Tests failed.\n");
         return -1;

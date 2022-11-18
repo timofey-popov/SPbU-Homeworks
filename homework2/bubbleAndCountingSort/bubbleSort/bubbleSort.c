@@ -18,11 +18,11 @@ void arrayPrint(int* arrayToPrint, int printingArraySize, int numberOfElementsIn
 // Сортировка пузырьком.
 // На вход принимает указатель на сортируемый массив и его размер.
 void bubbleSort(int* arrayToSort, int arraySize) {
-    bool whereThereSwaps = true;
+    bool wereThereSwaps = true;
     int counterOfPasses = 0;
 
-    while (whereThereSwaps) {
-        whereThereSwaps = false;
+    while (wereThereSwaps) {
+        wereThereSwaps = false;
 
         for (int i = 0; i < arraySize - 1 - counterOfPasses; ++i) {
             if (arrayToSort[i] > arrayToSort[i + 1]) {
@@ -30,7 +30,7 @@ void bubbleSort(int* arrayToSort, int arraySize) {
                 arrayToSort[i] = arrayToSort[i + 1];
                 arrayToSort[i + 1] = temporary;
 
-                whereThereSwaps = true;
+                wereThereSwaps = true;
             }
         }
 
@@ -101,7 +101,7 @@ bool test4(void) {
 }
 
 int main(void) {
-    if (!test1() || !test2() || !test3() || !test4) {
+    if (!test1() || !test2() || !test3() || !test4()) {
         printf("Test 1: %d, Test 2: %d, Test 3: %d, Test 4: %d\n", test1(), test2(), test3(), test4());
         printf("Tests failed.\n");
         return -1;
