@@ -69,17 +69,11 @@ void newRecordCreate(int* counterOfRecords, PhonebookStruct* arrayForRecord) {
     //Очищаем поток, так как в нём уже находится символ перевода строки после введённого пользователем номера действия.
     customFlush();
 
-    //char bufferForName[51];
-    //char bufferForPhone[51];
-
     printf("\nEnter the name (no more than 50 characters):\n");
     stringsInput(arrayForRecord[*counterOfRecords].name, 51);
 
-    printf("Enter the phone (no more than 50 characters incl. spaces):\n");
+    printf("Enter the phone (no spaces, no more than 50 characters):\n");
     stringsInput(arrayForRecord[*counterOfRecords].phone, 51);
-
-    //strcpy(arrayForRecord[*counterOfRecords].name, bufferForName);
-    //strcpy(arrayForRecord[*counterOfRecords].phone, bufferForPhone);
 
     ++* counterOfRecords;
     printf("\nRecord created successfully.\n\n");
@@ -100,15 +94,21 @@ void printWholeBook(PhonebookStruct* book, int counterOfRecords) {
 }
 
 // Функция поиска записей.
-// На вход принимает указатель на массив структур, ввод пользователя с искомой строкой, количество существующих записей режим поиска (1 или 2).
+// На вход принимает указатель на массив структур, количество существующих записей и режим поиска (1 или 2).
 // Режим 1 - поиск по имени. Режим 2 - поиск по телефону.
-void search(PhonebookStruct* book, char* stringForCompare, int counterOfRecords, int mode) {
+void search(PhonebookStruct* book, int counterOfRecords, int mode) {
     bool isFound = false;
+    char stringForCompare[51];
 
-    printf("\nSearch results:\n\n");
+    customFlush();
 
-    switch (mode) {
+    switch(mode) {
     case 1:
+        printf("\nEnter the name:\n");
+        stringsInput(stringForCompare, 51);
+
+        printf("\nSearch results:\n\n");
+
         for (int i = 0; i < counterOfRecords; ++i) {
             if (!strcmp(book[i].name, stringForCompare)) {
                 printf("%s%s\n", book[i].name, book[i].phone);
@@ -117,6 +117,11 @@ void search(PhonebookStruct* book, char* stringForCompare, int counterOfRecords,
         }
         break;
     case 2:
+        printf("\nEnter the phone without spaces:\n");
+        stringsInput(stringForCompare, 51);
+
+        printf("\nSearch results:\n\n");
+
         for (int i = 0; i < counterOfRecords; ++i) {
             if (!strcmp(book[i].phone, stringForCompare)) {
                 printf("%s%s\n", book[i].name, book[i].phone);
@@ -131,34 +136,6 @@ void search(PhonebookStruct* book, char* stringForCompare, int counterOfRecords,
     }
 }
 
-// Функция обработки поискового запроса (найти телефон по номеру).
-// На вход принимает указатель на массив структур и количество существующих записей.
-// Далее обращается к функции поиска.
-void findPhoneByName(PhonebookStruct* book, int counterOfRecords) {
-    customFlush();
-
-    char name[51];
-
-    printf("\nEnter the name:\n");
-    stringsInput(name, 51);
-
-    search(book, name, counterOfRecords, 1);
-}
-
-// Функция обработки поискового запроса (найти номер по телефону).
-// На вход принимает указатель на массив структур и количество существующих записей.
-// Далее обращается к функции поиска.
-void findNameByPhone(PhonebookStruct* book, int counterOfRecords) {
-    customFlush();
-
-    char phone[51];
-
-    printf("\nEnter the phone without spaces:\n");
-    stringsInput(phone, 51);
-
-    search(book, phone, counterOfRecords, 2);
-}
-
 // Функция записи данных в файл.
 // На вход принимает указатель на массив структур и количество существующих записей.
 void recordToFile(PhonebookStruct* book, int counterOfRecords) {
@@ -171,6 +148,7 @@ void recordToFile(PhonebookStruct* book, int counterOfRecords) {
         fputs(book[i].phone, file);
     }
 
+    fclose(file);
     printf("\nData saved successfully.\n\n");
 }
 
@@ -200,10 +178,10 @@ int main(void) {
             printWholeBook(phonebookArray, counterOfRecords);
             break;
         case 3:
-            findPhoneByName(phonebookArray, counterOfRecords);
+            search(phonebookArray, counterOfRecords, 1);
             break;
         case 4:
-            findNameByPhone(phonebookArray, counterOfRecords);
+            search(phonebookArray, counterOfRecords, 2);
             break;
         case 5:
             recordToFile(phonebookArray, counterOfRecords);
