@@ -19,6 +19,7 @@ void customFlush(void) {
 // На вход принимает массив для записи и размер этого массива.
 void stringsInput(char* arrayForInput, int arraySize) {
     char* isStringInputCorrect = fgets(arrayForInput, arraySize, stdin);
+
     while (!isStringInputCorrect) {
         customFlush();
         printf("Wrong input. Try again:\n");
@@ -53,11 +54,11 @@ void numberOfActionInput(short* statusForChange) {
     printf("Choose an action:\n0 - exit\n1 - make a record\n"
         "2 - show all records\n3 - find a number by name\n4 - find a name by number\n5 - save data to file\n\n");
 
-    int isInputCorrect = scanf("%hi", statusForChange);
-    while (!isInputCorrect || *statusForChange < 0 || *statusForChange > 5) {
+    int inputCorrectnessCheck = scanf("%hi", statusForChange);
+    while (!inputCorrectnessCheck || *statusForChange < 0 || *statusForChange > 5) {
         customFlush();
         printf("Wrong input. Try again:\n");
-        isInputCorrect = scanf("%hi", statusForChange);
+        inputCorrectnessCheck = scanf("%hi", statusForChange);
     }
 }
 
@@ -68,17 +69,17 @@ void newRecordCreate(int* counterOfRecords, PhonebookStruct* arrayForRecord) {
     //Очищаем поток, так как в нём уже находится символ перевода строки после введённого пользователем номера действия.
     customFlush();
 
-    char nameWithinFunction[51];
-    char phoneWithinFunction[51];
+    //char bufferForName[51];
+    //char bufferForPhone[51];
 
     printf("\nEnter the name (no more than 50 characters):\n");
-    stringsInput(nameWithinFunction, 51);
+    stringsInput(arrayForRecord[*counterOfRecords].name, 51);
 
     printf("Enter the phone (no more than 50 characters incl. spaces):\n");
-    stringsInput(phoneWithinFunction, 51);
+    stringsInput(arrayForRecord[*counterOfRecords].phone, 51);
 
-    strcpy(arrayForRecord[*counterOfRecords].name, nameWithinFunction);
-    strcpy(arrayForRecord[*counterOfRecords].phone, phoneWithinFunction);
+    //strcpy(arrayForRecord[*counterOfRecords].name, bufferForName);
+    //strcpy(arrayForRecord[*counterOfRecords].phone, bufferForPhone);
 
     ++* counterOfRecords;
     printf("\nRecord created successfully.\n\n");
