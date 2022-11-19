@@ -25,3 +25,10 @@ void generateDecimal(int* binary, int* variableForDecimal);
 // Если в процессе сложения возникает "лишний" бит переноса - он никак не учитывается. Это должно учитываться ДО передачи чисел в функцию.
 // Конкретно в этой программе это контролирует функция для пользовательского ввода.
 void addBinary(int* firstSummand, int* secondSummand, int* binaryResult);
+
+// Функция, которая печатает на экран NUMBER_OF_DIGITS разрядов указанного двоичного числа.
+void printBinary(int* numberToPrint);
+
+// Функция пользовательского ввода для целых чисел.
+// На вход принимает указатель на переменную для записи и левое и правое ограничение для вводимого числа.
+void inputInteger(int* valueToWrite, int leftLimit, int rightLimit);

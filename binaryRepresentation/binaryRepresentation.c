@@ -69,7 +69,6 @@ void generateBinary(int decimal, int* arrayForBinary) {
 
 // Функция, которая строит десятичное число по данному двоичному.
 // На вход принимает массив с двоичным числом и переменную, куда нужно положить десятичный результат.
-//
 // Важно: функция корректно работает только для чисел от -(2**(NUMBER_OF_DIGITS - 1) - 1) до 2**(NUMBER_OF_DIGITS - 1) в дополнительном двоичном коде.
 // Она вызывается в программе всего один раз, от результата функции addBinary, которая, в свою очередь, никак не может выдать неподходящее число.
 void generateDecimal(int* binary, int* variableForDecimal) {
@@ -129,6 +128,8 @@ void inputInteger(int* valueToWrite, int leftLimit, int rightLimit) {
     }
 }
 
+// Функция-тест. Запускает тесты из tests.c для этой программы.
+// Возвращает true, если все тесты прошли успешно, и false в противном случае.
 bool test(void) {
     return testForPositiveExponent() && testForCreateAdditionalCode() && testForGenerateBinary() && testForGenerateDecimal && testForAddBinaries;
 }
