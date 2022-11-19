@@ -96,7 +96,7 @@ void printWholeBook(PhonebookStruct* book, int counterOfRecords) {
 // Функция поиска записей.
 // На вход принимает указатель на массив структур, количество существующих записей и режим поиска (1 или 2).
 // Режим 1 - поиск по имени. Режим 2 - поиск по телефону.
-void search(PhonebookStruct* book, int counterOfRecords, int mode) {
+bool search(PhonebookStruct* book, int counterOfRecords, int mode) {
     bool isFound = false;
     char stringForCompare[51];
 
@@ -134,6 +134,8 @@ void search(PhonebookStruct* book, int counterOfRecords, int mode) {
     if (!isFound) {
         printf("No such records in the book\n\n");
     }
+
+    return isFound;
 }
 
 // Функция записи данных в файл.
