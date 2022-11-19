@@ -28,7 +28,8 @@ int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
     return frequentElement;
 }
 
-// Функция-тест
+// Функция-тест.
+// Возвращает true, если всё хорошо, и false в противном случае.
 bool test(void) {
     int testArray1[] = { 1, 2, 3, 4, 4, 5 };
     int testArray2[] = { 0, 0, 0, 0, 0, 0 };
