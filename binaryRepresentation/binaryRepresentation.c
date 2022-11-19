@@ -1,5 +1,7 @@
 ﻿#include <stdio.h>
 #include <locale.h>
+#include <stdbool.h>
+#include "tests.h"
 
 #define NUMBER_OF_DIGITS 8
 
@@ -127,8 +129,19 @@ void inputInteger(int* valueToWrite, int leftLimit, int rightLimit) {
     }
 }
 
+bool test(void) {
+    return testForPositiveExponent() && testForCreateAdditionalCode() && testForGenerateBinary() && testForGenerateDecimal && testForAddBinaries;
+}
+
 int main(void)
 {
+    if (!test()) {
+        printf("Tests failed.\n");
+        return -1;
+    } else {
+        printf("*Tests passed*\n\n");
+    }
+
     // Русский язык, переменные для двух вводимых чисел, массивы для двоичных представлений этих чисел.
     setlocale(LC_ALL, "");
 

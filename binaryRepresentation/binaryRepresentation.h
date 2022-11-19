@@ -25,4 +25,3 @@ void generateDecimal(int* binary, int* variableForDecimal);
 // Если в процессе сложения возникает "лишний" бит переноса - он никак не учитывается. Это должно учитываться ДО передачи чисел в функцию.
 // Конкретно в этой программе это контролирует функция для пользовательского ввода.
 void addBinary(int* firstSummand, int* secondSummand, int* binaryResult);
-
