@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+// Все фунции в случае ошибок меняют переменную errorCode с 0 на 1.
+
 // Структура для единицы стека.
 // Содержит два поля: значение и указатель на предыдущую единицу стека.
 typedef struct Unit {
@@ -10,6 +12,8 @@ typedef struct Unit {
     struct Unit* previous;
 } Unit;
 
+// Функция для добавления элемента стека.
+// На вход принимает значение, которое нужно добавить, указатель на голову стека и указатель на переменную с кодом ошибки.
 void push(int value, Unit** head, int* errorCode) {
     Unit* newHead = malloc(sizeof(Unit));
 
@@ -25,6 +29,8 @@ void push(int value, Unit** head, int* errorCode) {
     *head = newHead;
 }
 
+// Функция для удаления элемента из стека, которая возвращает значение этого элемента.
+// На вход принимает указатель на голову стека и указатель на переменную с кодом ошибки.
 int pop(Unit** head, int* errorCode) {
     if (*head == NULL) {
         *errorCode = 1;
@@ -41,16 +47,23 @@ int pop(Unit** head, int* errorCode) {
     return valueToReturn;
 }
 
+// Функция полной очистки стека.
+// На вход принимает указатель на голову стека.
 void clear(Unit** head) {
     while (*head != NULL) {
         pop(head, NULL);
     }
 }
 
+// Функция проверки стека на пустоту.
+// На вход принимает указатель на голову стека.
+// Возвращает true, если стек пуст, и false в противном случае.
 bool isEmpty(Unit** head) {
     return *head == NULL;
 }
 
+// Функция, печатающая стек на экран (никак не меняет стек).
+// На вход принимает указатель на голову стека.
 void printStack(Unit** head) {
     Unit* headCopy = *head;
 
