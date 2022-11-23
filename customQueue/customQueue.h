@@ -4,8 +4,7 @@
 
 // Структура, являющаяся базовым элементом очереди.
 // Хранит целое число и ссылку на следующий элемент в очереди
-typedef struct Unit
-{
+typedef struct Unit {
     int value;
     struct Unit* next;
 } Unit;
