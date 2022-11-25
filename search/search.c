@@ -143,11 +143,8 @@ bool testForSort(void) {
         }
     }
 
-    if (test1 && test2 && test3) {
-        return true;
-    } else {
-        return false;
-    }
+
+    return test1 && test2 && test3;
 }
 
 bool testForSearch(void) {
@@ -165,11 +162,7 @@ bool testForSearch(void) {
         test2 = false;
     }
 
-    if (test1 && test2) {
-        return true;
-    } else {
-        return false;
-    }
+    return test1 && test2;
 }
 
 int main(void) {
@@ -204,6 +197,7 @@ int main(void) {
 
     int* numbersForSearch = calloc(k, sizeof(int));
     if (numbersForSearch == NULL) {
+        free(randomArray);
         printf("Memory allocation problems\n");
         return -1;
     }
@@ -225,6 +219,9 @@ int main(void) {
             printf("There is NO number %d in the random array\n", numbersForSearch[i]);
         }
     }
+
+    free(randomArray);
+    free(numbersForSearch);
 
     return 0;
 }
