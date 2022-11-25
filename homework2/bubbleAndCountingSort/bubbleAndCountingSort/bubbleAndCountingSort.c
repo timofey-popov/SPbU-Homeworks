@@ -8,7 +8,7 @@
 // Сгенерировать массив размера wantedSize.
 void arrayGenerate(int* arrayToGen, int wantedSize) {
     for (int i = 0; i < wantedSize; ++i)
-        arrayToGen[i] = (rand() % 1000);
+        arrayToGen[i] = rand() % 1000;
 }
 
 // Функция для вывода массива на экран.
@@ -38,10 +38,15 @@ bool comparisonForTest(int* arrayForTest, int* referenceArray, size_t arraySize)
     return true;
 }
 
+typedef enum ErrorCodes {
+    bubble,
+    counting
+} ErrorCodes;
+
 // Функция с тестами.
 // Прогоняет тесты сначала для сортировки пузырьком, потом для сортировки подсчётом.
 // Возвращает true в случае, если всё работает правильно и false в противном случае.
-bool testForSorts(int* errorCode) {
+bool testForSorts(ErrorCodes* errorCode) {
     int testArraysForBubble[4][5] = { { 0, 0, 0, 0, 0 }, { 5, 5, 5, 4, 3 }, { 5, 4, 3, 2, 1 }, { 1, 2, 3, 4, 5 } };
     int referenceArrays[4][5] = { { 0, 0, 0, 0, 0 }, { 3, 4, 5, 5, 5 }, { 1, 2, 3, 4, 5 }, { 1, 2, 3, 4, 5 } };
 
@@ -49,7 +54,7 @@ bool testForSorts(int* errorCode) {
         bubbleSort(testArraysForBubble[i], 5);
 
         if (!comparisonForTest(testArraysForBubble[i], referenceArrays[i], 5)) {
-            *errorCode = 1;
+            *errorCode = bubble;
             return false;
         }
     }
@@ -60,7 +65,7 @@ bool testForSorts(int* errorCode) {
         countingSort(testArraysForCounting[i], 5);
 
         if (!comparisonForTest(testArraysForCounting[i], referenceArrays[i], 5)) {
-            *errorCode = 2;
+            *errorCode = counting;
             return false;
         }
     }
@@ -69,10 +74,10 @@ bool testForSorts(int* errorCode) {
 }
 
 int main(void) {
-    int testsErrorCode = 0;
+    ErrorCodes testsErrorCode = bubble;
 
     if (!testForSorts(&testsErrorCode)) {
-        printf("Tests %d failed.\n1 - bubble sort, 2 - counting sort\n", testsErrorCode);
+        printf(testsErrorCode == bubble ? "Bubble sort test failed\n" : "Counting sort test failed\n");
         return -1;
     } else {
         printf("*tests passed*\n");
