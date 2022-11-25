@@ -75,7 +75,7 @@ void newRecordCreate(int* counterOfRecords, PhonebookStruct* arrayForRecord) {
     printf("Enter the phone (no spaces, no more than 50 characters):\n");
     stringsInput(arrayForRecord[*counterOfRecords].phone, 51);
 
-    ++* counterOfRecords;
+    ++*counterOfRecords;
     printf("\nRecord created successfully.\n\n");
 }
 
@@ -102,7 +102,7 @@ bool search(PhonebookStruct* book, int counterOfRecords, int mode) {
 
     customFlush();
 
-    switch(mode) {
+    switch (mode) {
     case 1:
         printf("\nEnter the name:\n");
         stringsInput(stringForCompare, 51);
@@ -193,3 +193,6 @@ int main(void) {
 
     return 0;
 }
+
+// Тесты:
+// поиск, запись в файл, чтение из файла.
