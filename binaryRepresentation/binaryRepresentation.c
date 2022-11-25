@@ -23,7 +23,7 @@ int positiveExponentOfTwo(int exponent) {
 
 // Функция генерации допольнительного двоичного кода для двоичного числа с NUMBER_OF_DIGITS разрядами.
 // На вход принимает указатель на двоичное число и указатель на массив-число, в который нужно положить результат.
-void createAdditionalCode(int* binarySubtrahend, int* binaryResult) {
+void createComplimentaryCode(int* binarySubtrahend, int* binaryResult) {
     int binaryMinuend[NUMBER_OF_DIGITS + 1] = { 0 };
     binaryMinuend[0] = 1;
     int carryOutValue = 0;
@@ -59,7 +59,7 @@ void generateBinary(int decimal, int* arrayForBinary) {
         }
     } else {
         int bufferForAdditionalCode[NUMBER_OF_DIGITS] = { 0 };
-        createAdditionalCode(buffer, bufferForAdditionalCode);
+        createComplimentaryCode(buffer, bufferForAdditionalCode);
 
         for (int i = 0; i < NUMBER_OF_DIGITS; ++i) {
             arrayForBinary[i] = bufferForAdditionalCode[i];
