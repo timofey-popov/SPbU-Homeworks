@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include "sort.h"
+
 #include <stdbool.h>
 
 // Функция разделения массива на две части.
