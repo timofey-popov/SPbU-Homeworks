@@ -3,90 +3,104 @@
 #include <stdlib.h>
 #include "task1.h"
 
-// Тест для функций пуш и клир.
-bool testForPushAndClear(void) {
-    Unit* head = NULL;
-    Unit* tail = NULL;
-
-    int pushCorrectnessCheck = push(20, &head, &tail);
-
-    if (pushCorrectnessCheck) {
+// Тест для функций createList и deleteList.
+bool testForCreateAndDeleteList(void) {
+    int errorCode = 0;
+    DoublyLinkedList* testList = createDoublyLinkedList(&errorCode);
+    if (errorCode || testList == NULL) {
         return false;
     }
 
-    int clearCorrectnessCheck = clear(&tail);
-    if (clearCorrectnessCheck) {
-        return false;
-    }
-
-    clearCorrectnessCheck = clear(&tail);
-    if (!clearCorrectnessCheck) {
+    deleteList(testList, &errorCode);
+    if (errorCode) {
         return false;
     }
 
     return true;
 }
 
-// Тест для функции филл.
+// Тест для функций push, isSymmetrical и clear.
+// Сразу добавляем симметричные числа и проверяем, определяет ли это наша функция.
+bool testForPushIsSymmetricalAndClear(void) {
+    int errorCode = 0;
+    DoublyLinkedList* testList = createDoublyLinkedList(&errorCode);
+    if (errorCode || testList == NULL) {
+        return false;
+    }
+
+    pushToTail(20, testList, &errorCode);
+    if (errorCode) {
+        return false;
+    }
+
+    pushToTail(10, testList, &errorCode);
+
+    pushToTail(20, testList, &errorCode);
+
+    bool isSymmetricalCorrectnessCheck = isSymmetrical(testList, &errorCode);
+    if (errorCode || !isSymmetricalCorrectnessCheck) {
+        return false;
+    }
+
+    clear(testList, &errorCode);
+    if (errorCode) {
+        return false;
+    }
+
+    deleteList(testList, &errorCode);
+
+    return true;
+}
+
+// Тест для функции fill.
 bool testForFill(void) {
-    Unit* head = NULL;
-    Unit* tail = NULL;
+    int errorCode = 0;
+    DoublyLinkedList* testList = createDoublyLinkedList(&errorCode);
+    if (errorCode || testList == NULL) {
+        return false;
+    }
 
     FILE* testFile = fopen("testFileRightCase.txt", "r");
     if (testFile == NULL) {
-        printf("Cannot open the test file\n");
         return false;
     }
 
-    int fillCorrectnessCheck = fill(testFile, &head, &tail);
+    fill(testFile, testList, &errorCode);
+    if (errorCode) {
+        printf("%d\n", errorCode);
+        return false;
+    }
 
-    clear(&tail);
     fclose(testFile);
 
-    return !fillCorrectnessCheck;
+    clear(testList, &errorCode);
+    deleteList(testList, &errorCode);
+
+    return true;
 }
 
-// Тест для функции из симметрикал.
+// Тест для ответа "false" функции isSymmetrical.
 bool testForIsSymmetrical(void) {
-    int testErrorCode = 0;
-
-    Unit* head = NULL;
-    Unit* tail = NULL;
-
-    FILE* testRightFile = fopen("testFileRightCase.txt", "r");
-    if (testRightFile == NULL) {
-        printf("Cannot open the test file\n");
+    int errorCode = 0;
+    DoublyLinkedList* testList = createDoublyLinkedList(&errorCode);
+    if (errorCode || testList == NULL) {
         return false;
     }
-
-    fill(testRightFile, &head, &tail);
-
-    bool isCorrect = isSymmetrical(&head, &tail, &testErrorCode);
-
-    if (testErrorCode || !isCorrect) {
-        return false;
-    }
-
-    clear(&tail);
-    fclose(testRightFile);
 
     FILE* testWrongFile = fopen("testFileWrongCase.txt", "r");
     if (testWrongFile == NULL) {
-        printf("Cannot open the test file\n");
         return false;
     }
 
-    fill(testWrongFile, &head, &tail);
-
-    isCorrect = isSymmetrical(&head, &tail, &testErrorCode);
-
-    if (testErrorCode || isCorrect) {
+    fill(testWrongFile, testList, &errorCode);
+    if (isSymmetrical(testList, &errorCode) || errorCode) {
         return false;
     }
 
-    clear(&tail);
     fclose(testWrongFile);
 
-    return true;
+    clear(testList, &errorCode);
+    deleteList(testList, &errorCode);
 
+    return true;
 }

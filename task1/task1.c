@@ -3,84 +3,107 @@
 #include <stdlib.h>
 #include "tests.h"
 
-
-// Структура для двусвязного списка.
-typedef struct Unit {
+// Структура для элементов двусвязного списка.
+typedef struct ListElement {
     int value;
-    struct Unit* next;
-    struct Unit* prev;
-} Unit;
+    struct ListElement* next;
+    struct ListElement* prev;
+} ListElement;
 
-// Функция, добавляющая элемент в конец списка.
-// Возвращает 0, если всё прошло успешно и 1 в противном случае.
-int push(int value, Unit** head, Unit** tail) {
-    Unit* newElement = malloc(sizeof(Unit));
-    if (newElement == NULL) {
-        printf("Memory allocation problem\n");
-        return 1;
+// АТД "двусвязный список".
+typedef struct DoublyLinkedList {
+    ListElement* head;
+    ListElement* tail;
+} DoublyLinkedList;
+
+// Создать двусвязный список.
+// На вход принимает указатель на код ошибки, возвращает указатель на созданный список.
+DoublyLinkedList* createDoublyLinkedList(int* errorCode) {
+    DoublyLinkedList* newList = malloc(sizeof(DoublyLinkedList));
+    if (newList == NULL) {
+        *errorCode = 1;
+        return NULL;
     }
 
-    if (*tail == NULL) {
-        *head = newElement;
-        *tail = newElement;
+    newList->head = NULL;
+    newList->tail = NULL;
+
+    return newList;
+}
+
+// Добавить элемент в конец списка.
+// Возвращает 0, если всё прошло успешно и 1 в противном случае.
+void pushToTail(int value, DoublyLinkedList* list, int* errorCode) {
+    ListElement* newElement = malloc(sizeof(ListElement));
+    if (newElement == NULL) {
+        *errorCode = 2;
+        return;
+    }
+
+    if (list->head == NULL) {
+        list->head = newElement;
+        list->tail = newElement;
         newElement->prev = NULL;
     } else {
-        (*tail)->next = newElement;
-        newElement->prev = *tail;
+        list->tail->next = newElement;
+        newElement->prev = list->tail;
     }
 
     newElement->value = value;
     newElement->next = NULL;
 
-    *tail = newElement;
+    list->tail = newElement;
     return 0;
 }
 
 // Функция, полностью очищающая список.
-int clear(Unit** tail) {
-    if (*tail == NULL) {
-        printf("Empty list clear attempt\n");
-        return 1;
+void clear(DoublyLinkedList* list, int* errorCode) {
+    if (list->tail == NULL) {
+        *errorCode = 3;
+        return;
     }
 
     while (true) {
-        Unit* temporary = *tail;
-        (*tail) = (*tail)->prev;
+        ListElement* temporary = list->tail;
+        list->tail = list->tail->prev;
         free(temporary);
-        if (*tail == NULL) {
-            return 0;
+        if (list->tail == NULL) {
+            return;
         }
     }
 }
 
-// Функция, заполняющая список значениями из файла.
-int fill(FILE* file, Unit** head, Unit** tail) {
+// Функция, заполняющая список с начала значениями из файла с помощью функции push.
+void fill(FILE* file, DoublyLinkedList* list, int* errorCode) {
+    if (list == NULL) {
+        *errorCode = 4;
+        return;
+    }
+
     int value = 0;
     int correctnessCheck = fscanf(file, "%d", &value);
 
     while (correctnessCheck != EOF) {
-        push(value, head, tail);
+        pushToTail(value, list, errorCode);
         correctnessCheck = fscanf(file, "%d", &value);
     }
-
-    fclose(file);
-    return 0;
+    
+    return;
 }
 
-// Функция проверки на симметричность.
-bool isSymmetrical(Unit** head, Unit** tail, int* errorCode) {
-    if (*head == NULL) {
-        printf("List is empty\n");
-        *errorCode = 1;
+// Функция проверки списка на симметричность.
+bool isSymmetrical(DoublyLinkedList* list, int* errorCode) {
+    if (list->tail == NULL) {
+        *errorCode = 5;
         return false;
     }
 
-    if (*head == *tail) {
+    if (list->head == list->tail) {
         return true;
     }
 
-    Unit* left = *head;
-    Unit* right = *tail;
+    ListElement* left = list->head;
+    ListElement* right = list->tail;
 
     while (left != right) {
         if (left->value != right->value) {
@@ -94,45 +117,16 @@ bool isSymmetrical(Unit** head, Unit** tail, int* errorCode) {
     return true;
 }
 
-int main(void) {
-    if (!testForPushAndClear() || !testForFill() || !testForIsSymmetrical()) {
-        printf("Tests failed.\n");
-        return -1;
-    } else {
-        printf("*tests passed*\n");
-        printf("------------------\n\n");
+// Функция удаления списка.
+void deleteList(DoublyLinkedList* list, int* errorCode) {
+    if (list == NULL) {
+        *errorCode = 6;
+        return false;
     }
 
-    int errorCode = 0;
-
-    Unit* head = NULL;
-    Unit* tail = NULL;
-
-    FILE* file = fopen("file.txt", "r");
-    if (file == NULL) {
-        printf("Cannot open the file\n");
-        return -1;
+    if (list->tail != NULL) {
+        clear(list, errorCode);
     }
 
-    errorCode = fill(file, &head, &tail);
-    if (errorCode) {
-        printf("Unable to fill\n");
-        return -1;
-    }
-
-    bool result = isSymmetrical(&head, &tail, &errorCode);
-    if (errorCode) {
-        printf("Something wrong with isSymmetrical\n");
-        return -1;
-    }
-
-    if (result) {
-        printf("This list is symmetrical\n");
-    } else {
-        printf("This list is not symmetrical\n");
-    }
-
-    clear(&tail);
-
-    return 0;
+    free(list);
 }

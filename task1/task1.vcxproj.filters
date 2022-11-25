@@ -21,6 +21,9 @@
     <ClCompile Include="tests.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="task1Main.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="task1.h">

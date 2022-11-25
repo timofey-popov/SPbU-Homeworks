@@ -1,10 +1,16 @@
 #pragma once
 
-// Тест для функций пуш и клир.
-bool testForPushAndClear(void);
+#include <stdbool.h>
 
-// Тест для функции филл.
+// Тест для функций createList и deleteList.
+bool testForCreateAndDeleteList(void);
+
+// Тест для функций push, isSymmetrical и clear.
+// Сразу добавляем симметричные числа и проверяем, определяет ли это наша функция.
+bool testForPushIsSymmetricalAndClear(void);
+
+// Тест для функции fill.
 bool testForFill(void);
 
-// Тест для функции из симметрикал.
+// Тест для ответа "false" функции isSymmetrical.
 bool testForIsSymmetrical(void);
