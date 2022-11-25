@@ -37,11 +37,11 @@ int mostFrequentElement(int* arrayToOperate, size_t arraySize) {
 
 // Функция-тест
 bool test(void) {
-    int testArray1[] = { 1, 2, 3, 4, 4, 5 };
+    int testArray1[] = { 1, 2, 2, 3, 3, 3 };
     int testArray2[] = { 0, 0, 0, 0, 0, 0 };
     int testArray3[] = { 1, 2, 3, 4, 5, 6 };
 
-    return (mostFrequentElement(testArray1, 6) == 4 && mostFrequentElement(testArray2, 6) == 0 && mostFrequentElement(testArray3, 6) == 1);
+    return (mostFrequentElement(testArray1, 6) == 3 && mostFrequentElement(testArray2, 6) == 0 && mostFrequentElement(testArray3, 6) == 1);
 }
 
 int main(void) {
