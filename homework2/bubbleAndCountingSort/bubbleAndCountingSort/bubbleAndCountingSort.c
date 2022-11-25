@@ -5,6 +5,11 @@
 #include "../bubbleSort/bubbleSort.h"
 #include "../countingSort/countingSort.h"
 
+typedef enum ErrorCodes {
+    bubble,
+    counting
+} ErrorCodes;
+
 // Сгенерировать массив размера wantedSize.
 void arrayGenerate(int* arrayToGen, int wantedSize) {
     for (int i = 0; i < wantedSize; ++i)
@@ -37,11 +42,6 @@ bool comparisonForTest(int* arrayForTest, int* referenceArray, size_t arraySize)
     
     return true;
 }
-
-typedef enum ErrorCodes {
-    bubble,
-    counting
-} ErrorCodes;
 
 // Функция с тестами.
 // Прогоняет тесты сначала для сортировки пузырьком, потом для сортировки подсчётом.
