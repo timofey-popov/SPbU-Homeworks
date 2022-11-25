@@ -26,25 +26,29 @@ int partition(int* arrayToSort, int leftElementNumber, int rightElementNumber) {
     return i;
 }
 
+// Функция сортировки вставками.
+// На вход принимает указатель на сортируемый массив и номера левого и правого элементов массива.
+void insertionSort(int* arrayToSort, int leftElementNumber, int rightElementNumber) {
+    for (int i = leftElementNumber + 1; i < rightElementNumber + 1; ++i) {
+        int k = i;
+        while (k > leftElementNumber && arrayToSort[k] < arrayToSort[k - 1]) {
+            int temporary = arrayToSort[k];
+            arrayToSort[k] = arrayToSort[k - 1];
+            arrayToSort[k - 1] = temporary;
+
+            k--;
+        }
+    }
+}
+
 // Рекурсивная функция быстрой сортировки.
 // Вызывает себя от начала до индекса, возвращаемого функцией разделения, - 1, и от индекса + 1 до конца массива.
 // Сам элемент с индексом, возвращённым функцией разделения, оставляет на месте.
 // Если элементов в массиве меньше 10, функция сортирует их обычными вставками.
 void quickSort(int* arrayToSort, int leftElementNumber, int rightElementNumber) {
     if ((rightElementNumber - leftElementNumber + 1) < 10) {
-        for (int i = leftElementNumber + 1; i < rightElementNumber + 1; ++i) {
-            int k = i;
-            while (k > leftElementNumber && arrayToSort[k] < arrayToSort[k - 1]) {
-                int temporary = arrayToSort[k];
-                arrayToSort[k] = arrayToSort[k - 1];
-                arrayToSort[k - 1] = temporary;
-
-                k--;
-            }
-        }
-    }
-
-    else if (leftElementNumber < rightElementNumber) {
+        insertionSort(arrayToSort, leftElementNumber, rightElementNumber);
+    } else if (leftElementNumber < rightElementNumber) {
         int separator = partition(arrayToSort, leftElementNumber, rightElementNumber);
         quickSort(arrayToSort, leftElementNumber, separator - 1);
         quickSort(arrayToSort, separator + 1, rightElementNumber);
@@ -119,7 +123,7 @@ int main(void) {
         return -1;
     }
 
-    int arrayToSort[] = { 5, 2, 2, 5, 3, 4, 6, 1, 2, 1, 10, 16, 10, 3, 4, 121 };
+    int arrayToSort[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
     size_t sizeOfArray = sizeof(arrayToSort) / sizeof(int);
 
     quickSort(arrayToSort, 0, sizeOfArray - 1);
