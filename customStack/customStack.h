@@ -50,12 +50,12 @@ Value pop(Stack* stack, ErrorCodes* errorCode);
 void clear(Stack* stack, ErrorCodes* errorCode);
 
 // Возвращает true, если стек пуст, и false в противном случае.
-// Если в качестве указателя на стек передан NULL, возвращает false и меняет код ошибки на 1.
+// Если в качестве указателя на стек передан NULL, возвращает false и меняет код ошибки на 7.
 bool isEmpty(Stack* stack, ErrorCodes* errorCode);
 
 // Удалить указанный стек.
 void deleteStack(Stack* stack, ErrorCodes* errorCode);
 
 // Печатает все значения в стеке как целые числа, начиная от головы.
-// Если на вход передан NULL, печатает предупреждение в консоль и меняет код ошибки на 1.
+// Если на вход передан NULL, печатает предупреждение в консоль и меняет код ошибки на 9.
 void printStack(Stack* stack, ErrorCodes* errorCode);
