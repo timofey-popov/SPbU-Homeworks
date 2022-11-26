@@ -3,103 +3,126 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-// Функция для добавления элемента в конец очереди.
-// На вход принимает значение для добавления, указатели на голову и хвост очереди и указатель на переменную с кодом ошибки.
-void enqueue(int value, Unit** head, Unit** tail, int* errorCode) {
-    Unit* newElement = malloc(sizeof(Unit));
-    if (newElement == NULL) {
-        *errorCode = 1;
-        printf("Memory allocation problem.\n");
+// Структура, являющаяся базовым элементом очереди.
+// Хранит целое число и ссылку на следующий (ближе к концу очереди) элемент.
+typedef struct QueueElement {
+    Value value;
+    struct QueueElement* next;
+} QueueElement;
+
+// Абстрактный тип данных "очередь".
+// Хранит два указателя - на начало и на конец очереди.
+typedef struct Queue {
+    QueueElement* head;
+    QueueElement* tail;
+} Queue;
+
+// Создаёт пустую очередь.
+// На вход принимает указатель на переменную с кодом ошибки.
+// Возвращает указатель на очередь, если всё прошло нормально, в противном случае возвращает NULL и меняет код ошибки на 1.
+Queue* createQueue(ErrorCodes* errorCode) {
+    Queue* newQueue = malloc(sizeof(Queue));
+
+    if (newQueue == NULL) {
+        *errorCode = createQueueMemoryError;
+        return NULL;
+    }
+
+    newQueue->head = NULL;
+    newQueue->tail = NULL;
+
+    return newQueue;
+}
+
+// Добавляет элемент в конец очереди.
+// На вход принимает добавляемое значение, указатель на очередь и указатель на переменную с кодом ошибки.
+void enqueue(Value value, Queue* queue, ErrorCodes* errorCode) {
+    if (queue == NULL) {
+        *errorCode = enqueueGotNullPointer;
         return;
     }
 
-    if (*head == NULL) {
-        *head = newElement;
+    QueueElement* newElement = malloc(sizeof(QueueElement));
+    if (newElement == NULL) {
+        *errorCode = enqueueMemoryError;
+        return;
+    }
+
+    if (queue->head == NULL) {
+        queue->head = newElement;
     } else {
-        (*tail)->next = newElement;
+        queue->tail->next = newElement;
     }
 
     newElement->value = value;
     newElement->next = NULL;
 
-    *tail = newElement;
-
-    printf("%d enqueued.\n", value);
+    queue->tail = newElement;
 }
 
-// Функция для удаелния элемента из начала очереди.
-// На вход принимает указатели на хвост, голову очереди и на переменную с кодом ошибки.
-// Возвращает значение, которое было в удалённом элементе очереди.
-int dequeue(Unit** head, Unit** tail, int* errorCode) {
-    if (*head == NULL) {
-        *errorCode = 1;
-        printf("Zero element dequeue attempt.\n");
-        return -1;
+// Удаляет элемент из начала очереди и возвращает значение, которое в нём лежало.
+// На вход принимает указатель на очередь и указатель на переменную с кодом ошибки.
+Value dequeue(Queue* queue, ErrorCodes* errorCode) {
+    if (queue == NULL) {
+        *errorCode = dequeueGotNullPointer;
+        return NULL;
     }
 
-    int valueToReturn = 0;
+    if (queue->head == NULL) {
+        *errorCode = dequeueQueueHasNoElemens;
+        return NULL;
+    }
 
-    if (*head == *tail) {
-        valueToReturn = (*head)->value;
-        free(*head);
-        *head = NULL;
-        *tail = NULL;
+    Value valueToReturn = 0;
 
-        printf("Element dequeued successfully. This element was %d.\n", valueToReturn);
+    if (queue->head == queue->tail) {
+        valueToReturn = queue->head->value;
+        free(queue->head);
+        queue->head = NULL;
+        queue->tail = NULL;
+
         return valueToReturn;
     }
 
-    valueToReturn = (*head)->value;
-    Unit* tempAddress = (*head)->next;
-    free(*head);
-    *head = tempAddress;
+    valueToReturn = queue->head->value;
+    QueueElement* temporaryAddress = queue->head->next;
+    free(queue->head);
+    queue->head = temporaryAddress;
 
-    printf("Element dequeued successfully. This element was %d.\n", valueToReturn);
     return valueToReturn;
 }
 
-// Функция для очистки очереди.
-// На вход принимает указатели на хвост, голову очереди и на переменную с кодом ошибки.
-void clear(Unit** head, Unit** tail, int* errorCode) {
-    while (*head != NULL && *tail != NULL) {
-        dequeue(head, tail, errorCode);
+// Удаляет все элементы из очереди, никуда их не сохраняя.
+// На вход принимает указатель на очередь и указатель на переменную с кодом ошибки.
+void clear(Queue* queue, ErrorCodes* errorCode) {
+    if (queue == NULL) {
+        *errorCode = clearGotNullPointer;
+        return;
     }
 
-    printf("Queue is empty now.\n");
+    while (queue->head != NULL) {
+        dequeue(queue, errorCode);
+    }
 }
 
-// Функция-проверка очереди на пустоту.
-// Возвращает true, если очередь пуста, и false в обратном случае.
-bool isEmpty(Unit** head) {
-    return *head == NULL;
+// Возвращает true, если очередь пуста, и false в противном случае.
+// Если в качестве указателя на очередь передан NULL, возвращает false и меняет код ошибки на 7.
+bool isEmpty(Queue* queue, ErrorCodes* errorCode) {
+    if (queue == NULL) {
+        *errorCode = isEmptyGotNullPointer;
+        return NULL;
+    }
+
+    return queue->head == NULL;
+}
+// Удалить указанную очередь.
+void deleteQueue(Queue* queue, ErrorCodes* errorCode) {
+    if (queue == NULL) {
+        *errorCode = deleteQueueGotNullPointer;
+        return;
+    }
+
+    clear(queue, errorCode);
+    free(queue);
 }
 
-int main(void) {
-    int errorCode = 0;
-    Unit* head = NULL;
-    Unit* tail = NULL;
-
-    enqueue(5, &head, &tail, &errorCode);
-    if (errorCode) {
-        return -1;
-    }
-
-    dequeue(&head, &tail, &errorCode);
-    if (errorCode) {
-        return -1;
-    }
-
-    enqueue(100, &head, &tail, &errorCode);
-    if (errorCode) {
-        return -1;
-    }
-
-    clear(&head, &tail, &errorCode);
-
-    enqueue(100, &head, &tail, &errorCode);
-    if (errorCode) {
-        return -1;
-    }
-
-    return 0;
-}
