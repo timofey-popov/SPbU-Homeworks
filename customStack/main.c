@@ -1,7 +1,16 @@
 #include <stdio.h>
 #include "customStack.h"
+#include "tests.h"
 
 int main(void) {
+    if (!testForCreateAndDeleteStack() || !testForPushAndPop() || !testForClearAndIsEmpty()) {
+        printf("Tests failed.\n");
+        return -1;
+    }
+    else {
+        printf("*tests passed*\n\n");
+    }
+
     ErrorCodes errorCode = noErrors;
 
     Stack* newStack = createStack(&errorCode);

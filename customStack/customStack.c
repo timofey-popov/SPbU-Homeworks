@@ -1,7 +1,8 @@
-﻿#include <stdlib.h>
+﻿#include "customStack.h"
+
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "customStack.h"
 
 // Структура для единицы стека.
 // Содержит два поля: значение и указатель на предыдущую единицу стека.
