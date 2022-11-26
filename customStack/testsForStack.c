@@ -1,4 +1,4 @@
-#include "tests.h"
+#include "testsForStack.h"
 
 #include <stdlib.h>
 
