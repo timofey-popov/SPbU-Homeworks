@@ -16,10 +16,10 @@ typedef enum ErrorCodes {
     popFromHeadGotEmptyList,
     popFromTailGotNullPointer,
     popFromTailGotEmptyList,
+    popNthElementGotNullPointer,
+    popNthElementGotEmptyList,
     getNthValueGotNullPointer,
-    getNthValueGotEmptyList,
-
-
+    getNthValueGotEmptyList
 } ErrorCodes;
 
 // Тип данных, хранящихся в списке. Если нужно его поменять - меняй здесь.

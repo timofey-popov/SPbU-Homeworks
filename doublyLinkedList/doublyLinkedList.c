@@ -211,7 +211,17 @@ Value getNthValue(LinkedList* list, int n, ErrorCodes* errorCode) {
 }
 
 int main(void) {
+    ErrorCodes errorCode = noErrors;
 
+    LinkedList* myList = createLinkedList(&errorCode);
+    if (errorCode) {
+        return errorCode;
+    }
+
+    pushToTail(10, myList, &errorCode);
+    if (errorCode) {
+        return errorCode;
+    }
 
 
     return 0;
