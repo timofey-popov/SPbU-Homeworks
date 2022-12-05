@@ -1,6 +1,7 @@
 #include "testsForList.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 bool testForCreateAndDeleteList(void) {
     ErrorCodes errorCode = noErrors;
@@ -48,41 +49,43 @@ bool testForPushesAndPops(void) {
         return false;
     }
 
-    // -20
+
     pushToHead(-20, testList, error);
     if (errorCode) {
         return false;
     }
+    // -20
 
-    // 300, -20
+
     pushToTail(300, testList, error);
     if (errorCode) {
         return false;
     }
+    // -20, 300
 
-    // 300, -20, 90
     pushToHead(90, testList, error);
     if (errorCode) {
         return false;
     }
+    // 90, -20, 300
 
-    // -2500, 300, -20, 90
     pushToTail(-2500, testList, error);
     if (errorCode) {
         return false;
     }
+    // 90, -20, 300, -2500
 
     testValue = popFromHead(testList, error);
     if (errorCode || testValue != 90) {
         return false;
     }
-    // -2500, 300, -20
+    // -20, 300, -2500
 
     testValue = popFromHead(testList, error);
     if (errorCode || testValue != -20) {
         return false;
     }
-    // -2500, 300
+    // 300, -2500
 
     testValue = popFromTail(testList, error);
     if (errorCode || testValue != -2500) {
@@ -99,6 +102,8 @@ bool testForPushesAndPops(void) {
     if (errorCode) {
         return false;
     }
+
+    return true;
 }
 
 bool testForRemainingFunctions(void) {
@@ -122,48 +127,47 @@ bool testForRemainingFunctions(void) {
 
     pushToHead(30, testList, error);
     pushToHead(50, testList, error);
-    // 10, 30, 50
+    // 50, 30, 10
 
     testValue = getNthValue(testList, 1, error);
-    if (errorCode || testValue != 10) {
-        return false;
-    }
-
-    testValue = getNthValue(testList, 3, error);
     if (errorCode || testValue != 50) {
         return false;
     }
 
-    insertNthElement(100, 3, testList, error);
-    // 10, 30, 100, 50
-
-    if (errorCode || getNthValue(testList, 3, error) != 100 || getNthValue(testList, 4, error) != 50) {
+    testValue = getNthValue(testList, 3, error);
+    if (errorCode || testValue != 10) {
         return false;
     }
+
+    insertNthElement(100, 3, testList, error);
+    if (errorCode || getNthValue(testList, 3, error) != 100 || getNthValue(testList, 4, error) != 10) {
+        return false;
+    }
+    // 50, 30, 100, 10
 
     insertNthElement(200, 1, testList, error);
     if (errorCode) {
         return false;
     }
-    // 200, 10, 30, 100, 50
+    // 200, 50, 30, 100, 10
 
     testValue = popNthElement(testList, 1, error);
-    if (errorCode || testValue != 200 || getNthValue(testList, 1, error) != 10) {
+    if (errorCode || testValue != 200 || getNthValue(testList, 1, error) != 50) {
         return false;
     }
-    // 10, 30, 100, 50
+    // 50, 30, 100, 10
 
     testValue = popNthElement(testList, 4, error);
-    if (errorCode || testValue != 50 || getNthValue(testList, 3, error) != 100) {
+    if (errorCode || testValue != 10 || getNthValue(testList, 3, error) != 100) {
         return false;
     }
-    // 10, 30, 100
+    // 50, 30, 100
 
     testValue = popNthElement(testList, 2, error);
-    if (errorCode || testValue != 30 || getNthValue(testList, 1, error) != 10) {
+    if (errorCode || testValue != 30 || getNthValue(testList, 1, error) != 50) {
         return false;
     }
-    // 10, 100
+    // 50, 100
 
     clearList(testList, error);
     if (errorCode) {
@@ -179,6 +183,11 @@ bool testForRemainingFunctions(void) {
 
     check = isEmpty(testList, error);
     if (check || errorCode) {
+        return false;
+    }
+
+    deleteLinkedList(testList, error);
+    if (errorCode) {
         return false;
     }
 

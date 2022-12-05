@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 // Коды ошибок:
 // 
 typedef enum ErrorCodes {
@@ -17,9 +19,10 @@ typedef enum ErrorCodes {
     popFromTailGotNullPointer,
     popFromTailGotEmptyList,
     popNthElementGotNullPointer,
-    popNthElementGotEmptyList,
     getNthValueGotNullPointer,
-    getNthValueGotEmptyList
+    isEmptyGotNullPointer,
+    clearListGotNullPointer,
+    deleteListGotNullPointer
 } ErrorCodes;
 
 // Тип данных, хранящихся в списке. Если нужно его поменять - меняй здесь.
@@ -56,3 +59,13 @@ Value popNthElement(LinkedList* list, int n, ErrorCodes* errorCode);
 // Получить значение n-того элемента в списке (нумерация от 1), не удаляя этот элемент.
 // Возвращает значение, которое лежит в этом элементе.
 Value getNthValue(LinkedList* list, int n, ErrorCodes* errorCode);
+
+// Проверить список на пустоту.
+bool isEmpty(LinkedList* list, ErrorCodes* errorCode);
+
+// Удалить все элементы из списка, но не удалять список.
+// Нигде не сохраняет удаляемые значения.
+void clearList(LinkedList* list, ErrorCodes* errorCode);
+
+// Удалить список.
+void deleteLinkedList(LinkedList* list, ErrorCodes* errorCode);
