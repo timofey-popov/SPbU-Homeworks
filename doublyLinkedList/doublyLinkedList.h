@@ -3,7 +3,6 @@
 #include <stdbool.h>
 
 // Коды ошибок:
-// 
 typedef enum ErrorCodes {
     noErrors,
     createListMemoryError,

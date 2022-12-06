@@ -1,9 +1,7 @@
 ﻿#include "doublyLinkedList.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "testsForList.h"
+#include <stdlib.h>
 
 // Структура для элементов списка.
 // Поля: значение, указатели на предыдущий и следующий элементы.
@@ -182,7 +180,7 @@ Value popFromHead(LinkedList* list, ErrorCodes* errorCode) {
 Value popFromTail(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
         *errorCode = popFromTailGotNullPointer;
-        return;
+        return NULL;
     }
 
     if (list->size == 0) {
@@ -247,7 +245,7 @@ Value popNthElement(LinkedList* list, int n, ErrorCodes* errorCode) {
 Value getNthValue(LinkedList* list, int n, ErrorCodes* errorCode) {
     if (list == NULL) {
         *errorCode = getNthValueGotNullPointer;
-        return;
+        return NULL;
     }
 
     if (list->size == 0 || n > list->size || n < 1) {
@@ -286,38 +284,4 @@ void deleteLinkedList(LinkedList* list, ErrorCodes* errorCode) {
 
     clearList(list, errorCode);
     free(list);
-}
-
-int main(void) {
-    if (!testForCreateAndDeleteList() || !testForPushesAndPops() || !testForRemainingFunctions()) {
-        printf("Tests failed with following output: %d, %d, %d\n", testForCreateAndDeleteList(), testForPushesAndPops(), testForRemainingFunctions());
-        return -1;
-    }
-    else {
-        printf("*test passed*\n\n");
-    }
-
-    ErrorCodes errorCode = noErrors;
-
-    LinkedList* myList = createLinkedList(&errorCode);
-    if (errorCode) {
-        return errorCode;
-    }
-
-    pushToTail(10, myList, &errorCode);
-    if (errorCode) {
-        return errorCode;
-    }
-
-    printf("%d\n", getNthValue(myList, 1, &errorCode));
-    if (errorCode) {
-        return errorCode;
-    }
-
-    deleteLinkedList(myList, &errorCode);
-    if (errorCode) {
-        return errorCode;
-    }
-
-    return 0;
 }

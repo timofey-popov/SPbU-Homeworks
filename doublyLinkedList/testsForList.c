@@ -1,7 +1,6 @@
 #include "testsForList.h"
 
 #include <stdlib.h>
-#include <stdio.h>
 
 bool testForCreateAndDeleteList(void) {
     ErrorCodes errorCode = noErrors;
