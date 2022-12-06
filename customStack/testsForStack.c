@@ -5,10 +5,9 @@
 bool testForCreateAndDeleteStack(void) {
     ErrorCodes errorCode = noErrors;
 
-    Stack* testStack = NULL;
-
-    testStack = createStack(&errorCode);
+    Stack* testStack = createStack(&errorCode);
     if (testStack == NULL || errorCode) {
+        deleteStack(testStack, &errorCode);
         return false;
     }
 
@@ -17,6 +16,8 @@ bool testForCreateAndDeleteStack(void) {
         return false;
     }
 
+    // «десь и далее: намеренно не сокращаю код до "return !errorCode;", потому что хочу сохран€ть логику изложени€:
+    // ѕроверка - если плохо - false, проверка - если плохо - false, а в конце, если всЄ хорошо - true.
     return true;
 }
 
@@ -30,11 +31,13 @@ bool testForPushAndPop(void) {
 
     push(10, testStack, &errorCode);
     if (errorCode) {
+        deleteStack(testStack, &errorCode);
         return false;
     }
 
     Value testValue = pop(testStack, &errorCode);
     if (errorCode || testValue != 10) {
+        deleteStack(testStack, &errorCode);
         return false;
     }
 
@@ -56,6 +59,7 @@ bool testForClearAndIsEmpty(void) {
 
     bool emptynessTest1 = isEmpty(testStack, &errorCode);
     if (errorCode) {
+        deleteStack(testStack, &errorCode);
         return false;
     }
 
@@ -64,19 +68,23 @@ bool testForClearAndIsEmpty(void) {
 
     bool emptynessTest2 = isEmpty(testStack, &errorCode);
     if (errorCode) {
+        deleteStack(testStack, &errorCode);
         return false;
     }
 
     clear(testStack, &errorCode);
     if (errorCode) {
+        deleteStack(testStack, &errorCode);
         return false;
     }
 
     bool emptynessTest3 = isEmpty(testStack, &errorCode);
 
     if (errorCode || !emptynessTest1 || emptynessTest2 || !emptynessTest3) {
+        deleteStack(testStack, &errorCode);
         return false;
     }
 
+    deleteStack(testStack, &errorCode);
     return true;
 }

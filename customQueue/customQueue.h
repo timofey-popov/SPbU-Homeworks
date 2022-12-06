@@ -4,24 +4,14 @@
 
 // Коды ошибок:
 // 0 - нет ошибок.
-// 1 - ошибка выделения памяти под новую очередь (createQueue).
-// 2 - в качестве указателя на очередь передан NULL (enqueue).
-// 3 - ошибка выделения памяти под новый элемент очереди (enqueue).
-// 4 - в качестве указателя на очередь передан NULL (dequeue).
-// 5 - в очереди нет элеменетов для dequeue (dequeue).
-// 6 - в качестве указателя на очередь передан NULL (clear).
-// 7 - в качестве указателя на очередь передан NULL (isEmpty).
-// 8 - в качестве указателя на очередь передан NULL (deleteQueue).
+// 1 - ошибка выделения памяти.
+// 2 - в качестве указателя на очередь передан NULL.
+// 3 - в очереди нет элементов.
 typedef enum ErrorCodes {
     noErrors,
-    createQueueMemoryError,
-    enqueueGotNullPointer,
-    enqueueMemoryError,
-    dequeueGotNullPointer,
-    dequeueQueueHasNoElemens,
-    clearGotNullPointer,
-    isEmptyGotNullPointer,
-    deleteQueueGotNullPointer
+    memoryAllocationError,
+    nullPointerReceived,
+    noElemensInQueue
 } ErrorCodes;
 
 // Тип данных для хранения в очереди.
@@ -33,7 +23,8 @@ typedef struct Queue Queue;
 
 // Создаёт пустую очередь.
 // На вход принимает указатель на переменную с кодом ошибки.
-// Возвращает указатель на очередь, если всё прошло нормально, в противном случае возвращает NULL и меняет код ошибки.
+// Возвращает указатель на очередь, если всё прошло нормально, в противном случае возвращает NULL.
+// В случае ошибки очередь не создаётся, удалять её не нужно.
 Queue* createQueue(ErrorCodes* errorCode);
 
 // Добавляет элемент в конец очереди.
