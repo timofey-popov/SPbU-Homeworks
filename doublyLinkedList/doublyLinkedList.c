@@ -161,18 +161,18 @@ Value popFromHead(LinkedList* list, ErrorCodes* errorCode) {
         return NULL;
     }
 
-    if (list->size == 1) {
-        list->tail = NULL;
-    }
-    else {
-        list->head->next->prev = NULL;
-    }
-
     Value valueToReturn = list->head->value;
     ListElement* temporary = list->head->next;
 
     free(list->head);
     list->head = temporary;
+
+    if (list->size == 1) {
+        list->tail = NULL;
+    }
+    else {
+        list->head->prev = NULL;
+    }
 
     list->size -= 1;
 
@@ -191,13 +191,16 @@ Value popFromTail(LinkedList* list, ErrorCodes* errorCode) {
     }
 
     Value valueToReturn = list->tail->value;
-
     ListElement* temporary = list->tail->prev;
+
     free(list->tail);
     list->tail = temporary;
 
     if (list->size == 1) {
         list->head = NULL;
+    }
+    else {
+        list->tail->next = NULL;
     }
 
     list->size -= 1;
@@ -220,26 +223,21 @@ Value popNthElement(LinkedList* list, int n, ErrorCodes* errorCode) {
 
     Value valueToReturn = currentNthElement->value;
 
-    if (n != 1) {
-        currentNthElement->prev->next = currentNthElement->next;
-    }
-    else {
+    if (n == 1) {
         list->head = currentNthElement->next;
     }
+    else {
+        currentNthElement->prev->next = currentNthElement->next;
+    }
 
-    if (n != list->size) {
-        currentNthElement->next->prev = currentNthElement->prev;
+    if (n == list->size) {
+        list->tail = currentNthElement->prev;
     }
     else {
-        list->tail = currentNthElement->prev;
+        currentNthElement->next->prev = currentNthElement->prev;
     }
 
     free(currentNthElement);
-
-    if (list->head == list->tail) {
-        list->head = NULL;
-        list->tail = NULL;
-    }
 
     list->size -= 1;
 
@@ -292,7 +290,7 @@ void deleteLinkedList(LinkedList* list, ErrorCodes* errorCode) {
 
 int main(void) {
     if (!testForCreateAndDeleteList() || !testForPushesAndPops() || !testForRemainingFunctions()) {
-        printf("tests: %d, %d, %d\n", testForCreateAndDeleteList(), testForPushesAndPops(), testForRemainingFunctions());
+        printf("Tests failed with following output: %d, %d, %d\n", testForCreateAndDeleteList(), testForPushesAndPops(), testForRemainingFunctions());
         return -1;
     }
     else {
