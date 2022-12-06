@@ -17,9 +17,6 @@ typedef struct Queue {
     QueueElement* tail;
 } Queue;
 
-// Создаёт пустую очередь.
-// На вход принимает указатель на переменную с кодом ошибки.
-// Возвращает указатель на очередь, если всё прошло нормально, в противном случае возвращает NULL и меняет код ошибки на 1.
 Queue* createQueue(ErrorCodes* errorCode) {
     Queue* newQueue = malloc(sizeof(Queue));
 
@@ -34,8 +31,6 @@ Queue* createQueue(ErrorCodes* errorCode) {
     return newQueue;
 }
 
-// Добавляет элемент в конец очереди.
-// На вход принимает добавляемое значение, указатель на очередь и указатель на переменную с кодом ошибки.
 void enqueue(Value value, Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
         *errorCode = enqueueGotNullPointer;
@@ -60,17 +55,15 @@ void enqueue(Value value, Queue* queue, ErrorCodes* errorCode) {
     queue->tail = newElement;
 }
 
-// Удаляет элемент из начала очереди и возвращает значение, которое в нём лежало.
-// На вход принимает указатель на очередь и указатель на переменную с кодом ошибки.
 Value dequeue(Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
         *errorCode = dequeueGotNullPointer;
-        return NULL;
+        return -1;
     }
 
     if (queue->head == NULL) {
         *errorCode = dequeueQueueHasNoElemens;
-        return NULL;
+        return -1;
     }
 
     Value valueToReturn = 0;
@@ -92,8 +85,6 @@ Value dequeue(Queue* queue, ErrorCodes* errorCode) {
     return valueToReturn;
 }
 
-// Удаляет все элементы из очереди, никуда их не сохраняя.
-// На вход принимает указатель на очередь и указатель на переменную с кодом ошибки.
 void clear(Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
         *errorCode = clearGotNullPointer;
@@ -105,17 +96,15 @@ void clear(Queue* queue, ErrorCodes* errorCode) {
     }
 }
 
-// Возвращает true, если очередь пуста, и false в противном случае.
-// Если в качестве указателя на очередь передан NULL, возвращает false и меняет код ошибки на 7.
 bool isEmpty(Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
         *errorCode = isEmptyGotNullPointer;
-        return NULL;
+        return false;
     }
 
     return queue->head == NULL;
 }
-// Удалить указанную очередь.
+
 void deleteQueue(Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
         *errorCode = deleteQueueGotNullPointer;

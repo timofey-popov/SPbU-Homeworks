@@ -2,8 +2,6 @@
 
 #include <stdlib.h>
 
-// Тест создания и удаления очереди.
-// True - тест успешно пройден, false в обратном случае.
 bool testForCreateAndDeleteQueue(void) {
     ErrorCodes errorCode = noErrors;
 
@@ -22,8 +20,6 @@ bool testForCreateAndDeleteQueue(void) {
     return true;
 }
 
-// Тест добавления элемента в очередь и удаления элемента из очереди.
-// True - тест успешно пройден, false в обратном случае.
 bool testForEnqueueAndDequeue(void) {
     ErrorCodes errorCode = noErrors;
 
@@ -55,8 +51,6 @@ bool testForEnqueueAndDequeue(void) {
     return true;
 }
 
-// Тест функций очистки очереди и проверки её на пустоту.
-// True - тест успешно пройден, false в обратном случае.
 bool testForClearAndIsEmpty(void) {
     ErrorCodes errorCode = noErrors;
 

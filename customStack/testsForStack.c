@@ -2,8 +2,6 @@
 
 #include <stdlib.h>
 
-// “ест создани€ и удалени€ стека.
-// True - тест успешно пройден, false в обратном случае.
 bool testForCreateAndDeleteStack(void) {
     ErrorCodes errorCode = noErrors;
 
@@ -22,8 +20,6 @@ bool testForCreateAndDeleteStack(void) {
     return true;
 }
 
-// “ест добавлени€ элемента в стек и удалени€ элемента из стека.
-// True - тест успешно пройден, false в обратном случае.
 bool testForPushAndPop(void) {
     ErrorCodes errorCode = noErrors;
 
@@ -50,8 +46,6 @@ bool testForPushAndPop(void) {
     return true;
 }
 
-// “ест функций очистки стека и проверки его на пустоту.
-// True - тест успешно пройден, false в обратном случае.
 bool testForClearAndIsEmpty(void) {
     ErrorCodes errorCode = noErrors;
 
