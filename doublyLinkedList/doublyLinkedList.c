@@ -23,7 +23,7 @@ typedef struct LinkedList {
 LinkedList* createLinkedList(ErrorCodes* errorCode) {
     LinkedList* newList = calloc(1, sizeof(LinkedList));
     if (newList == NULL) {
-        *errorCode = createListMemoryError;
+        *errorCode = memoryAllocationError;
         return NULL;
     }
 
@@ -36,13 +36,13 @@ LinkedList* createLinkedList(ErrorCodes* errorCode) {
 
 void pushToHead(Value value, LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = pushToHeadGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
     ListElement* newElement = calloc(1, sizeof(ListElement));
     if (newElement == NULL) {
-        *errorCode = pushToHeadMemoryError;
+        *errorCode = memoryAllocationError;
         return;
     }
 
@@ -64,13 +64,13 @@ void pushToHead(Value value, LinkedList* list, ErrorCodes* errorCode) {
 
 void pushToTail(Value value, LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = pushToTailGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
     ListElement* newElement = calloc(1, sizeof(ListElement));
     if (newElement == NULL) {
-        *errorCode = pushToTailMemoryError;
+        *errorCode = memoryAllocationError;
         return;
     }
 
@@ -115,7 +115,7 @@ ListElement* getNthElement(LinkedList* list, int n) {
 
 void insertNthElement(Value value, int n, LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = insertNthElementGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
@@ -128,7 +128,7 @@ void insertNthElement(Value value, int n, LinkedList* list, ErrorCodes* errorCod
 
     ListElement* newElement = calloc(1, sizeof(ListElement));
     if (newElement == NULL) {
-        *errorCode = insertNthElementMemoryError;
+        *errorCode = memoryAllocationError;
         return;
     }
 
@@ -150,12 +150,12 @@ void insertNthElement(Value value, int n, LinkedList* list, ErrorCodes* errorCod
 
 Value popFromHead(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = popFromHeadGotNullPointer;
+        *errorCode = nullPointerReceived;
         return -1;
     }
 
     if (list->size == 0) {
-        *errorCode = popFromHeadGotEmptyList;
+        *errorCode = emptyListReceived;
         return -1;
     }
 
@@ -179,12 +179,12 @@ Value popFromHead(LinkedList* list, ErrorCodes* errorCode) {
 
 Value popFromTail(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = popFromTailGotNullPointer;
+        *errorCode = nullPointerReceived;
         return -1;
     }
 
     if (list->size == 0) {
-        *errorCode = popFromTailGotEmptyList;
+        *errorCode = emptyListReceived;
         return -1;
     }
 
@@ -208,7 +208,7 @@ Value popFromTail(LinkedList* list, ErrorCodes* errorCode) {
 
 Value popNthElement(LinkedList* list, int n, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = popNthElementGotNullPointer;
+        *errorCode = nullPointerReceived;
         return -1;
     }
 
@@ -244,7 +244,7 @@ Value popNthElement(LinkedList* list, int n, ErrorCodes* errorCode) {
 
 Value getNthValue(LinkedList* list, int n, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = getNthValueGotNullPointer;
+        *errorCode = nullPointerReceived;
         return -1;
     }
 
@@ -258,7 +258,7 @@ Value getNthValue(LinkedList* list, int n, ErrorCodes* errorCode) {
 
 bool isEmpty(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = isEmptyGotNullPointer;
+        *errorCode = nullPointerReceived;
         return false;
     }
 
@@ -267,7 +267,7 @@ bool isEmpty(LinkedList* list, ErrorCodes* errorCode) {
 
 void clearList(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = clearListGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
@@ -278,7 +278,7 @@ void clearList(LinkedList* list, ErrorCodes* errorCode) {
 
 void deleteLinkedList(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
-        *errorCode = deleteListGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 

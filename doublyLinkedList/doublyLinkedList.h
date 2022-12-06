@@ -3,25 +3,17 @@
 #include <stdbool.h>
 
 // Коды ошибок:
+// 0 - нет ошибок.
+// 1 - ошибка выделения памяти.
+// 2 - в качестве указателя на список передан NULL.
+// 3 - в списке нет элемента с таким номером.
+// 4 - в списке нет элементов.
 typedef enum ErrorCodes {
     noErrors,
-    createListMemoryError,
-    pushToHeadGotNullPointer,
-    pushToHeadMemoryError,
-    pushToTailGotNullPointer,
-    pushToTailMemoryError,
-    insertNthElementGotNullPointer,
+    memoryAllocationError,
+    nullPointerReceived,
     noSuchNumberInList,
-    insertNthElementMemoryError,
-    popFromHeadGotNullPointer,
-    popFromHeadGotEmptyList,
-    popFromTailGotNullPointer,
-    popFromTailGotEmptyList,
-    popNthElementGotNullPointer,
-    getNthValueGotNullPointer,
-    isEmptyGotNullPointer,
-    clearListGotNullPointer,
-    deleteListGotNullPointer
+    emptyListReceived
 } ErrorCodes;
 
 // Тип данных, хранящихся в списке. Если нужно его поменять - меняй здесь.
