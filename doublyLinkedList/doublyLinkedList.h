@@ -23,7 +23,8 @@ typedef int Value;
 typedef struct LinkedList LinkedList;
 
 // Создать список.
-// Возвращает указатель на созданный список.
+// Возвращает указатель на созданный список или NULL, если произошла ошибка.
+// В случае ошибки список не создаётся, удалять его не нужно.
 LinkedList* createLinkedList(ErrorCodes* errorCode);
 
 // Добавить элемент в начало списка.

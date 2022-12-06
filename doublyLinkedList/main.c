@@ -21,11 +21,13 @@ int main(void) {
 
     pushToTail(10, myList, &errorCode);
     if (errorCode) {
+        deleteLinkedList(myList, &errorCode);
         return errorCode;
     }
 
     printf("%d\n", getNthValue(myList, 1, &errorCode));
     if (errorCode) {
+        deleteLinkedList(myList, &errorCode);
         return errorCode;
     }
 
