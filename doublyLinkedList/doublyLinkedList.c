@@ -151,12 +151,12 @@ void insertNthElement(Value value, int n, LinkedList* list, ErrorCodes* errorCod
 Value popFromHead(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
         *errorCode = popFromHeadGotNullPointer;
-        return NULL;
+        return -1;
     }
 
     if (list->size == 0) {
         *errorCode = popFromHeadGotEmptyList;
-        return NULL;
+        return -1;
     }
 
     Value valueToReturn = list->head->value;
@@ -180,12 +180,12 @@ Value popFromHead(LinkedList* list, ErrorCodes* errorCode) {
 Value popFromTail(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
         *errorCode = popFromTailGotNullPointer;
-        return NULL;
+        return -1;
     }
 
     if (list->size == 0) {
         *errorCode = popFromTailGotEmptyList;
-        return NULL;
+        return -1;
     }
 
     Value valueToReturn = list->tail->value;
@@ -209,12 +209,12 @@ Value popFromTail(LinkedList* list, ErrorCodes* errorCode) {
 Value popNthElement(LinkedList* list, int n, ErrorCodes* errorCode) {
     if (list == NULL) {
         *errorCode = popNthElementGotNullPointer;
-        return NULL;
+        return -1;
     }
 
     if (list->size == 0 || n > list->size || n < 1) {
         *errorCode = noSuchNumberInList;
-        return NULL;
+        return -1;
     }
 
     ListElement* currentNthElement = getNthElement(list, n);
@@ -245,12 +245,12 @@ Value popNthElement(LinkedList* list, int n, ErrorCodes* errorCode) {
 Value getNthValue(LinkedList* list, int n, ErrorCodes* errorCode) {
     if (list == NULL) {
         *errorCode = getNthValueGotNullPointer;
-        return NULL;
+        return -1;
     }
 
     if (list->size == 0 || n > list->size || n < 1) {
         *errorCode = noSuchNumberInList;
-        return NULL;
+        return -1;
     }
 
     return getNthElement(list, n)->value;
@@ -259,7 +259,7 @@ Value getNthValue(LinkedList* list, int n, ErrorCodes* errorCode) {
 bool isEmpty(LinkedList* list, ErrorCodes* errorCode) {
     if (list == NULL) {
         *errorCode = isEmptyGotNullPointer;
-        return NULL;
+        return false;
     }
 
     return list->head == NULL;

@@ -53,6 +53,7 @@ bool testForPushesAndPops(void) {
     if (errorCode) {
         return false;
     }
+    // Здесь и далее - состояние списка после выполнения функции.
     // -20
 
 
