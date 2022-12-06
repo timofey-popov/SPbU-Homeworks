@@ -125,4 +125,3 @@ void deleteQueue(Queue* queue, ErrorCodes* errorCode) {
     clear(queue, errorCode);
     free(queue);
 }
-

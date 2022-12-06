@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "customStack.h"
-#include "tests.h"
+#include "testsForStack.h"
 
 int main(void) {
     if (!testForCreateAndDeleteStack() || !testForPushAndPop() || !testForClearAndIsEmpty()) {
