@@ -4,26 +4,14 @@
 
 //  оды ошибок:
 // 0 - нет ошибок.
-// 1 - ошибка выделени€ пам€ти под новый стек (createStack).
-// 2 - в качестве указател€ на голову стека передан NULL (push).
-// 3 - ошибка выделени€ пам€ти под новый элемент стека (push).
-// 4 - в качестве указател€ на голову стека передан NULL (pop).
-// 5 - в стеке нет элеменетов дл€ pop (pop).
-// 6 - в качестве указател€ на голову стека передан NULL (clear).
-// 7 - в качестве указател€ на голову стека передан NULL (isEmpty).
-// 8 - в качестве указател€ на голову стека передан NULL (deleteStack).
-// 9 - в качестве указател€ на голову стека передан NULL (printStack).
+// 1 - ошибка выделени€ пам€ти.
+// 2 - в качестве указател€ на голову стека передан NULL.
+// 3 - в стеке нет элементов.
 typedef enum ErrorCodes {
     noErrors,
-    createStackMemoryError,
-    pushGotNullPointer,
-    pushMemoryError,
-    popGotNullPointer,
-    popStackHasNoElemens,
-    clearGotNullPointer,
-    isEmptyGotNullPointer,
-    deleteStackGotNullPointer,
-    printStackGotNullPointer,
+    memoryAllocationError,
+    nullPointerReceived,
+    noElemensInStack,
 } ErrorCodes;
 
 // “ип переменных дл€ хранени€ в элементах стека.

@@ -20,7 +20,7 @@ Stack* createStack(ErrorCodes* errorCode) {
     Stack* newStack = malloc(sizeof(Stack));
 
     if (newStack == NULL) {
-        *errorCode = createStackMemoryError;
+        *errorCode = memoryAllocationError;
         return NULL;
     }
 
@@ -31,14 +31,14 @@ Stack* createStack(ErrorCodes* errorCode) {
 
 void push(Value value, Stack* stack, ErrorCodes* errorCode) {
     if (stack == NULL) {
-        *errorCode = pushGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
     StackElement* newHead = malloc(sizeof(StackElement));
 
     if (newHead == NULL) {
-        *errorCode = pushMemoryError;
+        *errorCode = memoryAllocationError;
         return;
     }
 
@@ -50,12 +50,12 @@ void push(Value value, Stack* stack, ErrorCodes* errorCode) {
 
 Value pop(Stack* stack, ErrorCodes* errorCode) {
     if (stack == NULL) {
-        *errorCode = popGotNullPointer;
+        *errorCode = nullPointerReceived;
         return -1;
     }
 
     if (stack->head == NULL) {
-        *errorCode = popStackHasNoElemens;
+        *errorCode = noElemensInStack;
         return -1;
     }
 
@@ -70,7 +70,7 @@ Value pop(Stack* stack, ErrorCodes* errorCode) {
 
 void clear(Stack* stack, ErrorCodes* errorCode) {
     if (stack == NULL) {
-        *errorCode = clearGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
@@ -81,7 +81,7 @@ void clear(Stack* stack, ErrorCodes* errorCode) {
 
 bool isEmpty(Stack* stack, ErrorCodes* errorCode) {
     if (stack == NULL) {
-        *errorCode = isEmptyGotNullPointer;
+        *errorCode = nullPointerReceived;
         return false;
     }
 
@@ -90,7 +90,7 @@ bool isEmpty(Stack* stack, ErrorCodes* errorCode) {
 
 void deleteStack(Stack* stack, ErrorCodes* errorCode) {
     if (stack == NULL) {
-        *errorCode = deleteStackGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
@@ -100,7 +100,7 @@ void deleteStack(Stack* stack, ErrorCodes* errorCode) {
 
 void printStack(Stack* stack, ErrorCodes* errorCode) {
     if (stack == NULL) {
-        *errorCode = printStackGotNullPointer;
+        *errorCode = nullPointerReceived;
         printf("There's no stack\n\n");
         return;
     }

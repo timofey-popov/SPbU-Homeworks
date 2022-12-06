@@ -21,7 +21,7 @@ Queue* createQueue(ErrorCodes* errorCode) {
     Queue* newQueue = malloc(sizeof(Queue));
 
     if (newQueue == NULL) {
-        *errorCode = createQueueMemoryError;
+        *errorCode = memoryAllocationError;
         return NULL;
     }
 
@@ -33,13 +33,13 @@ Queue* createQueue(ErrorCodes* errorCode) {
 
 void enqueue(Value value, Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
-        *errorCode = enqueueGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
     QueueElement* newElement = malloc(sizeof(QueueElement));
     if (newElement == NULL) {
-        *errorCode = enqueueMemoryError;
+        *errorCode = memoryAllocationError;
         return;
     }
 
@@ -57,12 +57,12 @@ void enqueue(Value value, Queue* queue, ErrorCodes* errorCode) {
 
 Value dequeue(Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
-        *errorCode = dequeueGotNullPointer;
+        *errorCode = nullPointerReceived;
         return -1;
     }
 
     if (queue->head == NULL) {
-        *errorCode = dequeueQueueHasNoElemens;
+        *errorCode = noElemensInQueue;
         return -1;
     }
 
@@ -87,7 +87,7 @@ Value dequeue(Queue* queue, ErrorCodes* errorCode) {
 
 void clear(Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
-        *errorCode = clearGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
@@ -98,7 +98,7 @@ void clear(Queue* queue, ErrorCodes* errorCode) {
 
 bool isEmpty(Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
-        *errorCode = isEmptyGotNullPointer;
+        *errorCode = nullPointerReceived;
         return false;
     }
 
@@ -107,7 +107,7 @@ bool isEmpty(Queue* queue, ErrorCodes* errorCode) {
 
 void deleteQueue(Queue* queue, ErrorCodes* errorCode) {
     if (queue == NULL) {
-        *errorCode = deleteQueueGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
