@@ -1,11 +1,16 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdio.h>
 
+// Структура для записей в телефонной книге.
 typedef struct PhonebookStruct PhonebookStruct;
 
+// Начальное чтение файла в массив структур.
 void initialFileReading(FILE* file, PhonebookStruct* book, int* counterOfRecords);
 
-bool search(PhonebookStruct* book, int counterOfRecords, int mode);
+// Найти запись в массиве структур.
+bool search(PhonebookStruct* book, char* stringForCompare, int* arrayForMatches, int* numberOfMatches, int counterOfRecords, int mode);
 
-void recordToFile(PhonebookStruct* book, int counterOfRecords);
+// Записать массив структур в файл.
+int recordToFile(PhonebookStruct* book, const char* fileName, int counterOfRecords);

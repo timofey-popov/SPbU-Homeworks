@@ -1,6 +1,6 @@
 ﻿#include "phoneBook.h"
 
-#include <stdio.h>
+#include "testsForBook.h"
 #include <string.h>
 #include <stdbool.h>
 
@@ -13,7 +13,7 @@ struct PhonebookStruct {
 // Вспомогательная функция. Полностью очищает поток ввода.
 // Нужно использовать аккуратно, так как если в потоке ничего нет, функция будет ждать следующего ввода и очистит один симол этого ввода (или весь ввод?).
 void customFlush(void) {
-    int junk1 = scanf("%*[^\n]");
+    int junk1 = scanf_s("%*[^\n]");
     char junk2 = getchar();
 }
 
@@ -34,7 +34,7 @@ void stringsInput(char* arrayForInput, int arraySize) {
 // Если файла не существует, он будет создан.
 // На вход принимает указатель на массив структур и на счётчик записей.
 void initialFileReading(FILE* file, PhonebookStruct* book, int* counterOfRecords) {
-    int fileEmptinessChecker = fscanf(file, "%d", counterOfRecords);
+    int fileEmptinessChecker = fscanf_s(file, "%d", counterOfRecords);
 
     if (fileEmptinessChecker > 0) {
         fgetc(file);
@@ -53,11 +53,11 @@ void numberOfActionInput(short* statusForChange) {
     printf("Choose an action:\n0 - exit\n1 - make a record\n"
         "2 - show all records\n3 - find a number by name\n4 - find a name by number\n5 - save data to file\n\n");
 
-    int inputCorrectnessCheck = scanf("%hi", statusForChange);
+    int inputCorrectnessCheck = scanf_s("%hi", statusForChange);
     while (!inputCorrectnessCheck || *statusForChange < 0 || *statusForChange > 5) {
         customFlush();
         printf("Wrong input. Try again:\n");
-        inputCorrectnessCheck = scanf("%hi", statusForChange);
+        inputCorrectnessCheck = scanf_s("%hi", statusForChange);
     }
 }
 
@@ -92,46 +92,39 @@ void printWholeBook(PhonebookStruct* book, int counterOfRecords) {
     }
 }
 
+void printForSearch(PhonebookStruct* book, int* matches, int numberOfMatches) {
+    for (int i = 0; i < numberOfMatches; ++i) {
+        printf("%s%s\n", book[matches[i]].name, book[matches[i]].phone);
+    }
+}
+
 // Функция поиска записей.
 // На вход принимает указатель на массив структур, количество существующих записей и режим поиска (1 или 2).
 // Режим 1 - поиск по имени. Режим 2 - поиск по телефону.
-bool search(PhonebookStruct* book, int counterOfRecords, int mode) {
-    bool isFound = false;
-    char stringForCompare[51];
+bool search(PhonebookStruct* book, char* stringForCompare, int* arrayForMatches, int* numberOfMatches, int counterOfRecords, int mode) {
+    *numberOfMatches = 0;
 
-    customFlush();
+    bool isFound = false;
 
     switch (mode) {
     case 1:
-        printf("\nEnter the name:\n");
-        stringsInput(stringForCompare, 51);
-
-        printf("\nSearch results:\n\n");
-
         for (int i = 0; i < counterOfRecords; ++i) {
             if (!strcmp(book[i].name, stringForCompare)) {
-                printf("%s%s\n", book[i].name, book[i].phone);
+                arrayForMatches[*numberOfMatches] = i;
+                *numberOfMatches += 1;
                 isFound = true;
             }
         }
         break;
     case 2:
-        printf("\nEnter the phone without spaces:\n");
-        stringsInput(stringForCompare, 51);
-
-        printf("\nSearch results:\n\n");
-
         for (int i = 0; i < counterOfRecords; ++i) {
             if (!strcmp(book[i].phone, stringForCompare)) {
-                printf("%s%s\n", book[i].name, book[i].phone);
+                arrayForMatches[*numberOfMatches] = i;
+                *numberOfMatches += 1;
                 isFound = true;
             }
         }
         break;
-    }
-
-    if (!isFound) {
-        printf("No such records in the book\n\n");
     }
 
     return isFound;
@@ -139,8 +132,12 @@ bool search(PhonebookStruct* book, int counterOfRecords, int mode) {
 
 // Функция записи данных в файл.
 // На вход принимает указатель на массив структур и количество существующих записей.
-void recordToFile(PhonebookStruct* book, int counterOfRecords) {
-    FILE* file = fopen("phonebook.txt", "w");
+int recordToFile(PhonebookStruct* book, const char* fileName, int counterOfRecords) {
+    FILE* file = fopen(fileName, "w");
+
+    if (file == NULL) {
+        return -1;
+    }
 
     fprintf(file, "%d\n", counterOfRecords);
 
@@ -150,10 +147,18 @@ void recordToFile(PhonebookStruct* book, int counterOfRecords) {
     }
 
     fclose(file);
-    printf("\nData saved successfully.\n\n");
+    return 0;
 }
 
 int main(void) {
+    if (!testForInitialReadingAndSearch() || !testForRecordToFile()) {
+        printf("Tests failed\n");
+        return -1;
+    }
+    else {
+        printf("*tests passed*\n\n");
+    }
+
     PhonebookStruct phonebookArray[100];
 
     // Переменная для хранения номера действия.
@@ -163,9 +168,17 @@ int main(void) {
     // Считывается из файла при запуске программы, увеличивается с каждой следующей записью.
     int counterOfRecords = 0;
 
+    const char* fileName = "phoneBook.txt";
+
     FILE* fileWithRecords = fopen("phoneBook.txt", "a+");
     initialFileReading(fileWithRecords, phonebookArray, &counterOfRecords);
     fclose(fileWithRecords);
+
+    char stringForCompare[51];
+    int matches[100] = { 0 };
+    int numberOfMatches = 0;
+
+    bool isFound = false;
 
     // Повторяющийся запрос ввода от пользователя.
     while (currentStatus) {
@@ -181,19 +194,32 @@ int main(void) {
             printWholeBook(phonebookArray, counterOfRecords);
             break;
         case 3:
-            search(phonebookArray, counterOfRecords, 1);
+            customFlush();
+            printf("\nEnter the name:\n");
+            stringsInput(stringForCompare, 51);
+
+            isFound = search(phonebookArray, stringForCompare, matches, &numberOfMatches, counterOfRecords, 1);
+
+            printf("\nSearch results:\n\n");
+            isFound ? printForSearch(phonebookArray, matches, numberOfMatches) : printf("No such records in the book\n\n");
+
             break;
         case 4:
-            search(phonebookArray, counterOfRecords, 2);
+            customFlush();
+            printf("\nEnter the phone without spaces:\n");
+            stringsInput(stringForCompare, 51);
+
+            isFound = search(phonebookArray, stringForCompare, matches, &numberOfMatches, counterOfRecords, 2);
+
+            printf("\nSearch results:\n\n");
+            isFound ? printForSearch(phonebookArray, matches, numberOfMatches) : printf("No such records in the book\n\n");
+
             break;
         case 5:
-            recordToFile(phonebookArray, counterOfRecords);
+            recordToFile(phonebookArray, fileName, counterOfRecords) ? printf("No such file\n") : printf("\nData saved successfully.\n\n");
             break;
         }
     }
 
     return 0;
 }
-
-// Тесты:
-// поиск, запись в файл, чтение из файла.
