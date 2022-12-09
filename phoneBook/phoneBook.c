@@ -1,12 +1,14 @@
-﻿#include <stdio.h>
+﻿#include "phoneBook.h"
+
+#include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
 // Структура для записей телефонной книги.
-typedef struct {
+struct PhonebookStruct {
     char name[51];
     char phone[51];
-} PhonebookStruct;
+};
 
 // Вспомогательная функция. Полностью очищает поток ввода.
 // Нужно использовать аккуратно, так как если в потоке ничего нет, функция будет ждать следующего ввода и очистит один симол этого ввода (или весь ввод?).
@@ -31,8 +33,7 @@ void stringsInput(char* arrayForInput, int arraySize) {
 // Считывает количество записей и сами записи в соответствующие переменные.
 // Если файла не существует, он будет создан.
 // На вход принимает указатель на массив структур и на счётчик записей.
-void initialFileReading(PhonebookStruct* book, int* counterOfRecords) {
-    FILE* file = fopen("phonebook.txt", "a+");
+void initialFileReading(FILE* file, PhonebookStruct* book, int* counterOfRecords) {
     int fileEmptinessChecker = fscanf(file, "%d", counterOfRecords);
 
     if (fileEmptinessChecker > 0) {
@@ -42,8 +43,6 @@ void initialFileReading(PhonebookStruct* book, int* counterOfRecords) {
             fgets(book[i].phone, 51, file);
         }
     }
-
-    fclose(file);
 }
 
 // Функция получения номера действия от пользователя.
@@ -164,7 +163,9 @@ int main(void) {
     // Считывается из файла при запуске программы, увеличивается с каждой следующей записью.
     int counterOfRecords = 0;
 
-    initialFileReading(phonebookArray, &counterOfRecords);
+    FILE* fileWithRecords = fopen("phoneBook.txt", "a+");
+    initialFileReading(fileWithRecords, phonebookArray, &counterOfRecords);
+    fclose(fileWithRecords);
 
     // Повторяющийся запрос ввода от пользователя.
     while (currentStatus) {

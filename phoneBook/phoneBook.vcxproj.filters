@@ -18,5 +18,16 @@
     <ClCompile Include="phoneBook.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="testsForBook.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="testsForBook.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="phoneBook.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
