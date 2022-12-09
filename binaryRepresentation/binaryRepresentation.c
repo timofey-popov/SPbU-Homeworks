@@ -8,10 +8,10 @@
 int integerInput(void) {
     int valueToReturn = 0;
 
-    int correctnessCheck = scanf("%d", &valueToReturn);
+    int correctnessCheck = scanf_s("%d", &valueToReturn);
     while (!correctnessCheck) {
         printf("Wrong input, try again.\n");
-        correctnessCheck = scanf("%d", &valueToReturn);
+        correctnessCheck = scanf_s("%d", &valueToReturn);
     }
 
     return valueToReturn;
@@ -40,12 +40,7 @@ void addBinary(int* firstSummand, int* secondSummand, int* result) {
     for (int i = 0; i < NUMBER_OF_DIGITS; ++i) {
         int sum = firstSummand[i] + secondSummand[i] + carryOut;
         result[i] = sum % 2;
-        if (sum == 0 || sum == 1) {
-            carryOut = 0;
-        }
-        else {
-            carryOut = 1;
-        }
+        carryOut = sum / 2;
     }
 }
 
@@ -53,11 +48,13 @@ int createDecimal(int* binary) {
     int valueToReturn = 0;
 
     for (int i = NUMBER_OF_DIGITS - 1; i > 0; --i) {
-        valueToReturn += 1 * binary[i];
+        valueToReturn += binary[i];
         valueToReturn = valueToReturn << 1;
     }
 
-    valueToReturn += 1 * binary[0];
+    valueToReturn += binary[0];
+
+    return valueToReturn;
 }
 
 int main(void) {
