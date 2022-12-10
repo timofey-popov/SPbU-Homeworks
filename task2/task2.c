@@ -34,7 +34,7 @@ Set* unite(Set* set1, Set* set2, ErrorCodesForSet* errorCode) {
     Set* head2 = set2->head;
 
     if (head1 == head2) {
-        return NULL;
+        return head1;
     }
 
     head1->tail->next = head2;
