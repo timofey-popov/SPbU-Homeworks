@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 bool testForCreateAndDeleteStack(void) {
-    ErrorCodes errorCode = noErrors;
+    StackErrors errorCode = noErrors;
 
     Stack* testStack = createStack(&errorCode);
     if (testStack == NULL || errorCode) {
@@ -22,7 +22,7 @@ bool testForCreateAndDeleteStack(void) {
 }
 
 bool testForPushAndPop(void) {
-    ErrorCodes errorCode = noErrors;
+    StackErrors errorCode = noErrors;
 
     Stack* testStack = createStack(&errorCode);
     if (testStack == NULL || errorCode) {
@@ -50,7 +50,7 @@ bool testForPushAndPop(void) {
 }
 
 bool testForClearAndIsEmpty(void) {
-    ErrorCodes errorCode = noErrors;
+    StackErrors errorCode = noErrors;
 
     Stack* testStack = createStack(&errorCode);
     if (testStack == NULL || errorCode) {

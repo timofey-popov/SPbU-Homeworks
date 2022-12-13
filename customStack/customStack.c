@@ -16,7 +16,7 @@ typedef struct Stack {
     StackElement* head;
 } Stack;
 
-Stack* createStack(ErrorCodes* errorCode) {
+Stack* createStack(StackErrors* errorCode) {
     Stack* newStack = malloc(sizeof(Stack));
 
     if (newStack == NULL) {
@@ -29,7 +29,7 @@ Stack* createStack(ErrorCodes* errorCode) {
     return newStack;
 }
 
-void push(Value value, Stack* stack, ErrorCodes* errorCode) {
+void push(Value value, Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
         *errorCode = nullPointerReceived;
         return;
@@ -48,7 +48,7 @@ void push(Value value, Stack* stack, ErrorCodes* errorCode) {
     stack->head = newHead;
 }
 
-Value pop(Stack* stack, ErrorCodes* errorCode) {
+Value pop(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
         *errorCode = nullPointerReceived;
         return -1;
@@ -68,7 +68,7 @@ Value pop(Stack* stack, ErrorCodes* errorCode) {
     return valueToReturn;
 }
 
-void clear(Stack* stack, ErrorCodes* errorCode) {
+void clear(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
         *errorCode = nullPointerReceived;
         return;
@@ -79,7 +79,7 @@ void clear(Stack* stack, ErrorCodes* errorCode) {
     }
 }
 
-bool isEmpty(Stack* stack, ErrorCodes* errorCode) {
+bool isEmpty(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
         *errorCode = nullPointerReceived;
         return false;
@@ -88,7 +88,7 @@ bool isEmpty(Stack* stack, ErrorCodes* errorCode) {
     return stack->head == NULL;
 }
 
-void deleteStack(Stack* stack, ErrorCodes* errorCode) {
+void deleteStack(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
         *errorCode = nullPointerReceived;
         return;
@@ -98,7 +98,7 @@ void deleteStack(Stack* stack, ErrorCodes* errorCode) {
     free(stack);
 }
 
-void printStack(Stack* stack, ErrorCodes* errorCode) {
+void printStack(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
         *errorCode = nullPointerReceived;
         printf("There's no stack\n\n");

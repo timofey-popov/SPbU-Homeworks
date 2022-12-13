@@ -11,7 +11,7 @@ int main(void) {
         printf("*tests passed*\n\n");
     }
 
-    ErrorCodes errorCode = noErrors;
+    StackErrors errorCode = noErrors;
 
     Stack* newStack = createStack(&errorCode);
     if (errorCode) {
