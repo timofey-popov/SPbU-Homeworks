@@ -1,8 +1,11 @@
 #pragma once
 
 typedef enum CalculatorErrors {
-    noErrors,
+    noCalculatorErrors,
     stackCreationError,
     popError,
-
+    pushError,
+    ivalidInput
 } CalculatorErrors;
+
+int postfixCalculator(CalculatorErrors* errorCode);

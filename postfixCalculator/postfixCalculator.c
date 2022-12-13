@@ -1,46 +1,148 @@
 ﻿#include "postfixCalculator.h"
 
-#include "../customStack/customStack.h"
 #include <stdio.h>
+#include "../customStack/customStack.h"
 
-void inputExpression(Stack* stackForExpression) {
+void getTwoValues(Stack* stackForExpression, int* firstValue, int* secondValue, CalculatorErrors* calculatorErrorCode) {
+    int errorCheck = 0;
 
-}
-
-int add(Stack* stackForExpression, ErrorCodes* stackErrorCode) {
-    int secondSummand = pop(stackForExpression, *stackErrorCode);
-    if (stackErrorCode) {
-        *errorCode = popError;
-        return 0;
+    *secondValue = pop(stackForExpression, &errorCheck);
+    if (errorCheck) {
+        *calculatorErrorCode = popError;
+        return;
     }
 
-    int firstSummand = pop(stackForExpression, &stackErrorCode);
-    if (stackErrorCode) {
-        *errorCode = popError;
-        return 0;
+    *firstValue = pop(stackForExpression, &errorCheck);
+    if (errorCheck) {
+        *calculatorErrorCode = popError;
+        return;
     }
 }
 
 int postfixCalculator(CalculatorErrors* errorCode) {
     StackErrors stackErrorCode = noErrors;
-    CalculatorErrors calculatorErrorCode = noErrors;
+    CalculatorErrors calculatorErrorCode = noCalculatorErrors;
 
     Stack* stackForExpression = createStack(&stackErrorCode);
     if (stackErrorCode || stackForExpression == NULL) {
         *errorCode = stackCreationError;
-        return 0;
+        return -1;
     }
 
-    int valueToReturn = 0;
     bool areThereFurtherCharacters = true;
+
+    int firstValue = 0;
+    int secondValue = 0;
 
     while (areThereFurtherCharacters) {
         int token = getchar();
+        bool wereThereActions = false;
         
-        if (token == '+') {
-            
+        switch (token) {
+        case '+':
+            getTwoValues(stackForExpression, &firstValue, &secondValue, &calculatorErrorCode);
+            if (calculatorErrorCode) {
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+
+            push(firstValue + secondValue, stackForExpression, &stackErrorCode);
+            if (stackErrorCode) {
+                *errorCode = pushError;
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+            wereThereActions = true;
+            break;
+
+        case '-':
+            getTwoValues(stackForExpression, &firstValue, &secondValue, &calculatorErrorCode);
+            if (calculatorErrorCode) {
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+
+            push(firstValue - secondValue, stackForExpression, &stackErrorCode);
+            if (stackErrorCode) {
+                *errorCode = pushError;
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+            wereThereActions = true;
+            break;
+
+        case '*':
+            getTwoValues(stackForExpression, &firstValue, &secondValue, &calculatorErrorCode);
+            if (calculatorErrorCode) {
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+
+            push(firstValue * secondValue, stackForExpression, &stackErrorCode);
+            if (stackErrorCode) {
+                *errorCode = pushError;
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+            wereThereActions = true;
+            break;
+
+        case '/':
+            getTwoValues(stackForExpression, &firstValue, &secondValue, &calculatorErrorCode);
+            if (calculatorErrorCode) {
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+
+            push(firstValue / secondValue, stackForExpression, &stackErrorCode);
+            if (stackErrorCode) {
+                *errorCode = pushError;
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+            wereThereActions = true;
+            break;
+
+        case ' ':
+            wereThereActions = true;
+            break;
+
+        case '\n':
+            wereThereActions = true;
+            areThereFurtherCharacters = false;
+            break;
+
+        default:
+            break;
+        }
+
+        if (token >= 48 && token <= 57) {
+            push((int)token - 48, stackForExpression, &stackErrorCode);
+            if (stackErrorCode) {
+                *errorCode = pushError;
+                deleteStack(stackForExpression, &stackErrorCode);
+                return -1;
+            }
+        }
+        else if (!wereThereActions) {
+            *errorCode = ivalidInput;
+            deleteStack(stackForExpression, &stackErrorCode);
+            return -1;
         }
     }
 
-    return 0;
+    int valueToReturn = pop(stackForExpression, &stackErrorCode);
+    if (stackErrorCode) {
+        *errorCode = popError;
+        deleteStack(stackForExpression, &stackErrorCode);
+        return -1;
+    }
+
+    if (!isEmpty(stackForExpression, &stackErrorCode)) {
+        *errorCode = ivalidInput;
+        deleteStack(stackForExpression, &stackErrorCode);
+        return -1;
+    }
+
+    return valueToReturn;
 }
