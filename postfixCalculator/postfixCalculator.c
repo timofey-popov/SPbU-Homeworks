@@ -1,20 +1,46 @@
-﻿// postfixCalculator.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include "postfixCalculator.h"
 
-#include <iostream>
+#include "../customStack/customStack.h"
+#include <stdio.h>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+void inputExpression(Stack* stackForExpression) {
+
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
+int add(Stack* stackForExpression, ErrorCodes* stackErrorCode) {
+    int secondSummand = pop(stackForExpression, *stackErrorCode);
+    if (stackErrorCode) {
+        *errorCode = popError;
+        return 0;
+    }
 
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+    int firstSummand = pop(stackForExpression, &stackErrorCode);
+    if (stackErrorCode) {
+        *errorCode = popError;
+        return 0;
+    }
+}
+
+int postfixCalculator(CalculatorErrors* errorCode) {
+    StackErrors stackErrorCode = noErrors;
+    CalculatorErrors calculatorErrorCode = noErrors;
+
+    Stack* stackForExpression = createStack(&stackErrorCode);
+    if (stackErrorCode || stackForExpression == NULL) {
+        *errorCode = stackCreationError;
+        return 0;
+    }
+
+    int valueToReturn = 0;
+    bool areThereFurtherCharacters = true;
+
+    while (areThereFurtherCharacters) {
+        int token = getchar();
+        
+        if (token == '+') {
+            
+        }
+    }
+
+    return 0;
+}
