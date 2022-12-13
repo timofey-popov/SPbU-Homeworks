@@ -1,29 +1,26 @@
-﻿#include <stdlib.h>
+﻿#include "customStack.h"
+
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "customStack.h"
 
-// Структура для единицы стека.
+// Структура для элемента стека.
 // Содержит два поля: значение и указатель на предыдущую единицу стека.
 typedef struct StackElement {
     Value value;
     struct StackElement* previous;
 } StackElement;
 
-// Структукра "стек". Представляет собой указатель на глову стека.
+// Структура "стек". Представляет собой указатель на голову стека.
 typedef struct Stack {
     StackElement* head;
 } Stack;
 
-
-// Создаёт пустой стек.
-// На вход принимает указатель на переменную с кодом ошибки.
-// Возвращает указатель на стек, если всё прошло нормально,в противном случае возвращает NULL и меняет код ошибки на 1.
-Stack* createStack(ErrorCodes* errorCode) {
+Stack* createStack(StackErrors* errorCode) {
     Stack* newStack = malloc(sizeof(Stack));
 
     if (newStack == NULL) {
-        *errorCode = createStackMemoryError;
+        *errorCode = memoryAllocationError;
         return NULL;
     }
 
@@ -32,18 +29,16 @@ Stack* createStack(ErrorCodes* errorCode) {
     return newStack;
 }
 
-// Добавляет элемент на верхушку стека.
-// На вход принимает добавляемое значение, указатель на стек и указатель на переменную с кодом ошибки.
-void push(Value value, Stack* stack, ErrorCodes* errorCode) {
+void push(Value value, Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
-        *errorCode = pushGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
     StackElement* newHead = malloc(sizeof(StackElement));
 
     if (newHead == NULL) {
-        *errorCode = pushMemoryError;
+        *errorCode = memoryAllocationError;
         return;
     }
 
@@ -53,17 +48,15 @@ void push(Value value, Stack* stack, ErrorCodes* errorCode) {
     stack->head = newHead;
 }
 
-// Удаляет элемент с вершины стека и возвращает значение, которое в нём лежало.
-// На вход принимает указатель на стек и указатель на переменную с кодом ошибки.
-Value pop(Stack* stack, ErrorCodes* errorCode) {
+Value pop(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
-        *errorCode = popGotNullPointer;
-        return NULL;
+        *errorCode = nullPointerReceived;
+        return -1;
     }
 
     if (stack->head == NULL) {
-        *errorCode = popStackHasNoElemens;
-        return NULL;
+        *errorCode = noElemensInStack;
+        return -1;
     }
 
     Value valueToReturn = stack->head->value;
@@ -75,11 +68,9 @@ Value pop(Stack* stack, ErrorCodes* errorCode) {
     return valueToReturn;
 }
 
-// Удаляет все элементы из стека, никуда их не сохраняя.
-// На вход принимает указатель на стек и указатель на переменную с кодом ошибки.
-void clear(Stack* stack, ErrorCodes* errorCode) {
+void clear(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
-        *errorCode = clearGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
@@ -88,22 +79,18 @@ void clear(Stack* stack, ErrorCodes* errorCode) {
     }
 }
 
-// Функция проверки стека на пустоту.
-// На вход принимает указатель на голову стека.
-// Возвращает true, если стек пуст, и false в противном случае.
-bool isEmpty(Stack* stack, ErrorCodes* errorCode) {
+bool isEmpty(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
-        *errorCode = isEmptyGotNullPointer;
-        return NULL;
+        *errorCode = nullPointerReceived;
+        return false;
     }
 
     return stack->head == NULL;
 }
 
-// Удалить указанный стек.
-void deleteStack(Stack* stack, ErrorCodes* errorCode) {
+void deleteStack(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
-        *errorCode = deleteStackGotNullPointer;
+        *errorCode = nullPointerReceived;
         return;
     }
 
@@ -111,11 +98,9 @@ void deleteStack(Stack* stack, ErrorCodes* errorCode) {
     free(stack);
 }
 
-// Печатает все значения в стеке как целые числа, начиная от головы.
-// Если на вход передан NULL, печатает предупреждение в консоль и меняет код ошибки на 1.
-void printStack(Stack* stack, ErrorCodes* errorCode) {
+void printStack(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
-        *errorCode = printStackGotNullPointer;
+        *errorCode = nullPointerReceived;
         printf("There's no stack\n\n");
         return;
     }
