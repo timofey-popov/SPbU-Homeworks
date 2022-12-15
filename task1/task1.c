@@ -1,35 +1,21 @@
 ﻿#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
-int getNumberOfCharacters(char* string) {
-    bool areThereFurtherCharacters = true;
-    int counter = 0;
-
-    while (areThereFurtherCharacters) {
-        if (string[counter] != '\0') {
-            counter += 1;
-        }
-        else {
-            areThereFurtherCharacters = false;
-        }
-    }
-
-    return counter;
-}
-
-void getDecimalString(char* initialString, char* stringForResult, int stringSize, bool* errorCode) {
+void getDecimalString(char* initialString, char* stringForResult, size_t stringSize, bool* errorCode) {
+    // Переменная, которая будет представлять нужную степень двойки, от 2^0 до 2^(n - 1), где n - длина строки.
     int multiplier = 1;
-    int decimal = 0;
+    int decimalResult = 0;
 
     bool error = false;
 
-    for (int i = stringSize - 1; i >= 0; ++i) {
+    for (int i = (int)stringSize - 1; i >= 0; --i) {
         char symbol = initialString[i];
 
         switch (symbol) {
         case '1':
-            decimal += multiplier;
+            decimalResult += multiplier;
             multiplier *= 2;
             break;
 
@@ -48,14 +34,43 @@ void getDecimalString(char* initialString, char* stringForResult, int stringSize
         return;
     }
 
-    sprintf_s(stringForResult, "%d", decimal);
+    sprintf_s(stringForResult, stringSize + 1, "%d", decimalResult);
+}
+
+bool test(void) {
+    char* testString1 = "0";
+    char* testString2 = "101010111100";
+
+    char* testResult1[2];
+    char* testResult2[13];
+
+    bool errorCode = false;
+
+    getDecimalString(testString1, testResult1, 1, &errorCode);
+    getDecimalString(testString2, testResult2, 12, &errorCode);
+
+    if (errorCode || strcmp(testResult1, "0") || strcmp(testResult2, "2748")) {
+        return false;
+    }
+
+    return true;
 }
 
 int main(void) {
-    char* initialString = "1011100010\0";
-    int stringSize = getNumberOfCharacters(initialString);
+    if (!test()) {
+        printf("Test failed\n");
+        return -1;
+    }
+    printf("*test passed*\n\n");
 
-    char* stringForResult = calloc(stringSize, sizeof(char));
+    char* initialString = "11001010";
+    size_t stringSize = strlen(initialString);
+    if (stringSize < 1) {
+        printf("String is too short\n");
+        return 0;
+    }
+
+    char* stringForResult = calloc(stringSize + 1, sizeof(char));
 
     bool errorCode = false;
     getDecimalString(initialString, stringForResult, stringSize, &errorCode);
@@ -64,7 +79,7 @@ int main(void) {
         return -1;
     }
 
-    printf("%s\n", stringForResult);
+    printf("Result: %s\n", stringForResult);
 
     return 0;
 }
