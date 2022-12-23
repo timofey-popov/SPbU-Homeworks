@@ -1,7 +1,7 @@
 #pragma once
 
 // Коды ошибок:
-// 
+//
 typedef enum ErrorCodes {
     noErrors,
 };
