@@ -19,7 +19,7 @@ int getArraySize(FILE* file) {
 // На вход принимает ссылку на массив и его размер, возвращает значение самого частого элемента.
 int mostFrequentElementExecution(FILE* file, int* arrayToOperate, size_t arraySize) {
 
-    quickSort(file, arrayToOperate);
+    quickSort(file, arrayToOperate, arraySize);
 
     int counter = 1;
     int maximumCounter = 1;
@@ -67,7 +67,7 @@ int main(void) {
         printf("*test passed*\n\n");
     }
 
-    FILE* fileToSort = fopen("fileToSort.txt", "a+");
+    FILE* fileToSort = fopen("fileToSort.txt", "r");
     if (fileToSort == NULL) {
         return -1;
     }

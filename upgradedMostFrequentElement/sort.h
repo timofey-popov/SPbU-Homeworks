@@ -5,4 +5,4 @@
 // Рекурсивная функция быстрой сортировки.
 // На вход принимает указатель на сортируемый массив и номера (начиная от 0) левой и правой границ массива.
 // Возвращает -1 в случае ошибки и 0 если всё хорошо.
-int quickSort(FILE* file, int* arrayForResult);
+int quickSort(FILE* file, int* arrayForResult, size_t arraySize);

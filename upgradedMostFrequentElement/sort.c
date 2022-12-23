@@ -85,11 +85,8 @@ void quickSortExecution(int* arrayToSort, int leftElementNumber, int rightElemen
     }
 }
 
-int quickSort(FILE* file, int* arrayForResult) {
-    int numberOfRecords = countRecords(file);
-    if (numberOfRecords == 0) {
-        return 0;
-    }
+int quickSort(FILE* file, int* arrayForResult, size_t arraySize) {
+    int numberOfRecords = arraySize;
 
     int* arrayToSort = calloc(numberOfRecords, sizeof(int));
     if (arrayToSort == NULL) {
