@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 
+// Коды ошибок для проверки баланса.
 typedef enum BalanceErrorCode {
     noErrorsInBalance,
     errorInStack

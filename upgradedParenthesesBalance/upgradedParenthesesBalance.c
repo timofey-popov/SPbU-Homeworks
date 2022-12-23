@@ -39,6 +39,10 @@ bool upgradedParenthesesBalance(char* string, BalanceErrorCode* errorCode) {
         }
 
         if (token == ')' || token == ']' || token == '}') {
+            if (isEmpty(stackForParentheses, &stackError)) {
+                return false;
+            }
+
             char previosParenthesis = pop(stackForParentheses, &stackError);
             if (checkStackError(&stackError, errorCode, stackForParentheses)) {
                 return false;
