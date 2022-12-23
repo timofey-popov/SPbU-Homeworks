@@ -40,6 +40,7 @@ bool upgradedParenthesesBalance(char* string, BalanceErrorCode* errorCode) {
 
         if (token == ')' || token == ']' || token == '}') {
             if (isEmpty(stackForParentheses, &stackError)) {
+                deleteStack(stackForParentheses, &stackError);
                 return false;
             }
 
@@ -79,6 +80,7 @@ bool upgradedParenthesesBalance(char* string, BalanceErrorCode* errorCode) {
     }
 
     if (!emptinessCheck) {
+        deleteStack(stackForParentheses, &stackError);
         return false;
     }
 

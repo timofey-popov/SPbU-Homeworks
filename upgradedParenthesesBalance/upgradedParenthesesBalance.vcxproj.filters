@@ -21,7 +21,7 @@
     <ClCompile Include="main.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SPbU-Homeworks\customStack\customStack.c">
+    <ClCompile Include="..\customStack\customStack.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
