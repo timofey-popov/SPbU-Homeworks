@@ -2,14 +2,16 @@
 #include <stdbool.h>
 #include "postfixCalculator.h"
 
+#define MAX_STRING_SIZE 100
+
 // Функция с тестами.
 // Тестирует функцию на нескольких массивах, имитирующих пользовательский ввод.
 // Возвращает true, если всё в порядке, и false в противном случае.
 bool test(void) {
     CalculatorErrors testErrorCode = noCalculatorErrors;
-    char testArray1[] = { '9', ' ', '6', ' ', '-', ' ', '3', ' ', '*', '\n'};
+    char* testArray1 = "9 6 - 3 *\n";
     char testArray2[] = { '\n' };
-    char testArray3[] = { '9', ' ', '6', ' ', '-' };
+    char testArray3[100] = { '9', ' ', '6', ' ', '-' };
 
     int result1 = postfixCalculator(testArray1, &testErrorCode);
     if (testErrorCode || result1 != 9) {

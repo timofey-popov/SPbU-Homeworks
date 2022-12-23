@@ -62,8 +62,8 @@ int postfixCalculator(char* inputArray, CalculatorErrors* errorCode) {
         // Считываем токен из массива.
         token = inputArray[counter];
 
-        if (token >= (int)'0' && token <= (int)'9') {
-            push((int)token - 48, stackForExpression, &stackErrorCode);
+        if (token >= '0' && token <= '9') {
+            push(token - '0', stackForExpression, &stackErrorCode);
             if (checkStackError(&stackErrorCode, errorCode, stackForExpression)) {
                 return -1;
             }
@@ -135,6 +135,7 @@ int postfixCalculator(char* inputArray, CalculatorErrors* errorCode) {
 
     // Если дошли до 100-го символа и не встретили перевода строки - говорим, что во вводе ошибка.
     if (counter == 100 && inputArray[counter - 1] != '\n') {
+        deleteStack(stackForExpression, &stackErrorCode);
         *errorCode = invalidInput;
         return -1;
     }
@@ -151,5 +152,6 @@ int postfixCalculator(char* inputArray, CalculatorErrors* errorCode) {
         return -1;
     }
 
+    deleteStack(stackForExpression, &stackErrorCode);
     return valueToReturn;
 }
