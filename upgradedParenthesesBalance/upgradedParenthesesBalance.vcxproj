@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\SPbU-Homeworks\customStack\customStack.c" />
+    <ClCompile Include="main.c" />
     <ClCompile Include="upgradedParenthesesBalance.c" />
   </ItemGroup>
   <ItemGroup>

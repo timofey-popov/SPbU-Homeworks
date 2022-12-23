@@ -1,3 +1,16 @@
+#include "upgradedParenthesesBalance.h"
+#include <stdio.h>
+
 int main(void) {
-    printf("hello, world!");
+    BalanceErrorCode errorCode = noErrorsInBalance;
+    char* string = "[({(){}[]})]";
+
+    bool result = upgradedParenthesesBalance(string, &errorCode);
+    if (errorCode) {
+        return errorCode;
+    }
+
+    printf(result ? "Result: true\n" : "Result: false\n");
+
+    return 0;
 }

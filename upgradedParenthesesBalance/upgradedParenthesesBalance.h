@@ -1,11 +1,13 @@
 #pragma once
 
-#include "../customStack/customStack.h"
 #include <stdbool.h>
 
 typedef enum BalanceErrorCode {
-    noErrors,
-
+    noErrorsInBalance,
+    errorInStack
 } BalanceErrorCode;
 
-bool upgradedParenthesesBalance(char* string, BalanceErrorCode errorCode);
+// Проверка баланса скобок.
+// На вход принимает указатели на проверяемую строку и на код ошибки.
+// Возвращает true, если с балансом всё в порядке, и false в противном случае.
+bool upgradedParenthesesBalance(char* string, BalanceErrorCode* errorCode);

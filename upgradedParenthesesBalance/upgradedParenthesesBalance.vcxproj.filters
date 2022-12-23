@@ -18,6 +18,12 @@
     <ClCompile Include="upgradedParenthesesBalance.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SPbU-Homeworks\customStack\customStack.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="upgradedParenthesesBalance.h">
