@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include "../customStack/customStack.h"
 
+// Записать два верхних значения из стека в две переменные.
+// На вход нужен указатель на стек, два указателя на переменные для записи и указатель на переменную с кодом ошибки.
+// Извлекает два значения, а если не удаётся - меняет код ошибки и заканчивает работу.
 void getTwoValues(Stack* stackForExpression, int* firstValue, int* secondValue, CalculatorErrors* calculatorErrorCode) {
     StackErrors errorCheck = 0;
 
@@ -19,6 +22,9 @@ void getTwoValues(Stack* stackForExpression, int* firstValue, int* secondValue, 
     }
 }
 
+// Проверяет, вернула ли операция со стеком ошибку.
+// Если да - меняет код ошибки калькулятора на errorInStack, удаляет стек и возвращает true;
+// Иначе возвращает false.
 bool checkStackError(StackErrors* stackError, CalculatorErrors* mainErrorCode, Stack* stack) {
     if (*stackError) {
         *mainErrorCode = errorInStack;
@@ -29,7 +35,10 @@ bool checkStackError(StackErrors* stackError, CalculatorErrors* mainErrorCode, S
     return false;
 }
 
-int postfixCalculator(CalculatorErrors* errorCode) {
+// Постфиксный калькулятор. 
+// На вход принимает указатели на массив с выражением и на переменную с кодом ошибки.
+// Возвращает целочисленный результат, если всё хорошо, и -1, если встретилась ошибка.
+int postfixCalculator(char* inputArray, CalculatorErrors* errorCode) {
     StackErrors stackErrorCode = noErrors;
     CalculatorErrors calculatorErrorCode = noCalculatorErrors;
 
@@ -39,14 +48,19 @@ int postfixCalculator(CalculatorErrors* errorCode) {
         return -1;
     }
 
-    bool areThereFurtherCharacters = true;
-
     int firstValue = 0;
     int secondValue = 0;
 
-    while (areThereFurtherCharacters) {
-        int token = getchar();
+    int counter = 0;
+    char token = ' ';
+
+    // Цикл считывания символов из массива.
+    // Для разных символов делает разные действия.
+    while (counter < 100) {
         bool wereThereActions = true;
+
+        // Считываем токен из массива.
+        token = inputArray[counter];
 
         if (token >= (int)'0' && token <= (int)'9') {
             push((int)token - 48, stackForExpression, &stackErrorCode);
@@ -97,7 +111,6 @@ int postfixCalculator(CalculatorErrors* errorCode) {
                 break;
 
             case '\n':
-                areThereFurtherCharacters = false;
                 break;
 
             default:
@@ -106,18 +119,32 @@ int postfixCalculator(CalculatorErrors* errorCode) {
             }
         }
 
+        // Этот if сработает в том случае, если считанный символ не является ни цифрой, ни оператором, ни пробелом или переводом строки.
         if (!wereThereActions) {
             *errorCode = invalidInput;
             deleteStack(stackForExpression, &stackErrorCode);
             return -1;
         }
+
+        if (token == '\n') {
+            break;
+        }
+
+        counter++;
+    }
+
+    // Если дошли до 100-го символа и не встретили перевода строки - говорим, что во вводе ошибка.
+    if (counter == 100 && inputArray[counter - 1] != '\n') {
+        *errorCode = invalidInput;
+        return -1;
     }
 
     int valueToReturn = pop(stackForExpression, &stackErrorCode);
     if (checkStackError(&stackErrorCode, errorCode, stackForExpression)) {
         return -1;
     }
-
+    
+    // Если в стеке что-то осталось - значит, что-то пошло не так, как ожидалось.
     if (!isEmpty(stackForExpression, &stackErrorCode)) {
         *errorCode = invalidInput;
         deleteStack(stackForExpression, &stackErrorCode);
