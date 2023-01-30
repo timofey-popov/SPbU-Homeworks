@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="luckyTickets.c">
+    <ClCompile Include="smartQSort.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

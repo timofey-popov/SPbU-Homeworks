@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="quiz.c">
+    <ClCompile Include="mostFrequentElement.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

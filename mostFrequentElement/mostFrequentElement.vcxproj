@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{365b0839-f8a5-4f43-8f9f-d40e1ae3bc64}</ProjectGuid>
-    <RootNamespace>luckyTickets</RootNamespace>
+    <ProjectGuid>{2b4e0340-a04c-4791-a3b7-73412f324368}</ProjectGuid>
+    <RootNamespace>mostFrequentElement</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="luckyTickets.c" />
+    <ClCompile Include="mostFrequentElement.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
