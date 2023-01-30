@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b2374a43-e989-4404-997f-56177412c873}</ProjectGuid>
-    <RootNamespace>quiz2</RootNamespace>
+    <ProjectGuid>{5f01c8e4-ab30-46e5-bb46-9453cb6f566d}</ProjectGuid>
+    <RootNamespace>smartQSort</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="quiz2.c" />
+    <ClCompile Include="smartQSort.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
