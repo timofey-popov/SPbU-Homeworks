@@ -48,6 +48,20 @@ void push(Value value, Stack* stack, StackErrors* errorCode) {
     stack->head = newHead;
 }
 
+Value get(Stack* stack, StackErrors* errorCode) {
+    if (stack == NULL) {
+        *errorCode = nullPointerReceived;
+        return -1;
+    }
+
+    if (stack->head == NULL) {
+        *errorCode = noElemensInStack;
+        return -1;
+    }
+
+    return stack->head->value;
+}
+
 Value pop(Stack* stack, StackErrors* errorCode) {
     if (stack == NULL) {
         *errorCode = nullPointerReceived;
