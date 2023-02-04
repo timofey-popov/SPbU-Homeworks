@@ -5,7 +5,8 @@
 #include<stdio.h>
 
 int main(void) {
-    char* inputString = "(1+1)*2";
+    // —юда вводить строку.
+    char* inputString = "3 + 4 * 2 / ( 1 - 5 )";
     size_t arraySize = strlen(inputString);
 
     char* outputString = calloc(arraySize, sizeof(char));
@@ -17,11 +18,18 @@ int main(void) {
     ShuntingYardErrors errorCode = noErrorsInYard;
 
     shuntingYard(inputString, outputString, arraySize, &errorCode);
+    if (errorCode) {
+        free(outputString);
+        printf("Error %d occured\n", errorCode);
+        return errorCode;
+    }
 
+    printf("Result:\n\n");
     for (size_t i = 0; i < arraySize; ++i) {
         printf("%c ", outputString[i]);
     }
     printf("\n");
 
+    free(outputString);
     return 0;
 }
