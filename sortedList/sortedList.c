@@ -5,7 +5,7 @@
 
 typedef struct ListElement {
     int value;
-    ListElement* next;
+    struct ListElement* next;
 } ListElement;
 
 struct SortedList {
@@ -82,30 +82,33 @@ void deleteFromList(int value, SortedList* list, ListErrors* errorCode) {
         return;
     }
 
-    // Если удаляем единственный или первый элемент:
-    if (list->head->value == value) {
-        if (list->head == list->tail) {
-            free(list->head);
-            list->head = NULL;
-            list->tail = NULL;
-        }
-        else {
-            ListElement* temporary = list->head;
-            list->head = temporary->next;
-            free(temporary);
-        }
-        return;
-    }
-
-    // Начинаем искать со второго элемента.
-    ListElement* elementToDelete = list->head->next;
-    ListElement* previousElement = list->head;
+    // Начинаем поиск.
+    ListElement* elementToDelete = list->head;
+    ListElement* previousElement = NULL;
     while ((elementToDelete->value != value) && (elementToDelete != list->tail)) {
         previousElement = elementToDelete;
         elementToDelete = elementToDelete->next;
     }
 
     if (elementToDelete->value == value) {
+        // Если "предыдущий" так и остался NULL, то мы хотим удалить первый (возможно, единственный) элемент.
+        if (previousElement == NULL) {
+            // Если он единственный - то зануляем ещё и хвост.
+            if (list->head == list->tail) {
+                list->tail = NULL;
+            }
+
+            ListElement* temporary = list->head;
+            list->head = temporary->next;
+
+            free(temporary);
+            return;
+        }
+
+        // Если удаляем последний элемент - сдвигаем указатель хвоста.
+        if (elementToDelete == list->tail) {
+            list->tail = previousElement;
+        }
         previousElement->next = elementToDelete->next;
         free(elementToDelete);
     }
@@ -116,13 +119,21 @@ void printWholeList(SortedList* list, ListErrors* errorCode) {
         *errorCode = gotNullPointer;
         return;
     }
+    
+    if (list->head == NULL) {
+        printf("No elements in the list.\n\n");
+        return;
+    }
 
     ListElement* temporaryPointer = list->head;
 
+
+    printf("Here's the whole list:\n");
     while (temporaryPointer != NULL) {
         printf("%d ", temporaryPointer->value);
         temporaryPointer = temporaryPointer->next;
     }
+    printf("\n\n");
 }
 
 void deleteList(SortedList* list, ListErrors* errorCode) {

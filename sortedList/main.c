@@ -73,7 +73,7 @@ int main(void) {
                 return listError;
             }
 
-            printf("Added successfully\n\n");
+            printf("%d added successfully\n\n", userValue);
             break;
         case 2:
             printf("Enter a value to delete:\n");
@@ -84,11 +84,9 @@ int main(void) {
                 return listError;
             }
 
-            printf("Deleted successfully\n\n");
+            printf("%d deleted successfully\n\n", userValue);
             break;
         case 3:
-            printf("Here's the whole list:\n");
-
             printWholeList(myList, &listError);
             if (isAnError(&listError, myList)) {
                 return listError;
