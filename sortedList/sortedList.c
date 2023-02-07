@@ -127,7 +127,6 @@ void printWholeList(SortedList* list, ListErrors* errorCode) {
 
     ListElement* temporaryPointer = list->head;
 
-
     printf("Here's the whole list:\n");
     while (temporaryPointer != NULL) {
         printf("%d ", temporaryPointer->value);
