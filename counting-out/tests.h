@@ -1,6 +1,5 @@
 #pragma once
 
-#include "counting-out.h"
 #include <stdbool.h>
 
 // Тест для основной функции (подсчёта).

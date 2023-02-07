@@ -1,4 +1,5 @@
 #include "tests.h"
+#include "counting-out.h"
 
 bool testForCalculating(void) {
     CountingOutErrors testErrorCode = noErrors;

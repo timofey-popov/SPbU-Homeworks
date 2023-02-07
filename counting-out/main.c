@@ -36,12 +36,13 @@ int main(void) {
 
     CountingOutErrors errorCode = noErrors;
 
-    printf("Enter n:\n");
-    int n = getPositiveInteger();
-    printf("Enter m:\n");
-    int m = getPositiveInteger();
+    printf("Enter the number of warriors:\n");
+    int numberOfWarriors = getPositiveInteger();
+    printf("Enter the pace of a counting-out:\n");
 
-    int result = calculateSuitablePosition(n, m, &errorCode);
+    int paceOfCountingOut = getPositiveInteger();
+
+    int result = calculateSuitablePosition(numberOfWarriors, paceOfCountingOut, &errorCode);
     if (errorCode) {
         printf("Error %d occured\n\n", errorCode);
         return errorCode;
