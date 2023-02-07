@@ -1,4 +1,5 @@
 #include "sortedList.h"
+#include "tests.h"
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -46,6 +47,12 @@ bool isAnError(ListErrors* errorCode, SortedList* list) {
 }
 
 int main(void) {
+    if (!testForCreateAndDeleteList() || !testForAddAndDeleteValue()) {
+        printf("Tests failed: %d, %d.", testForCreateAndDeleteList(), testForAddAndDeleteValue());
+        return -1;
+    }
+    printf("*tests passed*\n\n");
+
     // Переменная для хранения номера действия.
     short currentStatus = 1;
     // Переменная для сохранения пользовательского ввода.
@@ -63,6 +70,7 @@ int main(void) {
 
         switch (currentStatus) {
         case 0:
+            deleteList(myList, &listError);
             break;
         case 1:
             printf("Enter a value to add:\n");
