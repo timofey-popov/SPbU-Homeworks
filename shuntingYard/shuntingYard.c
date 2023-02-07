@@ -133,5 +133,4 @@ void shuntingYard(char* inputArray, char* outputArray, size_t arraysSize, Shunti
     }
 
     deleteStack(stack, &stackError);
-    return;
 }

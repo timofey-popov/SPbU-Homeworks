@@ -1,9 +1,9 @@
 #include "shuntingYard.h"
 
 #include <stdlib.h>
-#include<string.h>
-#include<stdio.h>
-#include<stdbool.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdbool.h>
 
 bool tests(void) {
     char* testInputString1 = "( 1 + 1 ) * 2";
