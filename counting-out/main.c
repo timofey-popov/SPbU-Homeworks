@@ -1,4 +1,5 @@
-#include "circularList.h"
+#include "counting-out.h"
+#include "tests.h"
 
 #include <stdio.h>
 
@@ -9,6 +10,7 @@ void customFlush(void) {
     char junk2 = getchar();
 }
 
+// Возвращает целое число, введённое пользователем. Если запись не удалась - печатает на экран просьбу повторить ввод.
 int getPositiveInteger(void) {
     int valueToReturn = 0;
     
@@ -23,45 +25,28 @@ int getPositiveInteger(void) {
     return valueToReturn;
 }
 
-bool isAnError(ListErrors* errorCode, CircularList* list) {
-    if (*errorCode) {
-        printf("An error occured: %d", *errorCode);
-        deleteList(list, &errorCode);
-        return 1;
+int main(void) {
+    if (!insideTests() || !testForCalculating()) {
+        printf("Tests failed:\nInside test: %d\nMain test: %d\n\n", insideTests(), testForCalculating());
+        return -1;
+    }
+    else {
+        printf("*tests passed*\n\n");
     }
 
-    return 0;
-}
+    CountingOutErrors errorCode = noErrors;
 
-int main(void) {
     printf("Enter n:\n");
     int n = getPositiveInteger();
     printf("Enter m:\n");
     int m = getPositiveInteger();
-    
-    ListErrors listError = noErrors;
-    CircularList* list = createList(&listError);
-    if (listError || list == NULL) {
-        return listError;
+
+    int result = calculateSuitablePosition(n, m, &errorCode);
+    if (errorCode) {
+        printf("Error %d occured\n\n", errorCode);
+        return errorCode;
     }
 
-    // Набиваем в список n номеров воинов по порядку:
-    for (int i = 1; i <= n; ++i) {
-        addToList(i, list, &listError);
-        if (isAnError(&listError, list)) {
-            return listError;
-        }
-    }
-
-    int result = calculateSuitablePosition(n, m, list, &listError);
-    if (isAnError(&listError, list)) {
-        return listError;
-    }
-
-    deleteList(list, &listError);
-    if (listError) {
-        return listError;
-    }
     printf("Result: take position %d\n\n", result);
 
     return 0;
