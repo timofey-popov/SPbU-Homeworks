@@ -1,6 +1,6 @@
 #include "shuntingYard.h"
 
-#include<stdlib.h>
+#include <stdlib.h>
 #include<string.h>
 #include<stdio.h>
 #include<stdbool.h>
@@ -66,7 +66,7 @@ int main(void) {
     }
     printf("*tests passed*\n\n");
 
-    // Сюда вводить строку.
+    // Г‘ГѕГ¤Г  ГўГўГ®Г¤ГЁГІГј Г±ГІГ°Г®ГЄГі.
     char* inputString = "6 * ((4 + 2) / 3) - (3 - 1)";
     size_t arraySize = strlen(inputString);
 
