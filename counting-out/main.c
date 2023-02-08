@@ -1,4 +1,4 @@
-#include "counting-out.h"
+#include "circularList.h"
 #include "tests.h"
 
 #include <stdio.h>
@@ -26,20 +26,19 @@ int getPositiveInteger(void) {
 }
 
 int main(void) {
-    if (!insideTests() || !testForCalculating()) {
-        printf("Tests failed:\nInside test: %d\nMain test: %d\n\n", insideTests(), testForCalculating());
+    if (!testForCreateAndDeleteList() || !testForAddAndDeleteValue() || !testForCalculating()) {
+        printf("Tests failed: %d, %d, %d\n\n", testForCreateAndDeleteList(), testForAddAndDeleteValue(), testForCalculating());
         return -1;
     }
     else {
         printf("*tests passed*\n\n");
     }
 
-    CountingOutErrors errorCode = noErrors;
+    ListErrors errorCode = noErrorsInList;
 
     printf("Enter the number of warriors:\n");
     int numberOfWarriors = getPositiveInteger();
     printf("Enter the pace of a counting-out:\n");
-
     int paceOfCountingOut = getPositiveInteger();
 
     int result = calculateSuitablePosition(numberOfWarriors, paceOfCountingOut, &errorCode);
