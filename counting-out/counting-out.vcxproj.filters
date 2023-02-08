@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="counting-out.c">
+    <ClCompile Include="circularList.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="main.c">
@@ -26,7 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="counting-out.h">
+    <ClInclude Include="circularList.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="tests.h">

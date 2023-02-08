@@ -127,12 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="counting-out.c" />
+    <ClCompile Include="circularList.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="tests.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="counting-out.h" />
+    <ClInclude Include="circularList.h" />
     <ClInclude Include="tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
