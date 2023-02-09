@@ -98,6 +98,15 @@ void deleteElementByValue(Value value, List* list, ListErrors* errorCode) {
     }
 }
 
+int getListLength(List* list, ListErrors* errorCode) {
+    if (list == NULL) {
+        *errorCode = gotNullPointer;
+        return;
+    }
+
+    return list->length;
+}
+
 void printList(List* list, ListErrors* errorCode) {
     if (list == NULL) {
         *errorCode = gotNullPointer;
