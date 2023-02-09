@@ -72,30 +72,61 @@ void deleteElementByValue(Value value, List* list, ListErrors* errorCode) {
         elementToDelete = elementToDelete->next;
     }
 
+    // Если нашли то, что искали, запускаем удаление по указателю на предыдущий элемент:
     if (elementToDelete->value == value) {
-        // Если "предыдущий" так и остался NULL, то мы хотим удалить первый (возможно, единственный) элемент.
-        if (previousElement == NULL) {
-            // Если он единственный - то зануляем ещё и хвост.
-            if (list->head == list->tail) {
-                list->tail = NULL;
-            }
-
-            ListElement* temporary = list->head;
-            list->head = temporary->next;
-
-            free(temporary);
-            list->length -= 1;
-            return;
-        }
-
-        // Если удаляем последний элемент - сдвигаем указатель хвоста.
-        if (elementToDelete == list->tail) {
-            list->tail = previousElement;
-        }
-        previousElement->next = elementToDelete->next;
-        free(elementToDelete);
-        list->length -= 1;
+        deleteElementByPointer(list, previousElement, errorCode);
     }
+}
+
+// Удаляет элемент, следующий за тем, на который передан указатель.
+void deleteElementByPointer(List* list, ListElement* previousElement, ListErrors* errorCode) {
+    if (list == NULL) {
+        *errorCode = gotNullPointer;
+        return;
+    }
+
+    // Пустой список - значит, нечего удалять.
+    if (list->head == NULL) {
+        return;
+    }
+
+    ListElement* elementToDelete = NULL;
+
+    // Если "предыдущий" элемент NULL, то предполагаем, что мы хотим удалить первый (возможно, единственный) элемент.
+    if (previousElement == NULL) {
+        elementToDelete = list->head;
+    }
+    else {
+        elementToDelete = previousElement->next;
+    }
+
+    // Если этот элемент ноль - вероятно, нам передали хвост списка или просто некорректное значение.
+    if (elementToDelete == NULL) {
+        *errorCode = noSuchElementInList;
+        return;
+    }
+
+    if (previousElement == NULL) {
+        // Если он единственный - то зануляем ещё и хвост.
+        if (list->head == list->tail) {
+            list->tail = NULL;
+        }
+
+        ListElement* temporary = list->head;
+        list->head = temporary->next;
+
+        free(temporary);
+        list->length -= 1;
+        return;
+    }
+
+    // Если удаляем последний элемент - сдвигаем указатель хвоста.
+    if (elementToDelete == list->tail) {
+        list->tail = previousElement;
+    }
+    previousElement->next = elementToDelete->next;
+    free(elementToDelete);
+    list->length -= 1;
 }
 
 int getListLength(List* list, ListErrors* errorCode) {
@@ -115,7 +146,7 @@ Value getNthValue(List* list, int number, ListErrors* errorCode) {
 
     if (number < 1 || number > list->length) {
         *errorCode = gotInvalidNumber;
-        return;
+        return -1;
     }
 
     ListElement* pointer = list->head;
@@ -124,6 +155,30 @@ Value getNthValue(List* list, int number, ListErrors* errorCode) {
     }
 
     return pointer->value;
+}
+
+Value popNthElement(List* list, int number, ListErrors* errorCode) {
+    if (list == NULL) {
+        *errorCode = gotNullPointer;
+        return -1;
+    }
+
+    if (number < 1 || number > list->length) {
+        *errorCode = gotInvalidNumber;
+        return -1;
+    }
+
+    ListElement* pointer = list->head;
+    // Двигаемся n - 2 раза, т. к. начинаем с первого элемента, и нужен нам указатель не на удаляемый элемент, а на предшествующий ему.
+    for (int i = 0; i < number - 2; ++i) {
+        pointer = pointer->next;
+    }
+
+    Value valueToReturn = pointer->next->value;
+
+    deleteElementByPointer(list, pointer, errorCode);
+
+    return valueToReturn;
 }
 
 void printList(List* list, ListErrors* errorCode) {
