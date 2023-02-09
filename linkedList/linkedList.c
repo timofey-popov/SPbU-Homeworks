@@ -107,6 +107,25 @@ int getListLength(List* list, ListErrors* errorCode) {
     return list->length;
 }
 
+Value getNthValue(List* list, int number, ListErrors* errorCode) {
+    if (list == NULL) {
+        *errorCode = gotNullPointer;
+        return -1;
+    }
+
+    if (number < 1 || number > list->length) {
+        *errorCode = gotInvalidNumber;
+        return;
+    }
+
+    ListElement* pointer = list->head;
+    for (int i = 1; i < number; ++i) {
+        pointer = pointer->next;
+    }
+
+    return pointer->value;
+}
+
 void printList(List* list, ListErrors* errorCode) {
     if (list == NULL) {
         *errorCode = gotNullPointer;
