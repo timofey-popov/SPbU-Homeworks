@@ -181,6 +181,15 @@ Value popNthElement(List* list, int number, ListErrors* errorCode) {
     return valueToReturn;
 }
 
+bool isEmpty(List* list, ListErrors* errorCode) {
+    if (list == NULL) {
+        *errorCode = gotNullPointer;
+        return;
+    }
+
+    return list->head == NULL;
+}
+
 void printList(List* list, ListErrors* errorCode) {
     if (list == NULL) {
         *errorCode = gotNullPointer;
