@@ -23,6 +23,9 @@ void addElement(Value value, List* list, ListErrors* errorCode);
 // Удалить элемент из списка (поиск по значению).
 void deleteElementByValue(Value value, List* list, ListErrors* errorCode);
 
+// Получить количество элементов в списке.
+int getListLength(List* list, ListErrors* errorCode);
+
 // Распечатать весь список.
 void printList(List* list, ListErrors* errorCode);
 
