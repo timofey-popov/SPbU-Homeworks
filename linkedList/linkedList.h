@@ -1,9 +1,11 @@
 #pragma once
 
 // Коды ошибок:
-typedef enum ListErrorCodes {
+typedef enum ListErrors {
     noErrors,
-} ListErrorCodes;
+    memoryAllocationError,
+    gotNullPointer
+} ListErrors;
 
 typedef int Value;
 
@@ -13,16 +15,16 @@ typedef struct List List;
 // Создать список.
 // Возвращает указатель на созданный список или NULL, если создать не удалось.
 // Если создать не удалось - память не выделятся, ничего удалять не нужно.
-List* createList(ListErrorCodes* errorCode);
+List* createList(ListErrors* errorCode);
 
 // Добавить элемент в список.
-void addElement(Value value, List* list, ListErrorCodes* errorCode);
+void addElement(Value value, List* list, ListErrors* errorCode);
 
-// Удалить элемент из списка.
-void deleteElement(Value value, List* list, ListErrorCodes* errorCode);
+// Удалить элемент из списка (поиск по значению).
+void deleteElementByValue(Value value, List* list, ListErrors* errorCode);
 
 // Распечатать весь список.
-void printList(ListErrorCodes* errorCode);
+void printList(List* list, ListErrors* errorCode);
 
 // Удалить список.
-void deleteList(ListErrorCodes* errorCode);
+void deleteList(List* list, ListErrors* errorCode);
