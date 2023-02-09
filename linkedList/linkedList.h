@@ -5,7 +5,8 @@ typedef enum ListErrors {
     noErrors,
     memoryAllocationError,
     gotNullPointer, 
-    gotInvalidNumber
+    gotInvalidNumber,
+    noSuchElementInList
 } ListErrors;
 
 typedef int Value;
@@ -29,6 +30,9 @@ int getListLength(List* list, ListErrors* errorCode);
 
 // Получить n-тое значение списка (нумерация от 1).
 Value getNthValue(List* list, int number, ListErrors* errorCode);
+
+// Получить n-тое значение списка (нумерация от 1) и удалить n-тый элемент.
+Value popNthElement(List* list, int number, ListErrors* errorCode);
 
 // Распечатать весь список.
 void printList(List* list, ListErrors* errorCode);
