@@ -4,4 +4,3 @@
 
 List* mergeSort(List* listToSort, ListErrors* errorCode);
 
-

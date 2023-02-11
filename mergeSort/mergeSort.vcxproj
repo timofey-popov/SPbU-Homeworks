@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\linkedList\linkedList.c" />
+    <ClCompile Include="main.c" />
     <ClCompile Include="mergeSort.c" />
   </ItemGroup>
   <ItemGroup>

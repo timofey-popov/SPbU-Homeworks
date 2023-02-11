@@ -18,6 +18,12 @@
     <ClCompile Include="mergeSort.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\linkedList\linkedList.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mergeSort.h">

@@ -14,6 +14,40 @@ bool isAnError(ListErrors* errorCode, List* listToDelete1, List* listToDelete2) 
     return false;
 }
 
+List* merge(List* left, List* right, ListErrors* errorCode) {
+    List* result = createList(errorCode);
+    if (*errorCode) {
+        return NULL;
+    }
+
+    while (!isEmpty(left, errorCode) && !isEmpty(right, errorCode)) {
+        if (getNthValue(left, 1, errorCode) <= getNthValue(right, 1, errorCode)) {
+            addElement(popNthElement(left, 1, errorCode), result, errorCode);
+        }
+        else {
+            addElement(popNthElement(right, 1, errorCode), result, errorCode);
+        }
+        if (*errorCode) {
+            deleteList(result, errorCode);
+            return NULL;
+        }
+    }
+
+    while (!isEmpty(left, errorCode)) {
+        addElement(popNthElement(left, 1, errorCode), result, errorCode);
+    }
+
+    while (!isEmpty(right, errorCode)) {
+        addElement(popNthElement(right, 1, errorCode), result, errorCode);
+    }
+    if (*errorCode) {
+        deleteList(result, errorCode);
+        return NULL;
+    }
+
+    return result;
+}
+
 List* mergeSort(List* listToSort, ListErrors* errorCode) {
     int listLength = getListLength(listToSort, errorCode);
     if (*errorCode) {
@@ -73,11 +107,4 @@ List* mergeSort(List* listToSort, ListErrors* errorCode) {
     deleteList(left, errorCode);
     deleteList(right, errorCode);
     return ListToReturn;
-}
-
-List* merge(List* left, List* right, ListErrors* errorCode) {
-    List* result = createList(errorCode); 
-    if (*errorCode) {
-        return NULL;
-    }
 }
