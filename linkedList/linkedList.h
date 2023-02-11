@@ -4,7 +4,7 @@
 
 // Коды ошибок:
 typedef enum ListErrors {
-    noErrors,
+    noErrorsInList,
     memoryAllocationError,
     gotNullPointer, 
     gotInvalidNumber,

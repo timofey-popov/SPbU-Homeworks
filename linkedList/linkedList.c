@@ -53,31 +53,6 @@ void addElement(Value value, List* list, ListErrors* errorCode) {
     list->length += 1;
 }
 
-void deleteElementByValue(Value value, List* list, ListErrors* errorCode) {
-    if (list == NULL) {
-        *errorCode = gotNullPointer;
-        return;
-    }
-
-    // Пустой список - значит, нечего удалять.
-    if (list->head == NULL) {
-        return;
-    }
-
-    // Начинаем поиск.
-    ListElement* elementToDelete = list->head;
-    ListElement* previousElement = NULL;
-    while ((elementToDelete->value != value) && (elementToDelete != list->tail)) {
-        previousElement = elementToDelete;
-        elementToDelete = elementToDelete->next;
-    }
-
-    // Если нашли то, что искали, запускаем удаление по указателю на предыдущий элемент:
-    if (elementToDelete->value == value) {
-        deleteElementByPointer(list, previousElement, errorCode);
-    }
-}
-
 // Удаляет элемент, следующий за тем, на который передан указатель.
 void deleteElementByPointer(List* list, ListElement* previousElement, ListErrors* errorCode) {
     if (list == NULL) {
@@ -129,10 +104,35 @@ void deleteElementByPointer(List* list, ListElement* previousElement, ListErrors
     list->length -= 1;
 }
 
-int getListLength(List* list, ListErrors* errorCode) {
+void deleteElementByValue(Value value, List* list, ListErrors* errorCode) {
     if (list == NULL) {
         *errorCode = gotNullPointer;
         return;
+    }
+
+    // Пустой список - значит, нечего удалять.
+    if (list->head == NULL) {
+        return;
+    }
+
+    // Начинаем поиск.
+    ListElement* elementToDelete = list->head;
+    ListElement* previousElement = NULL;
+    while ((elementToDelete->value != value) && (elementToDelete != list->tail)) {
+        previousElement = elementToDelete;
+        elementToDelete = elementToDelete->next;
+    }
+
+    // Если нашли то, что искали, запускаем удаление по указателю на предыдущий элемент:
+    if (elementToDelete->value == value) {
+        deleteElementByPointer(list, previousElement, errorCode);
+    }
+}
+
+int getListLength(List* list, ListErrors* errorCode) {
+    if (list == NULL) {
+        *errorCode = gotNullPointer;
+        return -1;
     }
 
     return list->length;
@@ -184,7 +184,7 @@ Value popNthElement(List* list, int number, ListErrors* errorCode) {
 bool isEmpty(List* list, ListErrors* errorCode) {
     if (list == NULL) {
         *errorCode = gotNullPointer;
-        return;
+        return true;
     }
 
     return list->head == NULL;
