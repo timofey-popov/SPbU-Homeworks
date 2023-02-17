@@ -4,12 +4,13 @@
 #include <stdio.h>
 
 // Структура для элементов списка.
-// Поля: значение и указатель на следующий элемент.
+// Поля: значение, указатель на следующий элемент.
 typedef struct ListElement {
     Value value;
     struct ListElement* next;
 } ListElement;
 
+// Список. Поля: указатели на голову и хвост, длина списка.
 typedef struct List {
     ListElement* head;
     ListElement* tail;
@@ -168,15 +169,18 @@ Value popNthElement(List* list, int number, ListErrors* errorCode) {
         return -1;
     }
 
-    ListElement* pointer = list->head;
-    // Двигаемся n - 2 раза, т. к. начинаем с первого элемента, и нужен нам указатель не на удаляемый элемент, а на предшествующий ему.
-    for (int i = 0; i < number - 2; ++i) {
-        pointer = pointer->next;
+    ListElement* elementToDelete = list->head;
+    ListElement* previous = NULL;
+
+    // Двигаемся n - 1 раз, т. к. начинаем с первого элемента.
+    for (int i = 0; i < number - 1; ++i) {
+        previous = elementToDelete;
+        elementToDelete = elementToDelete->next;
     }
 
-    Value valueToReturn = pointer->next->value;
+    Value valueToReturn = elementToDelete->next->value;
 
-    deleteElementByPointer(list, pointer, errorCode);
+    deleteElementByPointer(list, previous, errorCode);
 
     return valueToReturn;
 }
@@ -203,7 +207,6 @@ void printList(List* list, ListErrors* errorCode) {
 
     ListElement* temporaryPointer = list->head;
 
-    printf("Here's the whole list:\n");
     while (temporaryPointer != NULL) {
         printf("%d ", temporaryPointer->value);
         temporaryPointer = temporaryPointer->next;
