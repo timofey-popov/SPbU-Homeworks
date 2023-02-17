@@ -14,6 +14,8 @@ bool isAnError(ListErrors* errorCode, List* listToDelete1, List* listToDelete2) 
     return false;
 }
 
+// Функция слияния. Принимает на вход два указателя на списки. Их никак не изменяет.
+// Возвращает указатель на объединённый список (для этого создаёт новый список, его нужно потом удалять).
 List* merge(List* left, List* right, ListErrors* errorCode) {
     List* result = createList(errorCode);
     if (*errorCode) {
@@ -27,12 +29,14 @@ List* merge(List* left, List* right, ListErrors* errorCode) {
         else {
             addElement(popNthElement(right, 1, errorCode), result, errorCode);
         }
+
         if (*errorCode) {
             deleteList(result, errorCode);
             return NULL;
         }
     }
 
+    // Сработает только один из двух циклов ниже.
     while (!isEmpty(left, errorCode)) {
         addElement(popNthElement(left, 1, errorCode), result, errorCode);
     }
@@ -49,6 +53,11 @@ List* merge(List* left, List* right, ListErrors* errorCode) {
 }
 
 List* mergeSort(List* listToSort, ListErrors* errorCode) {
+    if (listToSort == NULL) {
+        *errorCode = gotNullPointer;
+        return NULL;
+    }
+
     int listLength = getListLength(listToSort, errorCode);
     if (*errorCode) {
         return NULL;
@@ -75,7 +84,7 @@ List* mergeSort(List* listToSort, ListErrors* errorCode) {
             return NULL;
         }
 
-        if (i < (listLength / 2)) {
+        if (i <= (listLength / 2)) {
             addElement(ithValue, left, errorCode);
             if (isAnError(errorCode, left, right)) {
                 return NULL;

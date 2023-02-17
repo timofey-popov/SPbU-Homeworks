@@ -130,9 +130,11 @@
     <ClCompile Include="..\linkedList\linkedList.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="mergeSort.c" />
+    <ClCompile Include="tests.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mergeSort.h" />
+    <ClInclude Include="tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
