@@ -11,9 +11,10 @@ typedef enum ListErrors {
     noSuchElementInList
 } ListErrors;
 
+// Тип данных, хранимых в списке.
 typedef int Value;
 
-// АТД "Список"
+// АТД "Список".
 typedef struct List List;
 
 // Создать список.
@@ -30,7 +31,7 @@ void deleteElementByValue(Value value, List* list, ListErrors* errorCode);
 // Получить количество элементов в списке.
 int getListLength(List* list, ListErrors* errorCode);
 
-// Получить n-тое значение списка (нумерация от 1).
+// Получить n-тое значение списка (нумерация от 1), не удаляя его.
 Value getNthValue(List* list, int number, ListErrors* errorCode);
 
 // Получить n-тое значение списка (нумерация от 1) и удалить n-тый элемент.
