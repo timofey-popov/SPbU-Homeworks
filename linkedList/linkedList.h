@@ -40,6 +40,9 @@ Value popNthElement(List* list, int number, ListErrors* errorCode);
 // Возвращает true, если список пуст, и false в противном случае.
 bool isEmpty(List* list, ListErrors* errorCode);
 
+// Удалить все значения из списка.
+void clearList(List* list, ListErrors* errorCode);
+
 // Распечатать весь список.
 void printList(List* list, ListErrors* errorCode);
 
