@@ -55,6 +55,7 @@ void addElement(Value value, List* list, ListErrors* errorCode) {
 }
 
 // Удаляет элемент, следующий за тем, на который передан указатель.
+// Если передан NULL, удаляет голову.
 void deleteElementByPointer(List* list, ListElement* previousElement, ListErrors* errorCode) {
     if (list == NULL) {
         *errorCode = gotNullPointer;
@@ -194,6 +195,18 @@ bool isEmpty(List* list, ListErrors* errorCode) {
     return list->head == NULL;
 }
 
+void clearList(List* list, ListErrors* errorCode) {
+    if (list == NULL) {
+        *errorCode = gotNullPointer;
+        return;
+    }
+
+    // Передаём показатель на "предыдущий" к голове элемент, то есть на NULL.
+    while (list->head != NULL) {
+        deleteElementByPointer(list, NULL, errorCode);
+    }
+}
+
 void printList(List* list, ListErrors* errorCode) {
     if (list == NULL) {
         *errorCode = gotNullPointer;
@@ -220,9 +233,6 @@ void deleteList(List* list, ListErrors* errorCode) {
         return;
     }
 
-    while (list->head != NULL) {
-        deleteElementByValue(list->head->value, list, errorCode);
-    }
-
+    clearList(list, errorCode);
     free(list);
 }
