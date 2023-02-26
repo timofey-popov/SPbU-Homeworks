@@ -6,7 +6,8 @@
 typedef enum ListErrors {
     noErrorsInList,
     memoryAllocationError,
-    gotNullPointer, 
+    gotNullPointer,
+    gotEmptyList,
     gotInvalidNumber,
     noSuchElementInList
 } ListErrors;

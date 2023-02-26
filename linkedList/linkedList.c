@@ -140,6 +140,27 @@ int getListLength(List* list, ListErrors* errorCode) {
     return list->length;
 }
 
+// Возвращает указатель на (n - 1)-ый элемент списка.
+// Служебная функция, не проверяет корректность указателя на список и существует ли такой номер.
+// Если это голова списка - возвращает NULL. Если список пуст - тоже возвращает NULL и меняет код ошибки.
+ListElement* getPreviousToNthElement(List* list, int number, ListErrors* errorCode) {
+    if (list->length == 0) {
+        *errorCode = gotEmptyList;
+        return NULL;
+    }
+
+    if (number == 1) {
+        return NULL;
+    }
+
+    ListElement* pointer = list->head;
+    for (int i = 1; i < number - 1; ++i) {
+        pointer = pointer->next;
+    }
+
+    return pointer;
+}
+
 Value getNthValue(List* list, int number, ListErrors* errorCode) {
     if (list == NULL) {
         *errorCode = gotNullPointer;
@@ -151,12 +172,12 @@ Value getNthValue(List* list, int number, ListErrors* errorCode) {
         return -1;
     }
 
-    ListElement* pointer = list->head;
-    for (int i = 1; i < number; ++i) {
-        pointer = pointer->next;
+    ListElement* previous = getPreviousToNthElement(list, number, errorCode);
+    if (*errorCode) {
+        return -1;
     }
 
-    return pointer->value;
+    return previous == NULL ? list->head->value : previous->next->value;
 }
 
 Value popNthElement(List* list, int number, ListErrors* errorCode) {
@@ -170,16 +191,12 @@ Value popNthElement(List* list, int number, ListErrors* errorCode) {
         return -1;
     }
 
-    ListElement* elementToDelete = list->head;
-    ListElement* previous = NULL;
-
-    // Двигаемся n - 1 раз, т. к. начинаем с первого элемента.
-    for (int i = 0; i < number - 1; ++i) {
-        previous = elementToDelete;
-        elementToDelete = elementToDelete->next;
+    ListElement* previous = getPreviousToNthElement(list, number, errorCode);
+    if (*errorCode) {
+        return -1;
     }
 
-    Value valueToReturn = elementToDelete->next->value;
+    Value valueToReturn = previous == NULL ? list->head->value : previous->next->value;
 
     deleteElementByPointer(list, previous, errorCode);
 
