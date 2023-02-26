@@ -1,8 +1,17 @@
 #include "mergeSort.h"
+#include "tests.h"
 
 #include <stdio.h>
 
 int main(void) {
+    if (!testForMergeSort()) {
+        printf("Tests failed.\n\n");
+        return -1;
+    }
+    else {
+        printf("*tests passed*\n\n");
+    }
+
     ListErrors errorCode = noErrorsInList;
 
     List* initialList = createList(&errorCode);
