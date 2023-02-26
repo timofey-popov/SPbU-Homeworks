@@ -56,20 +56,19 @@ bool mergeSortForArrays(int* array, int length) {
         return false;
     }
 
-    mergeSort(listForSort, &errorCode);
+    List* result = mergeSort(listForSort, &errorCode);
     if (errorCode) {
+        deleteList(result, &errorCode);
         deleteList(listForSort, &errorCode);
         return false;
     }
 
-    int listToArrayCheck = listToArray(listForSort, length, array);
-    if (listToArrayCheck != length) {
-        deleteList(listForSort, &errorCode);
-        return false;
-    }
+    int listToArrayCheck = listToArray(result, length, array);
 
+    deleteList(result, &errorCode);
     deleteList(listForSort, &errorCode);
-    return !errorCode;
+
+    return listToArrayCheck == length && !errorCode;
 }
 
 bool testForMergeSort(void) {
