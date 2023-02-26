@@ -1,18 +1,5 @@
 ﻿namespace SortPrograms
 {
-    class Program
-    {
-        static void Main()
-        {
-            int[] inputArray = { 5, 4, 3, 2, 1 };
-
-            BubbleSort.BubbleSortExecution(inputArray);
-
-            string resultString = string.Join(" ", inputArray);
-            Console.WriteLine(resultString);
-        }
-    }
-
     class BubbleSort
     {
         public static void BubbleSortExecution(int[] arrayForSort)
@@ -24,6 +11,19 @@
                     (arrayForSort[j + 1], arrayForSort[j])=(arrayForSort[j], arrayForSort[j + 1]);
                 }
             }
+        }
+    }
+
+    class bubbleSort
+    {
+        static void Main()
+        {
+            int[] inputArray = { 5, 4, 3, 2, 1 };
+
+            BubbleSort.BubbleSortExecution(inputArray);
+
+            string resultString = string.Join(" ", inputArray);
+            Console.WriteLine(resultString);
         }
     }
 }
