@@ -11,7 +11,7 @@ class BurrowsWheelerTransform
             rotations[i] = rotation;
         }
 
-        Array.Sort(rotations);
+        Array.Sort(rotations, StringComparer.OrdinalIgnoreCase);
 
         initialStringIndex = -1;
         for (int i = 0; i < rotations.Length; i++) 
@@ -32,8 +32,10 @@ class BurrowsWheelerTransform
 
     public static void ReverseTransform(out string initialString, string transformedString, int initialStringIndex)
     {
-        string sortedTransformedString = new(transformedString.OrderBy(c => c).ToArray());
-        string transformedStringCopy = transformedString;
+        char[] transformedStringArray = transformedString.ToCharArray();
+        Array.Sort(transformedStringArray, StringComparer.OrdinalIgnoreCase);
+        string sortedTransformedString = new string(transformedStringArray);
+
 
         StringBuilder stringToReturn = new();
 
@@ -42,15 +44,17 @@ class BurrowsWheelerTransform
 
         while (sortedTransformedString.Length > 0)
         {
-            currentCharacter = transformedStringCopy[currentIndex];
+            currentCharacter = transformedString[currentIndex];
 
             stringToReturn.Insert(0, currentCharacter);
 
-            transformedStringCopy.Remove(currentIndex, 1);
-            sortedTransformedString.Remove(currentIndex, 1);
+            transformedString = transformedString.Remove(currentIndex, 1);
+            sortedTransformedString = sortedTransformedString.Remove(currentIndex, 1);
 
             currentIndex = sortedTransformedString.IndexOf(currentCharacter);
         }
+
+        initialString = stringToReturn.ToString();
     }
 }
 
@@ -63,5 +67,10 @@ class Program
         BurrowsWheelerTransform.ForwardTransform(out int index, out string outputString, inputString);
 
         Console.WriteLine($"Output string is {outputString} and initial string index is {index}");
+        Console.WriteLine();
+
+        BurrowsWheelerTransform.ReverseTransform(out string test, outputString, index);
+
+        Console.WriteLine($"Initial string is {test}");
     }
 }
