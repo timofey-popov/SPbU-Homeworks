@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Cryptography;
+using System.Text;
 class BurrowsWheelerTransform
 {
     public static void ForwardTransform(out int initialStringIndex, out string transformedString, string inputString)
@@ -35,29 +36,44 @@ class BurrowsWheelerTransform
 
     public static void ReverseTransform(out string initialString, string transformedString, int initialStringIndex)
     {
-        char[] transformedStringArray = transformedString.ToCharArray();
-        Array.Sort(transformedStringArray);
-        string sortedTransformedString = new(transformedStringArray);
+        const int numberOfPossibleSymbols = char.MaxValue + 1;
 
-
-        StringBuilder stringToReturn = new();
-
-        int currentIndex = initialStringIndex;
-        char currentCharacter = ' ';
-
-        while (sortedTransformedString.Length > 0)
+        int[] numbersOfEntries = new int[numberOfPossibleSymbols];
+        foreach (char symbol in transformedString)
         {
-            currentCharacter = transformedString[currentIndex];
-
-            stringToReturn.Insert(0, currentCharacter);
-
-            transformedString = transformedString.Remove(currentIndex, 1);
-            sortedTransformedString = sortedTransformedString.Remove(currentIndex, 1);
-
-            currentIndex = sortedTransformedString.IndexOf(currentCharacter);
+            numbersOfEntries[symbol]++;
         }
 
-        initialString = stringToReturn.ToString();
+        int[] cummulativeSums = new int[numberOfPossibleSymbols];
+        int cummulativeSum = 0;
+        for (int i = 0; i < numberOfPossibleSymbols; i++)
+        {
+
+            if (numbersOfEntries[i] != 0)
+            {
+                cummulativeSums[i] = cummulativeSum;
+                cummulativeSum += numbersOfEntries[i];
+            }
+        }
+
+        int[] vectorOfMoves = new int[transformedString.Length];
+        for (int i = 0; i < transformedString.Length; i++)
+        {
+            char currentChar = transformedString[i];
+            vectorOfMoves[i] = cummulativeSums[transformedString[i]];
+            cummulativeSums[transformedString[i]]++;
+        }
+
+        StringBuilder result = new();
+
+        int numberOfCurrentCharacter = initialStringIndex;
+        for (int i = 0; i < transformedString.Length; i++)
+        {
+            result.Insert(0, transformedString[numberOfCurrentCharacter]);
+            numberOfCurrentCharacter = vectorOfMoves[numberOfCurrentCharacter];
+        }
+
+        initialString = result.ToString();
     }
 }
 
@@ -65,15 +81,15 @@ class Program
 {
     static void Main()
     {
-        string inputString = "AaBbCc";
+        string inputString = "Enter any sentence without punctuation and it will work";
 
         BurrowsWheelerTransform.ForwardTransform(out int index, out string outputString, inputString);
 
-        Console.WriteLine($"Output string is {outputString} and initial string index is {index}");
+        Console.WriteLine($"Output string is \"{outputString}\" and initial string index is {index}");
         Console.WriteLine();
 
         BurrowsWheelerTransform.ReverseTransform(out string test, outputString, index);
 
-        Console.WriteLine($"Initial string is {test}");
+        Console.WriteLine($"Initial string is \"{test}\"");
     }
 }
