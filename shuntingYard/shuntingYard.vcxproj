@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e7d3ba5d-44c6-4c9e-bfc2-a1beaa1055c6}</ProjectGuid>
-    <RootNamespace>customQueue</RootNamespace>
+    <ProjectGuid>{e3ac9096-773d-41d0-a4a7-8a900254e590}</ProjectGuid>
+    <RootNamespace>shuntingYard</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,13 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="customQueue.c" />
+    <ClCompile Include="..\customStack\stackTypeChar.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="testsForQueue.c" />
+    <ClCompile Include="shuntingYard.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="customQueue.h" />
-    <ClInclude Include="testsForQueue.h" />
+    <ClInclude Include="shuntingYard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
