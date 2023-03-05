@@ -1,29 +1,23 @@
-﻿namespace SortPrograms
+﻿namespace SortPrograms;
+
+public static class SortUtilities
 {
-    class BubbleSort
+    public static void SortWithBubbleSort(int[] arrayForSort)
     {
-        public static void BubbleSortExecution(int[] arrayForSort)
+        if (arrayForSort == null)
         {
-            for (int i = 0; i < arrayForSort.Length - 1; i++)
+            throw new ArgumentNullException(nameof(arrayForSort));
+        }
+
+        for (int i = 0; i < arrayForSort.Length - 1; i++)
+        {
+            for (int j = 0; j < arrayForSort.Length - i - 1; j++)
             {
-                for (int j = 0; j < arrayForSort.Length - i - 1; j++)
+                if (arrayForSort[j] > arrayForSort[j + 1])
                 {
-                    (arrayForSort[j + 1], arrayForSort[j])=(arrayForSort[j], arrayForSort[j + 1]);
+                    (arrayForSort[j + 1], arrayForSort[j]) = (arrayForSort[j], arrayForSort[j + 1]);
                 }
             }
-        }
-    }
-
-    class bubbleSort
-    {
-        static void Main()
-        {
-            int[] inputArray = { 5, 4, 3, 2, 1 };
-
-            BubbleSort.BubbleSortExecution(inputArray);
-
-            string resultString = string.Join(" ", inputArray);
-            Console.WriteLine(resultString);
         }
     }
 }
