@@ -57,8 +57,18 @@ class BurrowsWheelerTransform
         }
 
         int[] vectorOfMoves = new int[transformedString.Length];
+
+        // Вручную присваиваем последнему символу строки "первую сортировку" среди таких же символов.
+        vectorOfMoves[initialStringIndex] = cummulativeSums[transformedString[initialStringIndex]];
+        cummulativeSums[transformedString[initialStringIndex]]++;
+
         for (int i = 0; i < transformedString.Length; i++)
         {
+            if (i == initialStringIndex)
+            {
+                continue;
+            }
+
             char currentChar = transformedString[i];
             vectorOfMoves[i] = cummulativeSums[transformedString[i]];
             cummulativeSums[transformedString[i]]++;
@@ -81,15 +91,16 @@ class Program
 {
     static void Main()
     {
-        string inputString = "Enter any sentence without punctuation and it will work";
+        string inputString = "I'm a clown. And it's for good. I can write here whatever I want." +
+            "It'll be transformed forwards and backwards without any problems. I'm a genius.";
 
         BurrowsWheelerTransform.ForwardTransform(out int index, out string outputString, inputString);
 
-        Console.WriteLine($"Output string is \"{outputString}\" and initial string index is {index}");
+        Console.WriteLine($"Output string is:\n\n\"{outputString}\"\n\nand initial string index is {index}.");
         Console.WriteLine();
 
-        BurrowsWheelerTransform.ReverseTransform(out string test, outputString, index);
+        BurrowsWheelerTransform.ReverseTransform(out string initialString, outputString, index);
 
-        Console.WriteLine($"Initial string is \"{test}\"");
+        Console.WriteLine($"Initial string is:\n\n\"{initialString}\"");
     }
 }
