@@ -1,8 +1,16 @@
 ﻿using System.Text;
-class BurrowsWheelerTransform
+
+namespace BurrowsWheelerAlgorythm;
+public static class BurrowsWheelerTransform
 {
-    public static void ForwardTransform(out int initialStringIndex, out string transformedString, string inputString)
+    public static void ApplyForwardTransform(out int initialStringIndex, out string transformedString, string inputString)
     {
+        // Проверяем, что входная строка не null и не пустая.
+        if (string.IsNullOrEmpty(inputString))
+        {
+            throw new ArgumentException("The string cannot be null or empty.", nameof(inputString));
+        }
+
         int inputStringLength = inputString.Length;
         // Строим массив индексов суффиксов от 0 до длины строки - 1.
         // Индекс обозначает номер символа, с которого этот суффикс начинается в изначальной строке.
@@ -33,16 +41,27 @@ class BurrowsWheelerTransform
         transformedString = new string(transformedChars);
     }
 
-    public static void ReverseTransform(out string initialString, string transformedString, int initialStringIndex)
+    public static void ApplyReverseTranform(out string initialString, string transformedString, int initialStringIndex)
     {
+        if (string.IsNullOrEmpty(transformedString))
+        {
+            throw new ArgumentException("The string cannot be null or empty.", nameof(transformedString));
+        }
+        if (initialStringIndex < 0 || initialStringIndex >= transformedString.Length)
+        {
+            throw new ArgumentOutOfRangeException(nameof(initialStringIndex));
+        }
+
         const int numberOfPossibleSymbols = char.MaxValue + 1;
 
+        // Подсчитываем количество вхождений каждого из символов в строку.
         int[] numbersOfEntries = new int[numberOfPossibleSymbols];
         foreach (char symbol in transformedString)
         {
             numbersOfEntries[symbol]++;
         }
 
+        // Вычисляем накопленные суммы начиная с начала алфавита.
         int[] cummulativeSums = new int[numberOfPossibleSymbols];
         int cummulativeSum = 0;
         for (int i = 0; i < numberOfPossibleSymbols; i++)
@@ -60,6 +79,7 @@ class BurrowsWheelerTransform
         vectorOfMoves[initialStringIndex] = cummulativeSums[transformedString[initialStringIndex]];
         cummulativeSums[transformedString[initialStringIndex]]++;
 
+        // Вычисляем индексы последовательности символов в исходной строке от последнего к первому.
         for (int i = 0; i < transformedString.Length; i++)
         {
             if (i == initialStringIndex)
@@ -74,6 +94,7 @@ class BurrowsWheelerTransform
 
         StringBuilder result = new();
 
+        // Проходимся по вычисленной последовательности и добавляем эти символы в строку для результата.
         int numberOfCurrentCharacter = initialStringIndex;
         for (int i = 0; i < transformedString.Length; i++)
         {
@@ -82,22 +103,5 @@ class BurrowsWheelerTransform
         }
 
         initialString = result.ToString();
-    }
-}
-
-class Program
-{
-    static void Main()
-    {
-        string inputString = "Write here any string you want. It'll be transformed forwards and backwards.";
-
-        BurrowsWheelerTransform.ForwardTransform(out int index, out string outputString, inputString);
-
-        Console.WriteLine($"Output string is:\n\n\"{outputString}\"\n\nand initial string index is {index}.");
-        Console.WriteLine();
-
-        BurrowsWheelerTransform.ReverseTransform(out string initialString, outputString, index);
-
-        Console.WriteLine($"Initial string is:\n\n\"{initialString}\"");
     }
 }
