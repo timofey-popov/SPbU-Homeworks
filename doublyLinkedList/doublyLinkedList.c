@@ -1,6 +1,5 @@
 ﻿#include "doublyLinkedList.h"
 
-#include "testsForList.h"
 #include <stdlib.h>
 
 // Структура для элементов списка.
@@ -26,10 +25,6 @@ LinkedList* createLinkedList(ErrorCodes* errorCode) {
         *errorCode = memoryAllocationError;
         return NULL;
     }
-
-    newList->head = NULL;
-    newList->tail = NULL;
-    newList->size = 0;
 
     return newList;
 }

@@ -10,7 +10,7 @@ int arrayToList(int* array, int arrayLength, List* list) {
 
     for (int i = 0; i < arrayLength; ++i) {
         addElement(array[i], list, &errorCode);
-        if (!(errorCode)) {
+        if (errorCode == noErrorsInList) {
             successfullOperationsCounter++;
         }
         else {

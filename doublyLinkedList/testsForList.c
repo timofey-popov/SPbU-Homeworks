@@ -214,9 +214,6 @@ bool testForRemainingFunctions(void) {
     }
 
     deleteLinkedList(testList, error);
-    if (errorCode) {
-        return false;
-    }
-
-    return true;
+    
+    return errorCode == noErrors;
 }

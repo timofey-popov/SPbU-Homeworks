@@ -108,12 +108,12 @@ List* mergeSort(List* listToSort, ListErrors* errorCode) {
         return NULL;
     }
 
-    List* ListToReturn = merge(left, right, errorCode);
+    List* listToReturn = merge(left, right, errorCode);
     if (isAnError(errorCode, left, right)) {
         return NULL;
     }
 
     deleteList(left, errorCode);
     deleteList(right, errorCode);
-    return ListToReturn;
+    return listToReturn;
 }
