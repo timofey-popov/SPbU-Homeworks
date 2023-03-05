@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{2257d266-2f8c-4bb9-9104-b56a89fe1bc0}</ProjectGuid>
+    <ProjectGuid>{b5ce671a-1c14-4f0f-9ae5-7c858544b67d}</ProjectGuid>
     <RootNamespace>linkedList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>doublyLinkedList</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -128,13 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="doublyLinkedList.c" />
-    <ClCompile Include="main.c" />
-    <ClCompile Include="testsForList.c" />
+    <ClCompile Include="linkedList.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="doublyLinkedList.h" />
-    <ClInclude Include="testsForList.h" />
+    <ClInclude Include="linkedList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
