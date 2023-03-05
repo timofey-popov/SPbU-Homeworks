@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿using System.Text;
 class BurrowsWheelerTransform
 {
     public static void ForwardTransform(out int initialStringIndex, out string transformedString, string inputString)
@@ -48,7 +47,6 @@ class BurrowsWheelerTransform
         int cummulativeSum = 0;
         for (int i = 0; i < numberOfPossibleSymbols; i++)
         {
-
             if (numbersOfEntries[i] != 0)
             {
                 cummulativeSums[i] = cummulativeSum;
@@ -91,8 +89,7 @@ class Program
 {
     static void Main()
     {
-        string inputString = "I'm a clown. And it's for good. I can write here whatever I want." +
-            "It'll be transformed forwards and backwards without any problems. I'm a genius.";
+        string inputString = "Write here any string you want. It'll be transformed forwards and backwards.";
 
         BurrowsWheelerTransform.ForwardTransform(out int index, out string outputString, inputString);
 
