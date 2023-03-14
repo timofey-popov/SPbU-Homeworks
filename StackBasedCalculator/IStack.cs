@@ -1,4 +1,5 @@
-﻿namespace StackBasedCalculator;
+﻿namespace Stack;
+
 public interface IStack<T>
 {
     public void Push(T value);

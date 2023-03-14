@@ -1,6 +1,6 @@
-﻿using StackBasedCalculator;
+﻿namespace Stack;
 
-class ArrayStack<T> : IStack<T>
+public class ArrayStack<T> : IStack<T>
 {
     private T[] stackArray = new T[1];
     private int head = -1;
@@ -20,6 +20,11 @@ class ArrayStack<T> : IStack<T>
 
     public T Pop()
     {
+        if (head == -1)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
         T valueToReturn = stackArray[head];
         head--;
         return valueToReturn;
@@ -27,6 +32,11 @@ class ArrayStack<T> : IStack<T>
 
     public T Peek()
     {
+        if (head == -1)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
         return stackArray[head];
     }
 

@@ -1,6 +1,6 @@
-﻿using StackBasedCalculator;
+﻿namespace Stack;
 
-class ListStack<T> : IStack<T>
+public class ListStack<T> : IStack<T>
 {
     private List<T> listForStack = new();
     private int head = -1;
@@ -13,6 +13,11 @@ class ListStack<T> : IStack<T>
 
     public T Pop()
     {
+        if (head == -1)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
         T valueToReturn = listForStack[head];
         listForStack.RemoveAt(head);
         head--;
@@ -21,6 +26,11 @@ class ListStack<T> : IStack<T>
 
     public T Peek()
     {
+        if (head == -1)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
         return listForStack[head];
     }
 
