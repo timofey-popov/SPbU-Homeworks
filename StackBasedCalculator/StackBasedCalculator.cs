@@ -26,7 +26,7 @@ public class StackBasedCalculator
         return (float1, float2);
     } 
 
-    public static int Calculate(string input, IStack<float> operatingStack)
+    public static float Calculate(string input, IStack<float> operatingStack)
     {
         if (input == null || operatingStack == null)
         {
@@ -103,6 +103,10 @@ public class StackBasedCalculator
                 {
                     (divider, dividend) = GetTwoFloatsFromStack(operatingStack);
                 }
+                catch (DivideByZeroException)
+                {
+                    throw;
+                }
                 catch (IndexOutOfRangeException)
                 {
                     throw new ArgumentException("Invalid string provided.");
@@ -136,5 +140,14 @@ public class StackBasedCalculator
                 throw new ArgumentException("Invalid symbols in string.");
             }
         }
+
+        float result = operatingStack.Pop();
+
+        if (!operatingStack.IsEmpty())
+        {
+            throw new ArgumentException("Invalid string provided.");
+        }
+
+        return result;
     }
 }
