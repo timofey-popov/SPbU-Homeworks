@@ -1,9 +1,10 @@
 ﻿using System.Text;
 
 namespace BurrowsWheelerAlgorythm;
+
 public static class BurrowsWheelerTransform
 {
-    public static void ApplyForwardTransform(out int initialStringIndex, out string transformedString, string inputString)
+    public static (int initialStringIndex, string transformedString) ApplyForwardTransform(string inputString)
     {
         // Проверяем, что входная строка не null и не пустая.
         if (string.IsNullOrEmpty(inputString))
@@ -41,7 +42,7 @@ public static class BurrowsWheelerTransform
         transformedString = new string(transformedChars);
     }
 
-    public static void ApplyReverseTranform(out string initialString, string transformedString, int initialStringIndex)
+    public static string ApplyReverseTranform(string transformedString, int initialStringIndex)
     {
         if (string.IsNullOrEmpty(transformedString))
         {

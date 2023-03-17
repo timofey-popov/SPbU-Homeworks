@@ -1,7 +1,7 @@
 ﻿using BurrowsWheelerAlgorythm;
 
 Console.WriteLine("Enter a string:");
-string inputString = Console.ReadLine();
+string? inputString = Console.ReadLine();
 
 BurrowsWheelerTransform.ApplyForwardTransform(out int index, out string outputString, inputString);
 
