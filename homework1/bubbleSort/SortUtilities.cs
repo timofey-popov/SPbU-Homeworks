@@ -1,4 +1,5 @@
 ﻿namespace SortPrograms;
+
 public static class SortUtilities
 {
     public static void SortWithBubbleSort(int[] arrayForSort)

@@ -1,5 +1,4 @@
 ﻿using SortPrograms;
-using Tests;
 
 if (!Tests.TestsForBubbleSort.StartTests())
 {

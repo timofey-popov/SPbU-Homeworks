@@ -1,6 +1,7 @@
 ﻿using SortPrograms;
 
 namespace Tests;
+
 internal static class TestsForBubbleSort
 {
     internal static bool StartTests()
