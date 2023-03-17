@@ -26,16 +26,32 @@ while (stackForCalculation == null)
             stackForCalculation = new ListStack<float>();
             break;
         default:
-            Console.WriteLine(choiseOfStackImplementation.ToString());
+            Console.ReadLine();
             Console.WriteLine("Invalid input. Please try again:\n");
             choiseOfStackImplementation = Console.Read();
             break;
     }
 }
 
-float result = StackBasedCalculator.StackBasedCalculator.Calculate(input, stackForCalculation);
+float result;
 
-Console.WriteLine($"Result:\n{result}");
+try
+{
+    result = StackBasedCalculator.StackBasedCalculator.Calculate(input, stackForCalculation);
+    Console.WriteLine($"Result:\n{result}");
+}
+catch (ArgumentNullException ex)
+{
+    Console.WriteLine($"{ex.ParamName} argument was null.");
+}
+catch (DivideByZeroException)
+{
+    Console.WriteLine("Cannot divide by zero.");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("Exception occured:\nInvalid string provided.");
+}
 
 enum StackImplementationOptions
 {

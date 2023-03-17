@@ -20,7 +20,7 @@ public class StackBasedCalculator
         }
         catch (IndexOutOfRangeException)
         {
-            throw;
+            throw new ArgumentException("Invalid string provided.");
         }
 
         return (float1, float2);
@@ -28,9 +28,13 @@ public class StackBasedCalculator
 
     public static float Calculate(string input, IStack<float> operatingStack)
     {
-        if (input == null || operatingStack == null)
+        if (input == null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(input));
+        }
+        if (operatingStack == null)
+        {
+            throw new ArgumentNullException(nameof(operatingStack));
         }
 
         StringBuilder variableForLongTokens = new();
@@ -103,13 +107,14 @@ public class StackBasedCalculator
                 {
                     (divider, dividend) = GetTwoFloatsFromStack(operatingStack);
                 }
-                catch (DivideByZeroException)
-                {
-                    throw;
-                }
                 catch (IndexOutOfRangeException)
                 {
                     throw new ArgumentException("Invalid string provided.");
+                }
+
+                if (divider == 0)
+                {
+                    throw new DivideByZeroException();
                 }
 
                 operatingStack.Push(dividend / divider);
