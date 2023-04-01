@@ -175,6 +175,21 @@ public class StackBasedCalculator
             {
                 throw new ArgumentException("Invalid symbols in string.");
             }
+
+            if (i == input.Length - 1 && variableForLongTokens.Length > 0)
+            {
+                string newNumberInStringType = variableForLongTokens.ToString();
+
+                bool isACorrectNumber = float.TryParse(newNumberInStringType, out float newNumber);
+
+                // Если не удалось сделать из получившейся строки float, то входная строка некорректна.
+                if (!isACorrectNumber)
+                {
+                    throw new ArgumentException("Invalid string provided.");
+                }
+
+                operatingStack.Push(newNumber);
+            }
         }
 
         float result;

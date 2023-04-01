@@ -10,7 +10,7 @@ public class ListStack<T> : IStack<T>
 
     // <inheritdoc/>
     public void Push(T value)
-    {
+    { 
         listForStack.Add(value);
         head++;
     }
