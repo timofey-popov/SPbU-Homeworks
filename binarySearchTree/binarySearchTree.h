@@ -15,7 +15,7 @@ typedef enum ErrorCodes {
 typedef struct Dictionary Dictionary;
 
 // Тип данных для хранимых в словаре значений.
-typedef int Value;
+typedef char* Value;
 
 // Создать словарь. Возвращает указатель на созданный словарь или NULL, если произошла ошибка.
 Dictionary* createDictionary(ErrorCodes* errorCode);
@@ -36,5 +36,5 @@ bool isSuchKey(int key, Dictionary* dictionary, ErrorCodes* errorCode);
 // Если такого ключа в словаре нет, ничего не произойдёт и код ошибки не поменяется.
 void deleteKeyAndItsValue(int key, Dictionary* dictionary, ErrorCodes* errorCode);
 
-// Удалить словарь. Возвращает true, если всё прошло успешно, и false в противном случае.
-void deleteDictionary(Dictionary* dictionaryToRemove, ErrorCodes* errorCode);
+// Удалить словарь. Если словарь NULL - ничего не делает.
+void deleteDictionary(Dictionary* dictionaryToRemove);
