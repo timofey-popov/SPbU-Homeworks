@@ -34,7 +34,7 @@ void partQSort(int* arrayToSort, int arraySize) {
 // На вход принимает указатель на массив и количество элементов, которые нужно сгенерировать.
 void arrayGenerate(int* arrayToGen, int wantedSize) {
     for (int i = 0; i < wantedSize; ++i) {
-        arrayToGen[i] = (rand() % 1000);
+        arrayToGen[i] = rand() % 1000;
     }
 }
 
